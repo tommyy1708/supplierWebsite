@@ -1,0 +1,6 @@
+.cardsFrame{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 25rem;
+}

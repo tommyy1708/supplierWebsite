@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import CheckOutContent from './store/CheckOutContent';
+import  Missing  from './Pages/Missing';
+import Login from './Pages/Login'
+import Home from './Pages/Home';
+import Listing from './Components/Listing/Listing';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CheckOutContent.Provider value={{}}>
+      <div className="App">
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />}>
+              <Route path="/category/:id" element={<Listing />} />
+            </Route>
+            <Route path="*" element={<Missing />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Router>
+      </div>
+    </CheckOutContent.Provider>
   );
 }
 
