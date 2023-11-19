@@ -6,6 +6,7 @@ import { LoginApi } from '../request/api';
 function Login() {
   const navigate = useNavigate();
   const [showLoading, setShowLoading] = useState(false);
+    const [showSpin, setShowSpin] = useState(false);
   const [count, setCount] = useState(0);
   const onSubmit = async (values) => {
     setShowLoading(true);
@@ -16,7 +17,7 @@ function Login() {
       );
     }
     const loginResponse = await LoginApi(values);
-    
+
     if (!loginResponse) {
       return message.error(
         'Something wrong, contact network manager'
@@ -39,10 +40,8 @@ function Login() {
 
   return (
     <div id="login">
-      {showLoading ? (
-        <div>
-          <Spin delay="500" className="spinFrame" size="large" />
-        </div>
+      {showSpin ? (
+        <Spin size="large" delay="200" fullscreen="true" />
       ) : null}
       <div className="login_title">{/* <Carosuels /> */}</div>
       <div className="login_box">

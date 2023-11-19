@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Card, message } from 'antd';
+import { Card, message, Image, Spin } from 'antd';
 import styles from './Category.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { GetCategoryApi } from '../../request/api';
 const Category = () => {
   const { Meta } = Card;
   const [aCategory, setACategory] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const categoryData = [
-    'bundles',
-    'bob-wigs',
-    'short-wigs',
-    'accessories',
-  ];
+  //Test data
+  // const categoryData = [
+  //   'bundles',
+  //   'bob-wigs',
+  //   'short-wigs',
+  //   'accessories',
+  // ];
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
       const aCategory = await GetCategoryApi();
       setACategory(aCategory.data);
+      setLoading(false);
+      console.log(aCategory)
     } catch (error) {
       message.error('error');
       setTimeout(() => {
@@ -40,13 +44,15 @@ return (
         >
           <Card
             hoverable
+            loading={loading}
             style={{
               width: 240,
             }}
             cover={
-              <img
-                alt="example"
-                src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              <Image
+                preview={false}
+                alt={e.categoryName}
+                src={`${e.image}`}
               />
             }
           >
@@ -55,15 +61,13 @@ return (
         </div>
       ))
     ) : (
-      <Card
-        style={{
-          width: 300,
-          marginTop: 16,
-        }}
-        loading={true}
-      ></Card>
+      <Spin
+        size="large"
+        delay="200"
+        fullscreen="true"
+      />
     )}
   </div>
-)};
+);};
 
 export default Category;
