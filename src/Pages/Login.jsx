@@ -5,11 +5,10 @@ import Carosuels from '../Components/Carosuels/Carosuels';
 import { LoginApi } from '../request/api';
 function Login() {
   const navigate = useNavigate();
-  const [showLoading, setShowLoading] = useState(false);
     const [showSpin, setShowSpin] = useState(false);
   const [count, setCount] = useState(0);
   const onSubmit = async (values) => {
-    setShowLoading(true);
+    setShowSpin(true);
     setCount((prev) => prev + 1);
     if (count >= 4) {
       message.error(
@@ -33,7 +32,7 @@ function Login() {
     } else if (loginResponse.errCode === 1) {
       message.info(loginResponse.message);
       setTimeout(() => {
-        setShowLoading(false);
+        setShowSpin(false);
       }, [2000]);
     }
   };

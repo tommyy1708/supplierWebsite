@@ -63,11 +63,9 @@ button {
   width: 100%;
   line-height: 40rem;
 }
-.header {
-  font-size: 14rem;
-}
 
 .headerLeft {
+  font-size: 14rem;
   float: left;
   margin-left: 15rem;
 }
@@ -76,25 +74,29 @@ button {
   margin-right: 15rem;
   float: right;
 }
+
 .headerRight button{
   padding: 5rem;
   border-radius: 7rem;
   background-color:#fff;
   color: red;
+}
 
+.headerRight button p{
+  font-size: 10rem;
 }
 
 .displayWindow{
-  min-height: calc(100vh - 64rem);
+  min-height: calc(100vh - 55rem);
   color: #000;
 }
 
 .footer{
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
-  background-color: #101c2d;
-  color: #fff;
+  border-top: 1rem soli 101c2d;
+  font-size: 10rem;
+  color: #101c2d;
 }
 /* end Home page */
 

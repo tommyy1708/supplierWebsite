@@ -8,20 +8,12 @@ const Category = () => {
   const [aCategory, setACategory] = useState(false);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  //Test data
-  // const categoryData = [
-  //   'bundles',
-  //   'bob-wigs',
-  //   'short-wigs',
-  //   'accessories',
-  // ];
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
       const aCategory = await GetCategoryApi();
       setACategory(aCategory.data);
       setLoading(false);
-      console.log(aCategory)
     } catch (error) {
       message.error('error');
       setTimeout(() => {
@@ -29,6 +21,7 @@ const Category = () => {
       }, 3000);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, [location.pathname]);
@@ -61,11 +54,7 @@ return (
         </div>
       ))
     ) : (
-      <Spin
-        size="large"
-        delay="200"
-        fullscreen="true"
-      />
+      <Spin size="large" delay="200" fullscreen="true" />
     )}
   </div>
 );};

@@ -1,45 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { Table, Space, Button } from 'antd';
+import { GetCategoryList } from '../../request/api';
 const Listing = () => {
-  const [itemsData, setItemsData] = useState([
-    {
-      item_code: 'HB111-0',
-      item: 'bundles',
-      price: 123.0,
-      category: 'bundles',
-    },
-    {
-      item_code: 'HB112-1',
-      item: 'bob-wigs',
-      price: 222.0,
-      category: 'bob-Wigs',
-    },
-    {
-      item_code: 'HB113-2',
-      item: 'short-wigs',
-      price: 234.0,
-      category: 'short-Wigs',
-    },
-    {
-      item_code: 'HB114-3',
-      item: 'accessories',
-      price: 555.0,
-      category: 'accessories',
-    },
-  ]);
+  const [itemsData, setItemsData] = useState('');
   const [flag, setFlag] = useState(true);
-  const { id } = useParams();
-  const curItemsData = itemsData.filter(
-    (e) => e.category.indexOf(id) !== -1
-  );
+  // const curItemsData = itemsData.filter(
+  //   (e) => e.category.indexOf(id) !== -1
+  // );
+  const params = useParams();
+
+  const fetchCategoryList = async () => {
+    let categoryName = params.id;
+    const categoryList = await GetCategoryList(categoryName);
+    setItemsData(categoryList.data);
+  };
   useEffect(() => {
     if (flag) {
-      setItemsData(curItemsData);
+      fetchCategoryList();
       setFlag(false);
     }
   }, [flag]);
-
 
   const columns = [
     {
@@ -62,7 +43,11 @@ const Listing = () => {
   return (
     <div>
       <div className="inquiry_table">
-        <Table columns={columns} dataSource={itemsData} rowKey="item_code"/>
+        <Table
+          columns={columns}
+          dataSource={itemsData}
+          rowKey="item_code"
+        />
       </div>
     </div>
   );

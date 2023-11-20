@@ -30,7 +30,7 @@ const Home = () => {
                 }, 3000);
               }}
             >
-              Logout
+              <p>Logout</p>
             </button>
           </div>
         </div>
