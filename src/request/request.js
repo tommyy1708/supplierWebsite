@@ -23,8 +23,17 @@ instance.interceptors.request.use(
 //add response interceptor
 instance.interceptors.response.use(
   function (response) {
+    try {
+      if (!response) {
 
-    return response.data;
+        return response.message;
+      } else {
+
+        return response.data;
+      }
+    } catch (error) {
+      return error;
+    }
   }, function (error) {
     //action for response error
 

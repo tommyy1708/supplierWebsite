@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, message, Image, Spin } from 'antd';
+import { Card, message, Image, Spin, Button } from 'antd';
 import styles from './Category.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { GetCategoryApi } from '../../request/api';
@@ -26,7 +26,9 @@ const Category = () => {
     fetchData();
   }, [location.pathname]);
 
-return (
+  return (
+    <>
+
   <div className={styles.cardsFrame}>
     {aCategory ? (
       aCategory.map((e, index) => (
@@ -57,6 +59,7 @@ return (
       <Spin size="large" delay="200" fullscreen="true" />
     )}
   </div>
+  </>
 );};
 
 export default Category;

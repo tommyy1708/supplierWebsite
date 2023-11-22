@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { Table, Space, Button } from 'antd';
+import {  useParams, useNavigate } from 'react-router-dom';
+import { Table, Button } from 'antd';
 import { GetCategoryList } from '../../request/api';
+import styles from './Listing.module.css'
 const Listing = () => {
   const [itemsData, setItemsData] = useState('');
   const [flag, setFlag] = useState(true);
+  const navigate = useNavigate();
   // const curItemsData = itemsData.filter(
   //   (e) => e.category.indexOf(id) !== -1
   // );
@@ -42,6 +44,11 @@ const Listing = () => {
 
   return (
     <div>
+      <div className={`${styles.listingHeader}`}>
+        <Button onClick={() => navigate('/')}>
+          Back to Category
+        </Button>
+      </div>
       <div className="inquiry_table">
         <Table
           columns={columns}
