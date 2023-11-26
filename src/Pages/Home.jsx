@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate, useLocation} from 'react-router-dom';
-import { Button, message, Spin } from 'antd';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { message, Spin } from 'antd';
 import Category from '../Components/Category/Category';
+import {
+  ShoppingCartOutlined,
+  HomeOutlined,
+  UserOutlined,
+  PhoneOutlined,
+} from '@ant-design/icons';
 const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,12 +44,40 @@ const Home = () => {
       <div className="displayWindow">
         {location.pathname === '/' ? <Category /> : <Outlet></Outlet>}
       </div>
-      <footer className="footer">
-        <p>
-          © {process.env.REACT_APP_YEAR} Copyright by{' '}
-          {process.env.REACT_APP_COMPANY_NAME} All rights reserved.
-        </p>
-        <p>Powered By {process.env.REACT_APP_AUTHOR_NAME}</p>
+      <footer>
+        <nav className="dark">
+          <li>
+            <p>
+              <HomeOutlined />
+            </p>
+            <span>HOME</span>
+          </li>
+          <li>
+            <p>
+              <UserOutlined />
+            </p>
+            <span>PROFILE</span>
+          </li>
+          <li>
+            <p>
+              <PhoneOutlined />
+            </p>
+            <span>CONTACT</span>
+          </li>
+          <li>
+            <p>
+              <ShoppingCartOutlined />
+            </p>
+            <span>SHOP</span>
+          </li>
+        </nav>
+        <div className="footerCopyright">
+          <p>
+            © {process.env.REACT_APP_YEAR} Copyright by{' '}
+            {process.env.REACT_APP_COMPANY_NAME} All rights reserved.
+          </p>
+          <p>Powered By {process.env.REACT_APP_AUTHOR_NAME}</p>
+        </div>
       </footer>
     </>
   );

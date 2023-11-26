@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Spin, message } from 'antd';
 import { useNavigate } from 'react-router';
-import Carosuels from '../Components/Carosuels/Carosuels';
 import { LoginApi } from '../request/api';
 function Login() {
   const navigate = useNavigate();
@@ -22,6 +21,7 @@ function Login() {
         'Something wrong, contact network manager'
       );
     }
+
     if (loginResponse.errCode === 0) {
       localStorage.setItem('username', loginResponse.data.userName);
       localStorage.setItem('token', loginResponse.data.token);
@@ -42,7 +42,9 @@ function Login() {
       {showSpin ? (
         <Spin size="large" delay="200" fullscreen="true" />
       ) : null}
-      <div className="login_title">{/* <Carosuels /> */}</div>
+      <div className='login_announcement'>
+        <h2>Welcome</h2>
+      </div>
       <div className="login_box">
         <Form
           name="basic"

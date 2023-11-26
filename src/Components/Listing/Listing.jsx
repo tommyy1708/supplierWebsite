@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {  useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Table, Button } from 'antd';
 import { GetCategoryList } from '../../request/api';
-import styles from './Listing.module.css'
+import {
+  PlusCircleTwoTone,
+  MinusCircleTwoTone,
+} from '@ant-design/icons';
+import styles from './Listing.module.css';
 const Listing = () => {
   const [itemsData, setItemsData] = useState('');
   const [flag, setFlag] = useState(true);
@@ -26,28 +30,47 @@ const Listing = () => {
 
   const columns = [
     {
-      title: 'ItemCode',
-      dataIndex: 'item_code',
-      key: 'item_code',
-    },
-    {
       title: 'Item Description',
       key: 'item',
       dataIndex: 'item',
+      width: '50%',
+      render: (_, record) => (
+        <>
+          <p>ItemCode:{record.item_code}</p>
+          <p>{record.item}</p>
+        </>
+      ),
     },
     {
       title: 'Price',
       key: 'msrp',
       dataIndex: 'price',
+      width: '25%',
+    },
+    {
+      title: ' ',
+      width: '25%',
+      render: (_, record) => (
+        <div className={`${styles.buttonsFrame}`}>
+          <div>
+            <MinusCircleTwoTone
+              style={{ fontSize: '55rem', color: '#08c' }}
+            />
+          </div>
+          <div>
+            <PlusCircleTwoTone
+              style={{ fontSize: '55rem', color: '#08c' }}
+            />
+          </div>
+        </div>
+      ),
     },
   ];
 
   return (
-    <div>
+    <div className={`${styles.listingFrame}`}>
       <div className={`${styles.listingHeader}`}>
-        <Button onClick={() => navigate('/')}>
-          Back to Category
-        </Button>
+        <Button onClick={() => navigate('/')}>Back</Button>
       </div>
       <div className="inquiry_table">
         <Table

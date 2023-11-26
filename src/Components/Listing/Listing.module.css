@@ -1,4 +1,17 @@
+
+.listingFrame td{
+font-size: 35rem;
+font-weight: 500;
+}
+
+.buttonsFrame{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .listingHeader{
   border-bottom: 1px solid #ddd;
   padding: 10rem;
+
 }

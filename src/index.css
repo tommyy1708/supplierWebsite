@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-size: 16rem;
+  font-size: 24rem;
   /* Google Font */
   font-family: 'Poppins';
   -webkit-font-smoothing: antialiased;
@@ -30,11 +30,11 @@ code {
   padding: 0;
 }
 
-li {
+ul, li {
   list-style: none;
   list-style-image: none;
   list-style-position: outside;
-  list-style-type: disc;
+  list-style-type: none;
 }
 
 button {
@@ -53,7 +53,6 @@ button {
 /* start Home page */
 .headerFrame {
   color: #fff;
-  font-size: 10rem;
   text-align: center;
   display: flex;
   flex-wrap: wrap;
@@ -61,11 +60,11 @@ button {
 
 .header {
   width: 100%;
-  line-height: 40rem;
+  line-height: 140rem;
 }
 
 .headerLeft {
-  font-size: 14rem;
+  font-size: 25rem;
   float: left;
   margin-left: 15rem;
 }
@@ -73,49 +72,67 @@ button {
 .headerRight{
   margin-right: 15rem;
   float: right;
+   font-size: 25rem;
 }
 
 .headerRight button{
-  padding: 5rem;
-  border-radius: 7rem;
-  background-color:#fff;
-  color: red;
-}
-
-.headerRight button p{
-  font-size: 10rem;
+  padding: 15rem;
+  border-radius: 15rem;
+  color: #000;
+  font-size: 24rem;
 }
 
 .displayWindow{
   min-height: calc(100vh - 55rem);
   color: #000;
 }
+footer nav{
+  display: flex;
+  align-items: center;
+  justify-content:space-around;
+  padding: 5rem;
+}
+nav li{
+  text-align: center;
+}
+nav p{
+  color: #fff;
+  font-size: 45rem;
+}
+nav span{
+  color: #fff;
+}
 
-.footer{
+.footerCopyright{
   display: flex;
   justify-content: space-evenly;
   border-top: 1rem soli 101c2d;
-  font-size: 10rem;
   color: #101c2d;
 }
+
+
 /* end Home page */
 
 /* Start Login page */
 #login {
   width: 100vw;
   height: 100vh;
-  display: flex;
   align-items: center;
+  justify-content: center;
+}
+.login_announcement{
+  margin: 25rem auto;
+  background-color: #bfc;
+  text-align: center;
+  font-size: 50rem;
 }
 
-.login_title{
-  width:70%;
-}
 
 .login_box {
-  margin:0 45rem 0 45rem;
+  margin:0 auto;
   padding: 50rem;
   border: 1px solid #ddd;
   box-shadow:12px 12px 6px 1px rgba(255, 0, 119, 0.109);;
+  max-width: 600rem;
 }
 /* End Login page */
