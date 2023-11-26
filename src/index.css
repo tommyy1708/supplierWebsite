@@ -56,11 +56,16 @@ button {
   text-align: center;
   display: flex;
   flex-wrap: wrap;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 }
 
 .header {
   width: 100%;
-  line-height: 140rem;
+  line-height: 60rem;
 }
 
 .headerLeft {
@@ -83,8 +88,18 @@ button {
 }
 
 .displayWindow{
+  position: absolute;
+  top: 60rem;
+  bottom: 55rem;
   min-height: calc(100vh - 55rem);
   color: #000;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 footer nav{
   display: flex;
@@ -106,8 +121,8 @@ nav span{
 .footerCopyright{
   display: flex;
   justify-content: space-evenly;
-  border-top: 1rem soli 101c2d;
-  color: #101c2d;
+  border-top: 1rem soli #101c2d;
+  color: #fff;
 }
 
 
@@ -136,3 +151,11 @@ nav span{
   max-width: 600rem;
 }
 /* End Login page */
+
+
+/* Start Listing Page */
+td{
+  padding: 0;
+  overflow-wrap:anywhere ;
+}
+/* End Listing Page */

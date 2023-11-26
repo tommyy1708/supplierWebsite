@@ -33,19 +33,26 @@ const Listing = () => {
       title: 'Item Description',
       key: 'item',
       dataIndex: 'item',
-      width: '50%',
-      render: (_, record) => (
-        <>
+      width: '60%',
+      render: (text, record) => (
+        <div
+          style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}
+        >
           <p>ItemCode:{record.item_code}</p>
-          <p>{record.item}</p>
-        </>
+          <p>{text}</p>
+        </div>
       ),
     },
     {
       title: 'Price',
       key: 'msrp',
       dataIndex: 'price',
-      width: '25%',
+      width: '15%',
+      render: (_, record) => (
+        <>
+          <p className={`${styles.listingPrice}`}>{record.price}</p>
+        </>
+      ),
     },
     {
       title: ' ',
@@ -77,6 +84,7 @@ const Listing = () => {
           columns={columns}
           dataSource={itemsData}
           rowKey="item_code"
+          pagination={false}
         />
       </div>
     </div>

@@ -71,7 +71,7 @@ const Home = () => {
             <span>SHOP</span>
           </li>
         </nav>
-        <div className="footerCopyright">
+        <div className="footerCopyright dark">
           <p>
             © {process.env.REACT_APP_YEAR} Copyright by{' '}
             {process.env.REACT_APP_COMPANY_NAME} All rights reserved.
