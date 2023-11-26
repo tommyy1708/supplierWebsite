@@ -51,7 +51,7 @@ const Category = () => {
               />
             }
           >
-            <Meta title={e.categoryName} />
+            <Meta className={`${styles.productsTitle}`} title={e.categoryName} />
           </Card>
         </div>
       ))

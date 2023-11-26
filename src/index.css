@@ -88,11 +88,13 @@ button {
 }
 
 .displayWindow{
-  position: absolute;
+  position: fixed;
   top: 60rem;
-  bottom: 55rem;
-  min-height: calc(100vh - 55rem);
-  color: #000;
+  left: 0;
+  bottom: 70rem;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
 footer{
@@ -101,21 +103,14 @@ footer{
   left: 0;
   width: 100%;
 }
-footer nav{
+.footerNavMenu{
   display: flex;
   align-items: center;
   justify-content:space-around;
   padding: 5rem;
-}
-nav li{
+  color: #fff;
   text-align: center;
-}
-nav p{
-  color: #fff;
-  font-size: 45rem;
-}
-nav span{
-  color: #fff;
+  font-size: 35rem;
 }
 
 .footerCopyright{
@@ -153,9 +148,10 @@ nav span{
 /* End Login page */
 
 
-/* Start Listing Page */
-td{
-  padding: 0;
-  overflow-wrap:anywhere ;
+/* Start Profile page */
+.profileFrame{
+  display: flex;
+  padding: 10rem;
+  justify-content: center;
 }
-/* End Listing Page */
+/* End Profile page */

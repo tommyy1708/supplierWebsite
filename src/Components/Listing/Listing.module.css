@@ -1,8 +1,10 @@
-.listingFrame td {
-  font-size: 35rem;
-  font-weight: 500;
+.listingFrame{
+  position: fixed;
+  top: 55rem;
+  left: 0;
+  overflow: scroll;
+  bottom: 55rem;
 }
-
 .buttonsFrame {
   display: flex;
   justify-content: space-around;

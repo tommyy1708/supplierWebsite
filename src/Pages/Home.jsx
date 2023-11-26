@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
 import { message, Spin } from 'antd';
 import Category from '../Components/Category/Category';
 import {
@@ -14,7 +14,18 @@ const Home = () => {
   const [sUserName, setSUserName] = useState(
     localStorage.getItem('username')
   );
+
   const [showSpin, setShowSpin] = useState(false);
+  const navMenu = [
+    { icon: <HomeOutlined />, title: 'HOME', url: '/' },
+    { icon: <UserOutlined />, title: 'PROFILE', url: '/profile' },
+    { icon: <PhoneOutlined />, title: 'CONTACT', url: '/contact' },
+    {
+      icon: <ShoppingCartOutlined />,
+      title: 'SHOP',
+      url: '/shopping-cart',
+    },
+  ];
   return (
     <>
       <div className="headerFrame">
@@ -45,32 +56,16 @@ const Home = () => {
         {location.pathname === '/' ? <Category /> : <Outlet></Outlet>}
       </div>
       <footer>
-        <nav className="dark">
-          <li>
-            <p>
-              <HomeOutlined />
-            </p>
-            <span>HOME</span>
-          </li>
-          <li>
-            <p>
-              <UserOutlined />
-            </p>
-            <span>PROFILE</span>
-          </li>
-          <li>
-            <p>
-              <PhoneOutlined />
-            </p>
-            <span>CONTACT</span>
-          </li>
-          <li>
-            <p>
-              <ShoppingCartOutlined />
-            </p>
-            <span>SHOP</span>
-          </li>
-        </nav>
+         <div className="footerNavMenu dark">
+          {navMenu !== null || undefined
+            ? navMenu.map((e, index) => (
+              <Link key={index} to={e.url}>
+                  <p>{e.icon}</p>
+                  <span>{e.title}</span>
+                </Link>
+              ))
+            : null}
+        </div>
         <div className="footerCopyright dark">
           <p>
             © {process.env.REACT_APP_YEAR} Copyright by{' '}

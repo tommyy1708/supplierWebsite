@@ -6,3 +6,6 @@ export const GetCategoryApi = () => request.get('/supplier-category');
 
 export const GetCategoryList = (params) =>
   request.get(`/supplier-category/${params}`);
+
+export const PasswordUpdate = (params) =>
+  request.put('/passwordUpdate',  params );

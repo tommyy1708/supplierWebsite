@@ -5,10 +5,11 @@ import {
   Route,
 } from 'react-router-dom';
 import CheckOutContent from './store/CheckOutContent';
-import  Missing  from './Pages/Missing';
-import Login from './Pages/Login'
+import Missing from './Pages/Missing';
+import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Listing from './Components/Listing/Listing';
+import Profile from './Pages/Profile';
 function App() {
   return (
     <CheckOutContent.Provider value={{}}>
@@ -17,9 +18,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}>
               <Route path="/category/:id" element={<Listing />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
-            <Route path="*" element={<Missing />} />
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Missing />} />
           </Routes>
         </Router>
       </div>

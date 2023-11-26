@@ -76,16 +76,23 @@ const Listing = () => {
 
   return (
     <div className={`${styles.listingFrame}`}>
-      <div className={`${styles.listingHeader}`}>
-        <Button onClick={() => navigate('/')}>Back</Button>
-      </div>
       <div className="inquiry_table">
         <Table
+          title={() => (
+            <Button onClick={() => navigate('/')}>Back</Button>
+          )}
+          footer={() => (
+            <Button onClick={() => navigate('/')}>Back</Button>
+          )}
+          bordered
           columns={columns}
           dataSource={itemsData}
           rowKey="item_code"
           pagination={false}
         />
+      </div>
+      <div>
+        <Button onClick={() => navigate('/')}>Back</Button>
       </div>
     </div>
   );

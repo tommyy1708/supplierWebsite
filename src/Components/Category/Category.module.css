@@ -2,11 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 25rem;
+  padding: 30rem;
   flex-wrap: wrap;
 }
 
 .cards{
   margin-top: 15rem;
+  margin-bottom: 15rem;
 }
 
+.productsTitle{
+  text-align: center;
+}
