@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Table, Button } from 'antd';
 import { GetCategoryList } from '../../request/api';
@@ -7,13 +7,14 @@ import {
   MinusCircleTwoTone,
 } from '@ant-design/icons';
 import styles from './Listing.module.css';
+import CheckOutContent from '../../store/CheckOutContent';
+
 const Listing = () => {
+  const ctx = useContext(CheckOutContent);
   const [itemsData, setItemsData] = useState('');
   const [flag, setFlag] = useState(true);
   const navigate = useNavigate();
-  // const curItemsData = itemsData.filter(
-  //   (e) => e.category.indexOf(id) !== -1
-  // );
+
   const params = useParams();
 
   const fetchCategoryList = async () => {
@@ -21,9 +22,22 @@ const Listing = () => {
     const categoryList = await GetCategoryList(categoryName);
     setItemsData(categoryList.data);
   };
+
+  const tempAmount = (item) => {
+    const indexCode = item.item_code;
+    const foundItem = ctx.cartData.items.find(
+      (e) => e.item_code === indexCode
+    );
+    if (foundItem) {
+      return foundItem.amount;
+    } else {
+      return 0;
+    }
+  };
   useEffect(() => {
     if (flag) {
       fetchCategoryList();
+      console.log(ctx.cartData);
       setFlag(false);
     }
   }, [flag]);
@@ -33,7 +47,7 @@ const Listing = () => {
       title: 'Item Description',
       key: 'item',
       dataIndex: 'item',
-      width: '60%',
+      width: '50%',
       render: (text, record) => (
         <div
           style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}
@@ -47,7 +61,7 @@ const Listing = () => {
       title: 'Price',
       key: 'msrp',
       dataIndex: 'price',
-      width: '15%',
+      width: '10%',
       render: (_, record) => (
         <>
           <p className={`${styles.listingPrice}`}>{record.price}</p>
@@ -55,18 +69,30 @@ const Listing = () => {
       ),
     },
     {
+      title: 'Qt.',
+      key: 'amount',
+      width: '10%',
+      render: (_, record) => (
+        <>
+          <p className={`${styles.amount}`}>{tempAmount(record)}</p>
+        </>
+      ),
+    },
+    {
       title: ' ',
-      width: '25%',
+      width: '30%',
       render: (_, record) => (
         <div className={`${styles.buttonsFrame}`}>
           <div>
             <MinusCircleTwoTone
               style={{ fontSize: '55rem', color: '#08c' }}
+              onClick={() => ctx.subItemToCart(record)}
             />
           </div>
           <div>
             <PlusCircleTwoTone
               style={{ fontSize: '55rem', color: '#08c' }}
+              onClick={() => ctx.addItemToCart(record)}
             />
           </div>
         </div>
@@ -90,9 +116,6 @@ const Listing = () => {
           rowKey="item_code"
           pagination={false}
         />
-      </div>
-      <div>
-        <Button onClick={() => navigate('/')}>Back</Button>
       </div>
     </div>
   );

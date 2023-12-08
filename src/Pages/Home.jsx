@@ -22,8 +22,8 @@ const Home = () => {
     { icon: <PhoneOutlined />, title: 'CONTACT', url: '/contact' },
     {
       icon: <ShoppingCartOutlined />,
-      title: 'SHOP',
-      url: '/shopping-cart',
+      title: 'CHECKOUT',
+      url: '/checkout',
     },
   ];
   return (

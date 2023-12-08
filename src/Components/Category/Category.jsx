@@ -28,7 +28,6 @@ const Category = () => {
 
   return (
     <>
-
   <div className={styles.cardsFrame}>
     {aCategory ? (
       aCategory.map((e, index) => (

@@ -3,7 +3,7 @@
   top: 55rem;
   left: 0;
   overflow: scroll;
-  bottom: 55rem;
+  bottom: 160rem;
 }
 .buttonsFrame {
   display: flex;
@@ -18,4 +18,8 @@
 
 .listingPrice::before {
   content: '$';
+}
+
+.amount{
+  color: red;
 }
