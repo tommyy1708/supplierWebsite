@@ -30,7 +30,8 @@ code {
   padding: 0;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
   list-style-image: none;
   list-style-position: outside;
@@ -44,7 +45,7 @@ button {
 }
 
 /* start comment css variables and components UI */
-.dark{
+.dark {
   background-color: rgb(16, 28, 45);
 }
 
@@ -74,51 +75,51 @@ button {
   margin-left: 15rem;
 }
 
-.headerRight{
+.headerRight {
   margin-right: 15rem;
   float: right;
-   font-size: 25rem;
+  font-size: 25rem;
 }
 
-.headerRight button{
+.headerRight button {
   padding: 15rem;
   border-radius: 15rem;
   color: #000;
   font-size: 24rem;
 }
 
-.displayWindow{
+.displayWindow {
   position: fixed;
   top: 60rem;
   left: 0;
   bottom: 160rem;
   width: 100%;
-  /* overflow: auto; */
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
-footer{
+footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
 }
-.footerNavMenu{
+.footerNavMenu {
   display: flex;
   align-items: center;
-  justify-content:space-around;
+  justify-content: space-around;
   padding: 5rem;
   color: #fff;
   text-align: center;
   font-size: 35rem;
 }
 
-.footerCopyright{
+.footerCopyright {
   display: flex;
   justify-content: space-evenly;
   border-top: 1rem soli #101c2d;
   color: #fff;
 }
-
 
 /* end Home page */
 
@@ -129,25 +130,31 @@ footer{
   align-items: center;
   justify-content: center;
 }
-.login_announcement{
+.login_announcement {
   margin: 25rem auto;
   background-color: #bfc;
   text-align: center;
   font-size: 50rem;
 }
 
-
 .login_box {
-  margin:0 auto;
+  margin: 0 auto;
   padding: 50rem;
   border: 1px solid #ddd;
-  box-shadow:12px 12px 6px 1px rgba(255, 0, 119, 0.109);;
+  box-shadow: 12px 12px 6px 1px rgba(255, 0, 119, 0.109);
 }
 /* End Login page */
 
-
 /* Start Profile page */
-.profileFrame{
+.profileFrame {
   padding: 50rem;
 }
 /* End Profile page */
+
+/* Start Checkout page*/
+.checkout-buttonsFrame {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+/* End Checkout page*/

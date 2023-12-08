@@ -34,6 +34,7 @@ const Listing = () => {
       return 0;
     }
   };
+  
   useEffect(() => {
     if (flag) {
       fetchCategoryList();
