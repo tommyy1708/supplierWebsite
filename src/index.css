@@ -96,6 +96,8 @@ button {
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  display: flex;
+  justify-content: center;
 }
 
 footer {
@@ -156,5 +158,9 @@ footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.checkout-button{
+  margin: 50rem 50rem;
 }
 /* End Checkout page*/

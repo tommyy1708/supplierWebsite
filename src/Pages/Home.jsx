@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
-import { message, Spin } from 'antd';
+import { message, Spin, Avatar, Badge } from 'antd';
 import Category from '../Components/Category/Category';
 import {
   ShoppingCartOutlined,
@@ -8,7 +8,10 @@ import {
   UserOutlined,
   PhoneOutlined,
 } from '@ant-design/icons';
+import CheckOutContent from '../store/CheckOutContent';
+
 const Home = () => {
+  const ctx = useContext(CheckOutContent);
   const navigate = useNavigate();
   const location = useLocation();
   const [sUserName, setSUserName] = useState(
@@ -21,7 +24,15 @@ const Home = () => {
     { icon: <UserOutlined />, title: 'PROFILE', url: '/profile' },
     { icon: <PhoneOutlined />, title: 'CONTACT', url: '/contact' },
     {
-      icon: <ShoppingCartOutlined />,
+      icon: (
+        <Badge
+          showZero={false}
+          count={`${ctx.cartData.totalAmount}`}
+          overflowCount={99}
+        >
+          <Avatar shape="square" size="default" icon={ <ShoppingCartOutlined />} />
+        </Badge>
+      ),
       title: 'CHECKOUT',
       url: '/checkout',
     },

@@ -13,6 +13,8 @@ import Listing from './Components/Listing/Listing';
 import Profile from './Pages/Profile';
 import Checkout from './Pages/Checkout';
 import { message } from 'antd';
+import Contact from './Pages/Contact';
+
 function App() {
   const oNmber = () => {
     const now = new Date();
@@ -30,43 +32,25 @@ function App() {
     return orderNumber;
   };
 
-  const [cartData, setCartData] = useState({
-    order_number: oNmber(),
-    items: [],
-    date: moment().tz('America/New_York').format('YYYY-MM-DD-HH:mm'),
-    client: '',
-    discount: 0,
-    totalAmount: 0,
-    subtotal: 0,
-    tax: 0,
-    total: 0,
-    casher: localStorage.getItem('username'),
-    method: '',
-    total_cost: 0,
-    profit: 0,
-    status: '',
-  });
 
-  const initialCartData = () => {
-    setCartData({
-      order_number: oNmber(),
-      items: [],
-      date: moment()
-        .tz('America/New_York')
-        .format('YYYY-MM-DD-HH:mm'),
-      client: '',
-      discount: 0,
-      totalAmount: 0,
-      subtotal: 0,
-      tax: 0,
-      total: 0,
-      casher: localStorage.getItem('username'),
-      method: '',
-      total_cost: 0,
-      profit: 0,
-      status: '',
-    });
-  };
+const initialCartData = {
+  order_number: oNmber(),
+  items: [],
+  date: moment().tz('America/New_York').format('YYYY-MM-DD-HH:mm'),
+  client: '',
+  discount: 0,
+  totalAmount: 0,
+  subtotal: 0,
+  tax: 0,
+  total: 0,
+  casher: localStorage.getItem('username'),
+  method: '',
+  total_cost: 0,
+  profit: 0,
+  status: '',
+};
+
+  const [cartData, setCartData] = useState(initialCartData);
 
   const addItemToCart = (itemToAdd) => {
     setCartData((prevCartData) => {
@@ -197,6 +181,7 @@ function App() {
     <CheckOutContent.Provider
       value={{
         cartData,
+        setCartData,
         initialCartData,
         addItemToCart,
         subItemToCart,
@@ -210,6 +195,7 @@ function App() {
               <Route path="/category/:id" element={<Listing />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/contact" element={<Contact />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<Missing />} />

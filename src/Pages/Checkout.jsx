@@ -1,27 +1,30 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Table, Button, Typography } from 'antd';
+import { Table, Button, Typography, message, Space } from 'antd';
 import {
   PlusCircleTwoTone,
   MinusCircleTwoTone,
 } from '@ant-design/icons';
 import CheckOutContent from '../store/CheckOutContent';
-import { useNavigate } from 'react-router-dom';
 const { Text } = Typography;
 const Checkout = () => {
+  message.config({
+    top: 100,
+    duration: 2,
+    maxCount: 3,
+    rtl: true,
+    prefixCls: 'my-message',
+  });
+
   const ctx = useContext(CheckOutContent);
   const [itemsData, setItemsData] = useState('');
   const [flag, setFlag] = useState(true);
-  const navigate = useNavigate();
 
   const fetchCategoryList = async () => {
-    console.log(ctx.cartData);
     if (!ctx.cartData) {
       return;
     } else {
       setItemsData(ctx.cartData.items);
     }
-
-    console.log(itemsData);
   };
 
   const tempAmount = (item) => {
@@ -34,6 +37,12 @@ const Checkout = () => {
     } else {
       return 0;
     }
+  };
+
+  const placeOrder = () => {
+    ctx.setCartData(ctx.initialCartData);
+    message.success('Thank for your shopping');
+    return;
   };
 
   useEffect(() => {
@@ -87,28 +96,28 @@ const Checkout = () => {
       title: ' ',
       width: '10%',
       align: 'center',
-      colSpan:0,
+      colSpan: 0,
       render: (_, record) => (
-          <div className="checkout-buttonsFrame">
-            <MinusCircleTwoTone
-              style={{ fontSize: '55rem', color: '#08c' }}
-              onClick={() => ctx.subItemToCart(record)}
-            />
-          </div>
+        <div className="checkout-buttonsFrame">
+          <MinusCircleTwoTone
+            style={{ fontSize: '55rem', color: '#08c' }}
+            onClick={() => ctx.subItemToCart(record)}
+          />
+        </div>
       ),
     },
     {
       title: ' ',
       width: '10%',
       align: 'center',
-      colSpan:0,
+      colSpan: 0,
       render: (_, record) => (
-          <div>
-            <PlusCircleTwoTone
-              style={{ fontSize: '55rem', color: '#08c' }}
-              onClick={() => ctx.addItemToCart(record)}
-            />
-          </div>
+        <div>
+          <PlusCircleTwoTone
+            style={{ fontSize: '55rem', color: '#08c' }}
+            onClick={() => ctx.addItemToCart(record)}
+          />
+        </div>
       ),
     },
   ];
@@ -143,6 +152,15 @@ const Checkout = () => {
                   <Text type="danger">$ {ctx.cartData.subtotal}</Text>
                 </Table.Summary.Cell>
               </Table.Summary.Row>
+              <div className="checkout-button-frame">
+                <Button
+                  className="checkout-button"
+                  type="primary"
+                  onClick={placeOrder}
+                >
+                  Place Order
+                </Button>
+              </div>
             </>
           );
         }}
