@@ -37,17 +37,14 @@ const initialCartData = {
   order_number: oNmber(),
   items: [],
   date: moment().tz('America/New_York').format('YYYY-MM-DD-HH:mm'),
-  client: '',
-  discount: 0,
   totalAmount: 0,
   subtotal: 0,
   tax: 0,
   total: 0,
   casher: localStorage.getItem('username'),
-  method: '',
+  method: 'supplier',
   total_cost: 0,
   profit: 0,
-  status: '',
 };
 
   const [cartData, setCartData] = useState(initialCartData);
@@ -82,11 +79,13 @@ const initialCartData = {
       let newSubtotal = 0;
       let newTax = 0;
       let newTotalAmount = 0;
+      let newTotal_cost = 0;
 
       updatedItems.forEach((item) => {
         newSubtotal += item.price * item.amount;
         newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
         newTotalAmount += item.amount;
+        newTotal_cost += item.cost;
       });
 
       let newTotal = newSubtotal + newTax;
@@ -98,6 +97,8 @@ const initialCartData = {
         tax: newTax,
         totalAmount: newTotalAmount,
         total: newTotal,
+        total_cost: newTotal_cost,
+        profit: newSubtotal - newTotal_cost,
       };
     });
 

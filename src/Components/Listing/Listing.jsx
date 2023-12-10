@@ -34,11 +34,10 @@ const Listing = () => {
       return 0;
     }
   };
-  
+
   useEffect(() => {
     if (flag) {
       fetchCategoryList();
-      console.log(ctx.cartData);
       setFlag(false);
     }
   }, [flag]);
@@ -50,12 +49,12 @@ const Listing = () => {
       dataIndex: 'item',
       width: '50%',
       render: (text, record) => (
-        <div
+        <span
           style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}
         >
           <p>ItemCode:{record.item_code}</p>
           <p>{text}</p>
-        </div>
+        </span>
       ),
     },
     {
@@ -83,20 +82,20 @@ const Listing = () => {
       title: ' ',
       width: '30%',
       render: (_, record) => (
-        <div className={`${styles.buttonsFrame}`}>
-          <div>
+        <span className={`${styles.buttonsFrame}`}>
+          <span>
             <MinusCircleTwoTone
               style={{ fontSize: '55rem', color: '#08c' }}
               onClick={() => ctx.subItemToCart(record)}
             />
-          </div>
-          <div>
+          </span>
+          <span>
             <PlusCircleTwoTone
               style={{ fontSize: '55rem', color: '#08c' }}
               onClick={() => ctx.addItemToCart(record)}
             />
-          </div>
-        </div>
+          </span>
+        </span>
       ),
     },
   ];

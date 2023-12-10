@@ -4,6 +4,7 @@ import {
   PlusCircleTwoTone,
   MinusCircleTwoTone,
 } from '@ant-design/icons';
+import { NewOrderSend } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
 const { Text } = Typography;
 const Checkout = () => {
@@ -39,16 +40,23 @@ const Checkout = () => {
     }
   };
 
-  const placeOrder = () => {
-    ctx.setCartData(ctx.initialCartData);
-    message.success('Thank for your shopping');
+  const placeOrder = async () => {
+    const result = await NewOrderSend({
+      cartData: JSON.stringify(ctx.cartData),
+    });
+    if (result.errCode !== 0) {
+      message.error('Something wrong, please contact us');
+    } else {
+      ctx.setCartData(ctx.initialCartData);
+      message.success('Thank for your shopping');
+    }
+
     return;
   };
 
   useEffect(() => {
     if (flag) {
       fetchCategoryList();
-      console.log(ctx.cartData);
       setFlag(false);
     }
   }, [flag]);
@@ -60,7 +68,7 @@ const Checkout = () => {
       dataIndex: 'item',
       width: '50%',
       render: (text, record) => (
-        <div
+        <span
           style={{
             wordWrap: 'break-word',
             wordBreak: 'break-word',
@@ -68,7 +76,7 @@ const Checkout = () => {
         >
           <p>ItemCode:{record.item_code}</p>
           <p>{text}</p>
-        </div>
+        </span>
       ),
     },
     {
@@ -98,12 +106,12 @@ const Checkout = () => {
       align: 'center',
       colSpan: 0,
       render: (_, record) => (
-        <div className="checkout-buttonsFrame">
+        <span className="checkout-buttonsFrame">
           <MinusCircleTwoTone
             style={{ fontSize: '55rem', color: '#08c' }}
             onClick={() => ctx.subItemToCart(record)}
           />
-        </div>
+        </span>
       ),
     },
     {
@@ -112,12 +120,12 @@ const Checkout = () => {
       align: 'center',
       colSpan: 0,
       render: (_, record) => (
-        <div>
+        <span>
           <PlusCircleTwoTone
             style={{ fontSize: '55rem', color: '#08c' }}
             onClick={() => ctx.addItemToCart(record)}
           />
-        </div>
+        </span>
       ),
     },
   ];
@@ -152,15 +160,19 @@ const Checkout = () => {
                   <Text type="danger">$ {ctx.cartData.subtotal}</Text>
                 </Table.Summary.Cell>
               </Table.Summary.Row>
-              <div className="checkout-button-frame">
-                <Button
-                  className="checkout-button"
-                  type="primary"
-                  onClick={placeOrder}
-                >
-                  Place Order
-                </Button>
-              </div>
+              <Table.Summary.Row>
+                <Table.Summary.Cell>
+                  <div className="checkout-button-frame">
+                    <Button
+                      className="checkout-button"
+                      type="primary"
+                      onClick={placeOrder}
+                    >
+                      Place Order
+                    </Button>
+                  </div>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
             </>
           );
         }}

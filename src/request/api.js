@@ -8,4 +8,8 @@ export const GetCategoryList = (params) =>
   request.get(`/supplier-category/${params}`);
 
 export const PasswordUpdate = (params) =>
-  request.put('/passwordUpdate',  params );
+  request.put('/passwordUpdate', params);
+
+export const NewOrderSend = (params) => {
+ return request.post(`/supplier-addNewOrder`, params);
+}
