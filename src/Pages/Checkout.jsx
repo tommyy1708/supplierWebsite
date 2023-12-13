@@ -50,7 +50,6 @@ const Checkout = () => {
       ctx.setCartData(ctx.initialCartData);
       message.success('Thank for your shopping');
     }
-
     return;
   };
 
