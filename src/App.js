@@ -85,10 +85,11 @@ const initialCartData = {
         newSubtotal += item.price * item.amount;
         newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
         newTotalAmount += item.amount;
-        newTotal_cost += item.cost;
+        newTotal_cost += item.cost * 1;
       });
 
       let newTotal = newSubtotal + newTax;
+      let newProfit = newSubtotal - newTotal_cost;
 
       return {
         ...prevCartData,
@@ -98,7 +99,7 @@ const initialCartData = {
         totalAmount: newTotalAmount,
         total: newTotal,
         total_cost: newTotal_cost,
-        profit: newSubtotal - newTotal_cost,
+        profit: newProfit,
       };
     });
 

@@ -41,16 +41,18 @@ const Checkout = () => {
   };
 
   const placeOrder = async () => {
+    console.log("🚀 ~ file: Checkout.jsx:46 ~ placeOrder ~ ctx.cartData:", ctx.cartData)
     const result = await NewOrderSend({
       cartData: JSON.stringify(ctx.cartData),
     });
     if (result.errCode !== 0) {
       message.error('Something wrong, please contact us');
+      return;
     } else {
       ctx.setCartData(ctx.initialCartData);
       message.success('Thank for your shopping');
+      return;
     }
-    return;
   };
 
   useEffect(() => {
