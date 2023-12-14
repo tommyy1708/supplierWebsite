@@ -6,6 +6,8 @@ function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
   const [count, setCount] = useState(0);
+  const [userRol, setUserRol] = useState('');
+
   const onSubmit = async (values) => {
     setShowSpin(true);
     setCount((prev) => prev + 1);
@@ -14,39 +16,49 @@ function Login() {
         'You had multiple wrong, please contact manager!'
       );
     }
-    console.log(values);
-    const loginResponse = await LoginApi(values);
-    const userRole = loginResponse.data.admin;
+    try {
+      const loginResponse = await LoginApi(values);
 
-    if (!loginResponse) {
-      return message.error(
-        'Something wrong, contact network manager'
-      );
-    }
+      if (loginResponse.errCode > 0) {
+        return message.info(loginResponse.message);
+      }
 
-    if (loginResponse.errCode === 0 && userRole === 1) {
+      const userRol = loginResponse.data.admin;
       localStorage.setItem('username', loginResponse.data.userName);
       localStorage.setItem('token', loginResponse.data.token);
-      message.success(loginResponse.message);
-
-      setTimeout(() => {
-        navigate('/admin');
-      }, 2000);
-    } else if (loginResponse.errCode === 1) {
-      message.info(loginResponse.message);
-      setTimeout(() => {
-        setShowSpin(false);
-      }, [2000]);
-    } else if (loginResponse.errCode === 0 && userRole === 0) {
-      localStorage.setItem('username', loginResponse.data.userName);
-      localStorage.setItem('token', loginResponse.data.token);
-      message.success(loginResponse.message);
-
-      setTimeout(() => {
+     if (userRol === 1) {
+        // setUserRol(userRol);
+        navigate(`/admin/${userRol}`);
+      } else {
         navigate('/');
-      }, 2000);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
+
+  // if (loginResponse.errCode === 0 && userRole === 1) {
+  //   localStorage.setItem('username', loginResponse.data.userName);
+  //   localStorage.setItem('token', loginResponse.data.token);
+  //   message.success(loginResponse.message);
+
+  //   setTimeout(() => {
+  //     navigate('/admin');
+  //   }, 2000);
+  // } else if (loginResponse.errCode === 0 && userRole === 0) {
+  //   localStorage.setItem('username', loginResponse.data.userName);
+  //   localStorage.setItem('token', loginResponse.data.token);
+  //   message.success(loginResponse.message);
+
+  //   setTimeout(() => {
+  //     navigate('/');
+  //   }, 2000);
+  // } else if (loginResponse.errCode === 1) {
+  //   message.info(loginResponse.message);
+  //   setTimeout(() => {
+  //     setShowSpin(false);
+  //   }, [2000]);
+  // }
 
   return (
     <div id="login">

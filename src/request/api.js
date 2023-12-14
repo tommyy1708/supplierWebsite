@@ -15,5 +15,5 @@ export const NewOrderSend = (params) => {
 }
 
 export const GetOrders = () => {
-  request.get(`/supplier-orders`);
+ return request.get(`/supplier-orders`);
 }

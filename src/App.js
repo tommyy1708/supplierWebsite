@@ -193,14 +193,14 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home />}>
-              <Route path="/category/:id" element={<Listing />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/contact" element={<Contact />} />
+              <Route path="category/:id" element={<Listing />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="contact" element={<Contact />} />
             </Route>
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/:userRol?" element={<Admin />} />
             <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Missing />} />
+            <Route path="*" element={<Login />} />
           </Routes>
         </Router>
       </div>

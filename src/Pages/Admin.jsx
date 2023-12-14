@@ -1,45 +1,118 @@
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ShoppingCartOutlined,
   HomeOutlined,
   UserOutlined,
   PhoneOutlined,
 } from '@ant-design/icons';
-import { message, Spin, Avatar, Badge } from 'antd';
+import { Table, Button, message } from 'antd';
 import {
   Outlet,
   useNavigate,
   useLocation,
   Link,
+  useParams,
 } from 'react-router-dom';
 import { GetOrders } from '../request/api';
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+import { type } from '@testing-library/user-event/dist/type';
 
 const Admin = () => {
   const navigate = useNavigate();
+  const { userRol } = useParams();
   const [sUserName, setSUserName] = useState(
     localStorage.getItem('username')
   );
-    const [flag, setFlag] = useState(true);
+  const [flag, setFlag] = useState(true);
   const [ordersData, setOrdersData] = useState('');
   const location = useLocation();
   const [showSpin, setShowSpin] = useState(false);
   const navMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
   ];
+  const fetchCategoryList = async () => {
+    const orders = await GetOrders();
+    setOrdersData(orders.data);
+  };
 
-    const fetchCategoryList = async () => {
-      const orders = await GetOrders();
-      // setOrdersData(orders.data);
-      console.log(orders.data)
-    };
-
+  const exportToCSV = (apiData, fileName) => {
+    let orderData = [...apiData.items];
+    const fileType =
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+    const ws = XLSX.utils.json_to_sheet(orderData);
+    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, fileName + fileExtension);
+  };
+  function parseDateString(dateString) {
+    const isoString = dateString.replace(/-(?=\d{2}:\d{2}$)/, 'T');
+    return new Date(isoString);
+  }
   useEffect(() => {
     if (flag) {
       fetchCategoryList();
       setFlag(false);
     }
   }, [flag]);
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      width: '30%',
+      sorter: (a, b) =>
+        parseDateString(b.date) - parseDateString(a.date),
+      defaultSortOrder: 'ascend',
+      render: (text, record) => (
+        <>
+          <span>{record.date.split('-').slice(0, 3).join('-')}</span>
+        </>
+      ),
+    },
+    {
+      title: 'Order number',
+      dataIndex: 'order_number',
+      width: '40%',
 
+      render: (text, record) => (
+        <>
+          <span>{record.order_number}</span>
+        </>
+      ),
+    },
+    {
+      title: 'Client Name',
+      key: 'casher',
+      dataIndex: 'casher',
+      width: '20%',
+      render: (text, record) => (
+        <>
+          <span>{record.casher}</span>
+        </>
+      ),
+    },
+    {
+      title: 'Download',
+      dataIndex: 'index',
+      width: '20%',
+      render: (text, record) => (
+        <>
+          <button
+            onClick={() =>
+              exportToCSV(record, `${record.order_number}`)
+            }
+          >
+            Download
+          </button>
+        </>
+      ),
+    },
+  ];
   return (
     <>
       <div className="headerFrame">
@@ -64,7 +137,16 @@ const Admin = () => {
         </div>
       </div>
       <div className="displayWindow">
-        admin page
+        <Table
+          title={() => (
+            <Button onClick={() => navigate('/')}>Back</Button>
+          )}
+          bordered
+          columns={columns}
+          dataSource={ordersData}
+          rowKey="order_number"
+          pagination={false}
+        />
       </div>
       <footer>
         <div className="footerNavMenu dark">
