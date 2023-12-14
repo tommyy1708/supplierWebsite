@@ -14,6 +14,7 @@ import Profile from './Pages/Profile';
 import Checkout from './Pages/Checkout';
 import { message } from 'antd';
 import Contact from './Pages/Contact';
+import Admin from './Pages/Admin';
 
 function App() {
   const oNmber = () => {
@@ -32,20 +33,19 @@ function App() {
     return orderNumber;
   };
 
-
-const initialCartData = {
-  order_number: oNmber(),
-  items: [],
-  date: moment().tz('America/New_York').format('YYYY-MM-DD-HH:mm'),
-  totalAmount: 0,
-  subtotal: 0,
-  tax: 0,
-  total: 0,
-  casher: localStorage.getItem('username'),
-  method: 'supplier',
-  total_cost: 0,
-  profit: 0,
-};
+  const initialCartData = {
+    order_number: oNmber(),
+    items: [],
+    date: moment().tz('America/New_York').format('YYYY-MM-DD-HH:mm'),
+    totalAmount: 0,
+    subtotal: 0,
+    tax: 0,
+    total: 0,
+    casher: localStorage.getItem('username'),
+    method: 'supplier',
+    total_cost: 0,
+    profit: 0,
+  };
 
   const [cartData, setCartData] = useState(initialCartData);
 
@@ -102,7 +102,6 @@ const initialCartData = {
         profit: newProfit,
       };
     });
-
   };
 
   //minus quantity from shopping cart
@@ -199,6 +198,7 @@ const initialCartData = {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/contact" element={<Contact />} />
             </Route>
+            <Route path="/admin" element={<Admin />} />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<Missing />} />
           </Routes>

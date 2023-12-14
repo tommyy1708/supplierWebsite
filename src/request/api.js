@@ -13,3 +13,7 @@ export const PasswordUpdate = (params) =>
 export const NewOrderSend = (params) => {
  return request.post(`/supplier-addNewOrder`, params);
 }
+
+export const GetOrders = () => {
+  request.get(`/supplier-orders`);
+}

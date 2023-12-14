@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { LoginApi } from '../request/api';
 function Login() {
   const navigate = useNavigate();
-    const [showSpin, setShowSpin] = useState(false);
+  const [showSpin, setShowSpin] = useState(false);
   const [count, setCount] = useState(0);
   const onSubmit = async (values) => {
     setShowSpin(true);
@@ -14,7 +14,9 @@ function Login() {
         'You had multiple wrong, please contact manager!'
       );
     }
+    console.log(values);
     const loginResponse = await LoginApi(values);
+    const userRole = loginResponse.data.admin;
 
     if (!loginResponse) {
       return message.error(
@@ -22,18 +24,27 @@ function Login() {
       );
     }
 
-    if (loginResponse.errCode === 0) {
+    if (loginResponse.errCode === 0 && userRole === 1) {
       localStorage.setItem('username', loginResponse.data.userName);
       localStorage.setItem('token', loginResponse.data.token);
       message.success(loginResponse.message);
+
       setTimeout(() => {
-        navigate('/');
+        navigate('/admin');
       }, 2000);
     } else if (loginResponse.errCode === 1) {
       message.info(loginResponse.message);
       setTimeout(() => {
         setShowSpin(false);
       }, [2000]);
+    } else if (loginResponse.errCode === 0 && userRole === 0) {
+      localStorage.setItem('username', loginResponse.data.userName);
+      localStorage.setItem('token', loginResponse.data.token);
+      message.success(loginResponse.message);
+
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     }
   };
 
@@ -42,7 +53,7 @@ function Login() {
       {showSpin ? (
         <Spin size="large" delay="200" fullscreen="true" />
       ) : null}
-      <div className='login_announcement'>
+      <div className="login_announcement">
         <h2>Welcome</h2>
       </div>
       <div className="login_box">
