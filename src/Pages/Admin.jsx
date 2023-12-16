@@ -16,7 +16,7 @@ import {
 import { GetOrders } from '../request/api';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
-import { type } from '@testing-library/user-event/dist/type';
+import Filter from '../Components/Filter/Filter';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -38,6 +38,13 @@ const Admin = () => {
 
   const exportToCSV = (apiData, fileName) => {
     let orderData = [...apiData.items];
+    orderData.push({
+      client_name: apiData.casher,
+      client_phone: apiData.phone,
+      client_email: apiData.email,
+      client_address: apiData.address,
+    });
+    //!! new format: edit here orderData.push({ 'test': 123 });
     const fileType =
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -137,10 +144,8 @@ const Admin = () => {
         </div>
       </div>
       <div className="displayWindow">
+        <Filter />
         <Table
-          title={() => (
-            <Button onClick={() => navigate('/')}>Back</Button>
-          )}
           bordered
           columns={columns}
           dataSource={ordersData}

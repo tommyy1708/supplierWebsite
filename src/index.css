@@ -48,6 +48,13 @@ button {
 .dark {
   background-color: rgb(16, 28, 45);
 }
+.loading{
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  text-align: center;
+  background-color: rgba(50, 50, 50, 0.1);
+}
 
 /* end comment css variables */
 
@@ -164,3 +171,9 @@ footer {
   margin: 50rem 50rem;
 }
 /* End Checkout page*/
+
+/* admin page */
+.admin-window{
+
+}
+/* end admin page */

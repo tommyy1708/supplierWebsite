@@ -12,7 +12,6 @@ const Category = () => {
   const fetchData = async () => {
     try {
       const aCategory = await GetCategoryApi();
-      console.log("🚀 ~ file: Category.jsx:15 ~ fetchData ~ aCategory:", aCategory)
       setACategory(aCategory.data);
       setLoading(false);
     } catch (error) {

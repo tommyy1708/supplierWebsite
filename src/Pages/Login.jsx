@@ -26,6 +26,7 @@ function Login() {
       const userRol = loginResponse.data.admin;
       localStorage.setItem('username', loginResponse.data.userName);
       localStorage.setItem('token', loginResponse.data.token);
+      localStorage.setItem('userId', loginResponse.data.userID);
      if (userRol === 1) {
         // setUserRol(userRol);
         navigate(`/admin/${userRol}`);

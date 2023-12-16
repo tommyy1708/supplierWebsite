@@ -6,13 +6,11 @@ import {
 } from 'react-router-dom';
 import moment from 'moment-timezone';
 import CheckOutContent from './store/CheckOutContent';
-import Missing from './Pages/Missing';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Listing from './Components/Listing/Listing';
 import Profile from './Pages/Profile';
 import Checkout from './Pages/Checkout';
-import { message } from 'antd';
 import Contact from './Pages/Contact';
 import Admin from './Pages/Admin';
 
@@ -39,15 +37,19 @@ function App() {
     date: moment().tz('America/New_York').format('YYYY-MM-DD-HH:mm'),
     totalAmount: 0,
     subtotal: 0,
-    tax: 0,
-    total: 0,
+    // tax: 0,
+    // total: 0,
     casher: localStorage.getItem('username'),
-    method: 'supplier',
-    total_cost: 0,
-    profit: 0,
+    phone:'',
+    address:'',
+    email:'',
+    // method: 'supplier',
+    // total_cost: 0,
+    // profit: 0,
   };
 
   const [cartData, setCartData] = useState(initialCartData);
+  const [userInfo, setUserInfo] = useState('');
 
   const addItemToCart = (itemToAdd) => {
     setCartData((prevCartData) => {
@@ -77,29 +79,29 @@ function App() {
 
       // Calculate new subtotal, tax, totalAmount, and total
       let newSubtotal = 0;
-      let newTax = 0;
+      // let newTax = 0;
       let newTotalAmount = 0;
-      let newTotal_cost = 0;
+      // let newTotal_cost = 0;
 
       updatedItems.forEach((item) => {
         newSubtotal += item.price * item.amount;
-        newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
+        // newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
         newTotalAmount += item.amount;
-        newTotal_cost += item.cost * 1;
+        // newTotal_cost += item.cost * 1;
       });
 
-      let newTotal = newSubtotal + newTax;
-      let newProfit = newSubtotal - newTotal_cost;
+      // let newTotal = newSubtotal + newTax;
+      // let newProfit = newSubtotal - newTotal_cost;
 
       return {
         ...prevCartData,
         items: updatedItems,
         subtotal: newSubtotal,
-        tax: newTax,
+        // tax: newTax,
         totalAmount: newTotalAmount,
-        total: newTotal,
-        total_cost: newTotal_cost,
-        profit: newProfit,
+        // total: newTotal,
+        // total_cost: newTotal_cost,
+        // profit: newProfit,
       };
     });
   };
@@ -127,24 +129,24 @@ function App() {
 
       // Recalculate subtotal, tax, totalAmount, and total
       let newSubtotal = 0;
-      let newTax = 0;
-      let newTotalAmount = 0;
+      // let newTax = 0;
+      // let newTotalAmount = 0;
 
       updatedItems.forEach((item) => {
         newSubtotal += item.price * item.amount;
-        newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
-        newTotalAmount += item.amount;
+        // newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
+        // newTotalAmount += item.amount;
       });
 
-      let newTotal = newSubtotal + newTax;
+      // let newTotal = newSubtotal + newTax;
 
       return {
         ...prevCartData,
         items: updatedItems,
         subtotal: newSubtotal,
-        tax: newTax,
-        totalAmount: newTotalAmount,
-        total: newTotal,
+        // tax: newTax,
+        // totalAmount: newTotalAmount,
+        // total: newTotal,
       };
     });
   };
@@ -182,11 +184,12 @@ function App() {
     <CheckOutContent.Provider
       value={{
         cartData,
+        userInfo,
         setCartData,
+        setUserInfo,
         initialCartData,
         addItemToCart,
         subItemToCart,
-        removeItemToCart,
       }}
     >
       <div className="App">

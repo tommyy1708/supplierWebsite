@@ -4,7 +4,7 @@ import {
   PlusCircleTwoTone,
   MinusCircleTwoTone,
 } from '@ant-design/icons';
-import { NewOrderSend } from '../request/api';
+import { NewOrderSend, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
 const { Text } = Typography;
 const Checkout = () => {
@@ -17,15 +17,15 @@ const Checkout = () => {
   });
 
   const ctx = useContext(CheckOutContent);
-  const [itemsData, setItemsData] = useState('');
   const [flag, setFlag] = useState(true);
-
+  const [loading, setLoading] = useState(true);
   const fetchCategoryList = async () => {
-    if (!ctx.cartData) {
-      return;
-    } else {
-      setItemsData(ctx.cartData.items);
-    }
+    const userId = localStorage.getItem('userId');
+    const data = {
+      userId: userId,
+    };
+    const response = await GetUserInfo(data);
+    ctx.setUserInfo(response.data);
   };
 
   const tempAmount = (item) => {
@@ -41,9 +41,9 @@ const Checkout = () => {
   };
 
   const placeOrder = async () => {
-    console.log("🚀 ~ file: Checkout.jsx:46 ~ placeOrder ~ ctx.cartData:", ctx.cartData)
     const result = await NewOrderSend({
       cartData: JSON.stringify(ctx.cartData),
+      userData: JSON.stringify(ctx.userInfo),
     });
     if (result.errCode !== 0) {
       message.error('Something wrong, please contact us');
@@ -57,7 +57,11 @@ const Checkout = () => {
 
   useEffect(() => {
     if (flag) {
-      fetchCategoryList();
+      fetchCategoryList()
+        .then(() => setLoading(false))
+        .catch((error) => {
+          setLoading(false);
+        });
       setFlag(false);
     }
   }, [flag]);
@@ -133,51 +137,59 @@ const Checkout = () => {
   return (
     <div>
       <br />
-      <Table
-        columns={columns}
-        dataSource={ctx.cartData.items}
-        pagination={false}
-        bordered
-        summary={(pageData) => {
-          let totalRepayment = 0;
-          pageData.forEach(({ price, amount }) => {
-            totalRepayment += amount;
-          });
-          return (
-            <>
-              <Table.Summary.Row>
-                <Table.Summary.Cell index={0}>
-                  Amount
-                </Table.Summary.Cell>
-                <Table.Summary.Cell index={1} colSpan={4}>
-                  <Text type="danger">{totalRepayment}</Text>
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-              <Table.Summary.Row>
-                <Table.Summary.Cell index={0}>
-                  Total
-                </Table.Summary.Cell>
-                <Table.Summary.Cell index={1} colSpan={4}>
-                  <Text type="danger">$ {ctx.cartData.subtotal}</Text>
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-              <Table.Summary.Row>
-                <Table.Summary.Cell>
-                  <div className="checkout-button-frame">
-                    <Button
-                      className="checkout-button"
-                      type="primary"
-                      onClick={placeOrder}
-                    >
-                      Place Order
-                    </Button>
-                  </div>
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-            </>
-          );
-        }}
-      />
+      {loading ? (
+        <div className="loading">
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <Table
+          columns={columns}
+          dataSource={ctx.cartData.items}
+          pagination={false}
+          bordered
+          summary={(pageData) => {
+            let totalRepayment = 0;
+            pageData.forEach(({ price, amount }) => {
+              totalRepayment += amount;
+            });
+            return (
+              <>
+                <Table.Summary.Row>
+                  <Table.Summary.Cell index={0}>
+                    Amount
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell index={1} colSpan={4}>
+                    <Text type="danger">{totalRepayment}</Text>
+                  </Table.Summary.Cell>
+                </Table.Summary.Row>
+                <Table.Summary.Row>
+                  <Table.Summary.Cell index={0}>
+                    Total
+                  </Table.Summary.Cell>
+                  <Table.Summary.Cell index={1} colSpan={4}>
+                    <Text type="danger">
+                      $ {ctx.cartData.subtotal}
+                    </Text>
+                  </Table.Summary.Cell>
+                </Table.Summary.Row>
+                <Table.Summary.Row>
+                  <Table.Summary.Cell>
+                    <div className="checkout-button-frame">
+                      <Button
+                        className="checkout-button"
+                        type="primary"
+                        onClick={placeOrder}
+                      >
+                        Place Order
+                      </Button>
+                    </div>
+                  </Table.Summary.Cell>
+                </Table.Summary.Row>
+              </>
+            );
+          }}
+        />
+      )}
     </div>
   );
 };
