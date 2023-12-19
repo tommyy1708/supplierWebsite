@@ -9,37 +9,40 @@ import {
   Statistic,
   message,
 } from 'antd';
-// import { InquiryOrderDataOnDate } from '../request/api';
+import { GetOrdersByDate } from '../../request/api';
 
-const Filter = () => {
+const Filter = (props) => {
+   message.config({
+     top: 150,
+     duration: 2,
+     maxCount: 3,
+     rtl: true,
+     prefixCls: 'my-message',
+   });
   const [begin, setBegin] = useState('');
   const [end, setEnd] = useState('');
-  const [aOrderData, setAOrderData] = useState('');
-  const [nTotalProfit, setNTotalProfit] = useState(0);
-  const [nTotalCost, setNTotalCost] = useState(0);
-  const [nRevenue, setNRevenue] = useState(0);
   const [dateNotNone, setDateNotNone] = useState(false);
   const { RangePicker } = DatePicker;
 
   const gotData = async () => {
-    // if (dateNotNone) {
-    //   const data = {
-    //     begin: begin,
-    //     end: end,
-    //   };
-    //   const aOrderData = await InquiryOrderDataOnDate(data);
-    //   if (aOrderData) {
-    //     setAOrderData(aOrderData.data.data.aReports);
-    //     setNTotalCost(aOrderData.data.data.aStatistics[0].totalCost);
-    //     setNTotalProfit(
-    //       aOrderData.data.data.aStatistics[0].totalProfit
-    //     );
-    //     setNRevenue(aOrderData.data.data.aStatistics[0].totalTotal);
-    //   }
-    // } else {
-    //   message.info('Please select date!');
-    //   return;
-    // }
+    if (dateNotNone) {
+      const data = {
+        begin: begin,
+        end: end,
+      };
+      const aOrderData = await GetOrdersByDate(data);
+
+      if (aOrderData.data.length < 1) {
+        message.info('No orders');
+        props.setOrdersData(aOrderData.data);
+        return
+      } else {
+        props.setOrdersData(aOrderData.data);
+      }
+    } else {
+      message.info('Please select date!');
+      return;
+    }
   };
 
   const onChange = (date, dateString) => {

@@ -71,7 +71,7 @@ const Admin = () => {
     {
       title: 'Date',
       dataIndex: 'date',
-      width: '30%',
+      width: '15%',
       sorter: (a, b) =>
         parseDateString(b.date) - parseDateString(a.date),
       defaultSortOrder: 'ascend',
@@ -84,7 +84,7 @@ const Admin = () => {
     {
       title: 'Order number',
       dataIndex: 'order_number',
-      width: '40%',
+      width: '30%',
 
       render: (text, record) => (
         <>
@@ -96,7 +96,7 @@ const Admin = () => {
       title: 'Client Name',
       key: 'casher',
       dataIndex: 'casher',
-      width: '20%',
+      width: '10%',
       render: (text, record) => (
         <>
           <span>{record.casher}</span>
@@ -104,9 +104,31 @@ const Admin = () => {
       ),
     },
     {
+      title: 'Phone',
+      key: 'phone',
+      dataIndex: 'phone',
+      width: '10%',
+      render: (text, record) => (
+        <>
+          <span>{record.phone}</span>
+        </>
+      ),
+    },
+    {
+      title: 'E-mail',
+      key: 'email',
+      dataIndex: 'email',
+      width: '10%',
+      render: (text, record) => (
+        <>
+          <span>{record.email}</span>
+        </>
+      ),
+    },
+    {
       title: 'Download',
       dataIndex: 'index',
-      width: '20%',
+      width: '25%',
       render: (text, record) => (
         <>
           <button
@@ -143,8 +165,8 @@ const Admin = () => {
           </div>
         </div>
       </div>
-      <div className="displayWindow">
-        <Filter />
+      <div className="adminWindow">
+        <Filter setOrdersData={setOrdersData} />
         <Table
           bordered
           columns={columns}

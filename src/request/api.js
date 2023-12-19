@@ -19,3 +19,6 @@ export const NewOrderSend = (params) => {
 export const GetOrders = () => {
  return request.get(`/supplier-orders`);
 }
+
+export const GetOrdersByDate = (params) =>
+  request.get(`/supplier-ordersbydate`, {params});
