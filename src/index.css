@@ -48,6 +48,7 @@ button {
 .dark {
   background-color: rgb(16, 28, 45);
 }
+
 .loading {
   width: 100vw;
   height: 100vh;
@@ -97,20 +98,20 @@ button {
 
 .displayWindow {
   position: fixed;
+  display: flex;
   top: 60rem;
   left: 0;
-  bottom: 160rem;
+  bottom: 180rem;
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  display: flex;
   justify-content: center;
+  padding: 20rem 0;
 }
 
 footer {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
 }
 .footerNavMenu {
@@ -120,7 +121,7 @@ footer {
   padding: 5rem;
   color: #fff;
   text-align: center;
-  font-size: 35rem;
+  font-size: 30rem;
 }
 
 .footerCopyright {
@@ -129,19 +130,15 @@ footer {
   border-top: 1rem soli #101c2d;
   color: #fff;
 }
-
 /* end Home page */
 
 /* Start Login page */
 #login {
-  width: 100vw;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
+  margin: 0 auto;
+  padding: 50rem;
 }
 .login_announcement {
   margin: 25rem auto;
-  background-color: #bfc;
   text-align: center;
   font-size: 50rem;
 }
@@ -174,10 +171,13 @@ footer {
 
 /* admin page */
 .adminWindow {
-  position: absolute;
-  top: 65rem;
-    overflow-x: hidden;
+  position: fixed;
+  top: 60rem;
+  left: 0;
+  bottom: 180rem;
+  width: 100%;
+  overflow-x: hidden;
   overflow-y: scroll;
+  padding: 20rem 0;
 }
-
 /* end admin page */

@@ -1,6 +1,11 @@
-import React, { useState ,useContext} from 'react';
-import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
-import { message, Spin, Avatar, Badge } from 'antd';
+import React, { useState, useContext } from 'react';
+import {
+  Outlet,
+  useNavigate,
+  useLocation,
+  Link,
+} from 'react-router-dom';
+import { message, Avatar, Badge } from 'antd';
 import Category from '../Components/Category/Category';
 import {
   ShoppingCartOutlined,
@@ -9,6 +14,7 @@ import {
   PhoneOutlined,
 } from '@ant-design/icons';
 import CheckOutContent from '../store/CheckOutContent';
+import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 
 const Home = () => {
   const ctx = useContext(CheckOutContent);
@@ -30,7 +36,11 @@ const Home = () => {
           count={`${ctx.cartData.totalAmount}`}
           overflowCount={99}
         >
-          <Avatar shape="square" size="default" icon={ <ShoppingCartOutlined />} />
+          <Avatar
+            shape="square"
+            size="default"
+            icon={<ShoppingCartOutlined />}
+          />
         </Badge>
       ),
       title: 'CHECKOUT',
@@ -40,9 +50,6 @@ const Home = () => {
   return (
     <>
       <div className="headerFrame">
-        {showSpin ? (
-          <Spin size="large" delay="200" fullscreen="true" />
-        ) : null}
         <div className="header dark">
           <div className="headerLeft">
             <h2>Welcome-{sUserName}</h2>
@@ -64,13 +71,14 @@ const Home = () => {
         </div>
       </div>
       <div className="displayWindow">
+        <SpinOverLay showSpin={showSpin} />
         {location.pathname === '/' ? <Category /> : <Outlet></Outlet>}
       </div>
       <footer>
-         <div className="footerNavMenu dark">
+        <div className="footerNavMenu dark">
           {navMenu !== null || undefined
             ? navMenu.map((e, index) => (
-              <Link key={index} to={e.url}>
+                <Link key={index} to={e.url}>
                   <p>{e.icon}</p>
                   <span>{e.title}</span>
                 </Link>

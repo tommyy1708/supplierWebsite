@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Form, Input, message, Spin } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { PasswordUpdate, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
+import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
+
 const Profile = () => {
   const ctx = useContext(CheckOutContent
 );
   const [flag, setFlag] = useState(true);
-
-  const [loading, setLoading] = useState(true);
+  const [showSpin, setShowSpin] = useState(true);
   const username = localStorage.getItem('username');
   const onFinish = async (values) => {
     const newPassWord = values.confirm;
@@ -42,26 +43,26 @@ const Profile = () => {
       userId: userId,
     };
     const response = await GetUserInfo(data);
-    ctx.setUserInfo(response.data);
+       if (response.errCode !== 0) {
+         return message.error('server error');
+       } else {
+         setShowSpin(false);
+         ctx.setUserInfo(response.data);
+         return;
+       }
   };
 
   useEffect(() => {
     if (flag) {
       fetchUserInfo()
-        .then(() => setLoading(false))
-        .catch((error) => {
-          setLoading(false);
-        });
       setFlag(false);
     }
   }, [flag]);
 
   return (
     <div className="profileFrame">
-      {loading ? (
-        <div className="loading">
-          <span>Loading...</span>
-        </div>
+      {showSpin ? (
+        <SpinOverLay showSpin={showSpin} />
       ) : (
         <Form
           name="userInfoForm"

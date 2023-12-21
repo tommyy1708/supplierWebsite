@@ -1,39 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import {
-  ShoppingCartOutlined,
-  HomeOutlined,
-  UserOutlined,
-  PhoneOutlined,
-} from '@ant-design/icons';
-import { Table, Button, message } from 'antd';
-import {
-  Outlet,
-  useNavigate,
-  useLocation,
-  Link,
-  useParams,
-} from 'react-router-dom';
+import { HomeOutlined } from '@ant-design/icons';
+import { Table, message } from 'antd';
+import { useNavigate, Link } from 'react-router-dom';
 import { GetOrders } from '../request/api';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import Filter from '../Components/Filter/Filter';
+import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 
 const Admin = () => {
   const navigate = useNavigate();
-  const { userRol } = useParams();
   const [sUserName, setSUserName] = useState(
     localStorage.getItem('username')
   );
+  const [showSpin, setShowSpin] = useState(true);
   const [flag, setFlag] = useState(true);
   const [ordersData, setOrdersData] = useState('');
-  const location = useLocation();
-  const [showSpin, setShowSpin] = useState(false);
   const navMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
   ];
   const fetchCategoryList = async () => {
     const orders = await GetOrders();
-    setOrdersData(orders.data);
+    if (orders.errCode !== 0) {
+      message.error("server error");
+      return;
+    } else {
+      setOrdersData(orders.data);
+      setShowSpin(false);
+    }
   };
 
   const exportToCSV = (apiData, fileName) => {
@@ -67,6 +61,7 @@ const Admin = () => {
       setFlag(false);
     }
   }, [flag]);
+
   const columns = [
     {
       title: 'Date',
@@ -166,14 +161,20 @@ const Admin = () => {
         </div>
       </div>
       <div className="adminWindow">
-        <Filter setOrdersData={setOrdersData} />
-        <Table
-          bordered
-          columns={columns}
-          dataSource={ordersData}
-          rowKey="order_number"
-          pagination={false}
-        />
+        {showSpin ? (
+          <SpinOverLay showSpin={showSpin} />
+        ) : (
+          <>
+            <Filter setOrdersData={setOrdersData} />
+            <Table
+              bordered
+              columns={columns}
+              dataSource={ordersData}
+              rowKey="order_number"
+              pagination={false}
+            />
+          </>
+        )}
       </div>
       <footer>
         <div className="footerNavMenu dark">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Spin, message } from 'antd';
 import { useNavigate } from 'react-router';
 import { LoginApi } from '../request/api';
+import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
@@ -11,27 +12,27 @@ function Login() {
   const onSubmit = async (values) => {
     setShowSpin(true);
     setCount((prev) => prev + 1);
-    if (count >= 4) {
-      message.error(
-        'You had multiple wrong, please contact manager!'
-      );
-    }
+
     try {
       const loginResponse = await LoginApi(values);
 
-      if (loginResponse.errCode > 0) {
+      if (loginResponse.errCode !== 0) {
+        setTimeout(() => {
+          setShowSpin(false);
+        }, [2500]);
         return message.info(loginResponse.message);
-      }
-
-      const userRol = loginResponse.data.admin;
-      localStorage.setItem('username', loginResponse.data.userName);
-      localStorage.setItem('token', loginResponse.data.token);
-      localStorage.setItem('userId', loginResponse.data.userID);
-     if (userRol === 1) {
-        // setUserRol(userRol);
-        navigate(`/admin/${userRol}`);
       } else {
-        navigate('/');
+        message.success('Login success!');
+        const userRol = loginResponse.data.admin;
+        localStorage.setItem('username', loginResponse.data.userName);
+        localStorage.setItem('token', loginResponse.data.token);
+        localStorage.setItem('userId', loginResponse.data.userID);
+        if (userRol === 1) {
+          // setUserRol(userRol);
+          navigate(`/admin/${userRol}`);
+        } else {
+          navigate('/');
+        }
       }
     } catch (error) {
       console.log(error.message);
@@ -63,9 +64,7 @@ function Login() {
 
   return (
     <div id="login">
-      {showSpin ? (
-        <Spin size="large" delay="200" fullscreen="true" />
-      ) : null}
+      <SpinOverLay showSpin={showSpin} />
       <div className="login_announcement">
         <h2>Welcome</h2>
       </div>

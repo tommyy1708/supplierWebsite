@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { NewOrderSend, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
+import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 const { Text } = Typography;
 const Checkout = () => {
   message.config({
@@ -18,14 +19,21 @@ const Checkout = () => {
 
   const ctx = useContext(CheckOutContent);
   const [flag, setFlag] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [showSpin, setShowSpin] = useState(true);
   const fetchCategoryList = async () => {
+    setShowSpin(true);
     const userId = localStorage.getItem('userId');
     const data = {
       userId: userId,
     };
     const response = await GetUserInfo(data);
-    ctx.setUserInfo(response.data);
+    if (response.errCode !== 0) {
+      return message.error('server error');
+    } else {
+      setShowSpin(false);
+      ctx.setUserInfo(response.data);
+      return
+    }
   };
 
   const tempAmount = (item) => {
@@ -41,27 +49,34 @@ const Checkout = () => {
   };
 
   const placeOrder = async () => {
+    setShowSpin(true);
     const result = await NewOrderSend({
       cartData: JSON.stringify(ctx.cartData),
       userData: JSON.stringify(ctx.userInfo),
     });
     if (result.errCode !== 0) {
       message.error('Something wrong, please contact us');
+      setTimeout(() => {
+        setShowSpin(false);
+      }, [2500]);
       return;
     } else {
       ctx.setCartData(ctx.initialCartData);
       message.success('Thank for your shopping');
+      setTimeout(() => {
+        setShowSpin(false);
+      },[2500])
       return;
     }
   };
 
   useEffect(() => {
     if (flag) {
-      fetchCategoryList()
-        .then(() => setLoading(false))
-        .catch((error) => {
-          setLoading(false);
-        });
+      fetchCategoryList();
+        // .then(() => setShowSpin(false))
+        // .catch((error) => {
+        //   setShowSpin(false);
+        // });
       setFlag(false);
     }
   }, [flag]);
@@ -137,10 +152,8 @@ const Checkout = () => {
   return (
     <div>
       <br />
-      {loading ? (
-        <div className="loading">
-          <span>Loading...</span>
-        </div>
+      {showSpin ? (
+        <SpinOverLay showSpin={showSpin} />
       ) : (
         <Table
           columns={columns}
