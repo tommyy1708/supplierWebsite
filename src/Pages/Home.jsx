@@ -20,12 +20,8 @@ const Home = () => {
   const ctx = useContext(CheckOutContent);
   const navigate = useNavigate();
   const location = useLocation();
-  const [firstName, setFirstName] = useState(
-    localStorage.getItem('first_name')
-  );
-  const [lastName, setLastName] = useState(
-    localStorage.getItem('last_name')
-  );
+  const firstName = localStorage.getItem('first_name');
+  const lastName = localStorage.getItem('last_name');
 
   const [showSpin, setShowSpin] = useState(false);
   const navMenu = [
@@ -55,7 +51,7 @@ const Home = () => {
       <div className="headerFrame">
         <div className="header dark">
           <div className="headerLeft">
-            <h2>Welcome-{firstName+lastName}</h2>
+            <h2>Welcome-{firstName+" "+lastName}</h2>
           </div>
           <div className="headerRight">
             <button

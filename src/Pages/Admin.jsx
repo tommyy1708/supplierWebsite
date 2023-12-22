@@ -10,15 +10,14 @@ import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 
 const Admin = () => {
   const navigate = useNavigate();
-  const [sUserName, setSUserName] = useState(
-    localStorage.getItem('username')
-  );
   const [showSpin, setShowSpin] = useState(true);
   const [flag, setFlag] = useState(true);
   const [ordersData, setOrdersData] = useState('');
   const navMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
   ];
+  const firstName = localStorage.getItem('first_name');
+  const lastName = localStorage.getItem('last_name');
   const fetchCategoryList = async () => {
     const orders = await GetOrders();
     if (orders.errCode !== 0) {
@@ -142,7 +141,7 @@ const Admin = () => {
       <div className="headerFrame">
         <div className="header dark">
           <div className="headerLeft">
-            <h2>Welcome-{sUserName}</h2>
+            <h2>Welcome-{firstName+" "+lastName}</h2>
           </div>
           <div className="headerRight">
             <button

@@ -3,20 +3,30 @@ import { Button, Form, Input, message } from 'antd';
 import { PasswordUpdate, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  const ctx = useContext(CheckOutContent
-);
+  const navigate = useNavigate();
+  const ctx = useContext(CheckOutContent);
   const [flag, setFlag] = useState(true);
   const [showSpin, setShowSpin] = useState(true);
-  const username = localStorage.getItem('username');
-  const onFinish = async (values) => {
-    const newPassWord = values.confirm;
-    const data = {
-      username: username,
-      newPassWord: newPassWord,
-    };
+  const firstName = localStorage.getItem('first_name');
+  const lastName = localStorage.getItem('last_name');
+  const userId = localStorage.getItem('userId');
+ const [changedFields, setChangedFields] = useState({});
+  const handleFieldChange = (changedValues) => {
+     setChangedFields({ ...changedFields, ...changedValues });
+  };
 
+  const onFinish = async (values) => {
+    const newPassWord = values.passWord;
+      if(newPassWord && newPassWord.length < 8){
+      return message.error('new password not short than 8')
+      }
+    const data = {
+      userId: userId,
+      ...changedFields
+      }
     const result = await PasswordUpdate(data);
 
     if (result.errCode !== 0) {
@@ -25,8 +35,12 @@ const Profile = () => {
     }
 
     message.success('Password update success!');
+    setTimeout(() => {
+       window.location.reload();
+    },2000)
     return;
   };
+
   message.config({
     top: 50,
     duration: 2,
@@ -43,18 +57,18 @@ const Profile = () => {
       userId: userId,
     };
     const response = await GetUserInfo(data);
-       if (response.errCode !== 0) {
-         return message.error('server error');
-       } else {
-         setShowSpin(false);
-         ctx.setUserInfo(response.data);
-         return;
-       }
+    if (response.errCode !== 0) {
+      return message.error('server error');
+    } else {
+      setShowSpin(false);
+      ctx.setUserInfo(response.data);
+      return;
+    }
   };
 
   useEffect(() => {
     if (flag) {
-      fetchUserInfo()
+      fetchUserInfo();
       setFlag(false);
     }
   }, [flag]);
@@ -74,65 +88,31 @@ const Profile = () => {
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          onValuesChange={handleFieldChange}
         >
-          <Form.Item label="Username">
-            <Input
-              defaultValue={`${localStorage.getItem('username')}`}
-              disabled
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="New Password"
-            name="newPassword"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            name="confirm"
-            label="Confirm New Password"
-            dependencies={['newPassword']}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your password!',
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (
-                    !value ||
-                    getFieldValue('newPassword') === value
-                  ) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error(
-                      'The new password that you entered do not match!'
-                    )
-                  );
-                },
-              }),
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item label="Phone Number">
-            <Input defaultValue={ctx.userInfo.phone} />
-          </Form.Item>
-          <Form.Item label="Address">
-            <Input defaultValue={ctx.userInfo.address} />
+          <Form.Item label="Name">
+            <span defaultValue={``} />
+            <span>{`${firstName} ${lastName}`}</span>
           </Form.Item>
           <Form.Item label="Email">
-            <Input defaultValue={ctx.userInfo.email} />
+            <span>{`${ctx.userInfo.email}`}</span>
           </Form.Item>
+          <Form.Item label="New Password" name="passWord">
+            <Input placeholder={ctx.userInfo.passWord}></Input>
+          </Form.Item>
+          <Form.Item label="Phone Number" name="phone">
+            <Input placeholder={ctx.userInfo.phone} />
+          </Form.Item>
+          <Form.Item label="Mobile Number" name="mobile_number">
+            <Input placeholder={ctx.userInfo.mobile_number} />
+          </Form.Item>
+          <Form.Item label="Address" name="address">
+            <Input placeholder={ctx.userInfo.address} />
+          </Form.Item>
+          <Form.Item label="Shipping Address" name="shipping_address">
+            <Input placeholder={ctx.userInfo.shipping_address} />
+          </Form.Item>
+
           <Form.Item
             wrapperCol={{
               offset: 8,
