@@ -49,6 +49,7 @@ const Checkout = () => {
   };
 
   const placeOrder = async () => {
+    console.log(ctx.userInfo)
     setShowSpin(true);
     const result = await NewOrderSend({
       cartData: JSON.stringify(ctx.cartData),

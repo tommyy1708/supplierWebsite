@@ -6,13 +6,9 @@ import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
-  const [count, setCount] = useState(0);
-  const [userRol, setUserRol] = useState('');
 
   const onSubmit = async (values) => {
     setShowSpin(true);
-    setCount((prev) => prev + 1);
-
     try {
       const loginResponse = await LoginApi(values);
 
@@ -22,13 +18,18 @@ function Login() {
         }, [2500]);
         return message.info(loginResponse.message);
       } else {
-        message.success('Login success!');
+        message.success(loginResponse.message);
         const userRol = loginResponse.data.admin;
-        localStorage.setItem('username', loginResponse.data.userName);
+        localStorage.setItem(
+          'first_name',
+          loginResponse.data.first_name
+        );
+        localStorage.setItem(
+          'last_name',
+          loginResponse.data.last_name
+        );
         localStorage.setItem('token', loginResponse.data.token);
-        localStorage.setItem('userId', loginResponse.data.userID);
         if (userRol === 1) {
-          // setUserRol(userRol);
           navigate(`/admin/${userRol}`);
         } else {
           navigate('/');
@@ -76,12 +77,12 @@ function Login() {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
+            label="Email"
+            name="email"
             rules={[
               {
                 required: true,
-                message: 'Please input your username!',
+                message: 'Please input your email',
               },
             ]}
           >
