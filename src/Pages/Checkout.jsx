@@ -7,10 +7,11 @@ import {
 import { NewOrderSend, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
+
 const { Text } = Typography;
 const Checkout = () => {
   message.config({
-    top: 100,
+    top: 150,
     duration: 2,
     maxCount: 3,
     rtl: true,
@@ -49,11 +50,10 @@ const Checkout = () => {
   };
 
   const placeOrder = async () => {
-    console.log(ctx.userInfo)
     setShowSpin(true);
     const result = await NewOrderSend({
       cartData: JSON.stringify(ctx.cartData),
-      userData: JSON.stringify(ctx.userInfo),
+      userId: localStorage.getItem('userId'),
     });
     if (result.errCode !== 0) {
       message.error('Something wrong, please contact us');
@@ -74,10 +74,6 @@ const Checkout = () => {
   useEffect(() => {
     if (flag) {
       fetchCategoryList();
-        // .then(() => setShowSpin(false))
-        // .catch((error) => {
-        //   setShowSpin(false);
-        // });
       setFlag(false);
     }
   }, [flag]);

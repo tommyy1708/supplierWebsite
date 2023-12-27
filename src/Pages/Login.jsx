@@ -6,6 +6,7 @@ import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
+    const [showAdmin, setShowAdmin] = useState(false);
 
   const onSubmit = async (values) => {
     setShowSpin(true);
@@ -30,8 +31,10 @@ function Login() {
         );
         localStorage.setItem('token', loginResponse.data.token);
         localStorage.setItem('userId', loginResponse.data.id);
+        localStorage.setItem('admin', loginResponse.data.admin);
         if (userRol === 1) {
-          navigate(`/admin/${userRol}`);
+          setShowAdmin(true);
+          navigate(`/admin`);
         } else {
           navigate('/');
         }
@@ -57,7 +60,6 @@ function Login() {
           initialValues={{ remember: true }}
           onFinish={onSubmit}
           autoComplete="off"
-
         >
           <Form.Item
             label="Email"

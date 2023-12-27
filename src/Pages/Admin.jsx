@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
-import { Table, message } from 'antd';
+import { Table, message, Button } from 'antd';
 import { useNavigate, Link } from 'react-router-dom';
 import { GetOrders } from '../request/api';
 import * as FileSaver from 'file-saver';
@@ -13,18 +13,23 @@ const Admin = () => {
   const [showSpin, setShowSpin] = useState(true);
   const [flag, setFlag] = useState(true);
   const [ordersData, setOrdersData] = useState('');
+
   const navMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
   ];
+
   const firstName = localStorage.getItem('first_name');
   const lastName = localStorage.getItem('last_name');
+
   const fetchCategoryList = async () => {
     const orders = await GetOrders();
+
     if (orders.errCode !== 0) {
-      message.error("server error");
+      message.error(orders.message);
       return;
     } else {
-      setOrdersData(orders.data);
+      const result = JSON.parse(orders.data);
+      setOrdersData(result);
       setShowSpin(false);
     }
   };
@@ -32,12 +37,15 @@ const Admin = () => {
   const exportToCSV = (apiData, fileName) => {
     let orderData = [...apiData.items];
     orderData.push({
-      client_name: apiData.casher,
-      client_phone: apiData.phone,
-      client_email: apiData.email,
-      client_address: apiData.address,
+      first_name: apiData.first_name,
+      last_name: apiData.last_name,
+      phone: apiData.phone,
+      mobile_number: apiData.mobile_number,
+      email: apiData.email,
+      address: apiData.address,
+      shipping_address: apiData.shipping_address,
     });
-    //!! new format: edit here orderData.push({ 'test': 123 });
+
     const fileType =
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
     const fileExtension = '.xlsx';
@@ -50,10 +58,12 @@ const Admin = () => {
     const data = new Blob([excelBuffer], { type: fileType });
     FileSaver.saveAs(data, fileName + fileExtension);
   };
+
   function parseDateString(dateString) {
     const isoString = dateString.replace(/-(?=\d{2}:\d{2}$)/, 'T');
     return new Date(isoString);
   }
+
   useEffect(() => {
     if (flag) {
       fetchCategoryList();
@@ -89,11 +99,10 @@ const Admin = () => {
     {
       title: 'Client Name',
       key: 'casher',
-      dataIndex: 'casher',
       width: '10%',
       render: (text, record) => (
         <>
-          <span>{record.casher}</span>
+          <span>{`${record.first_name} ${record.last_name}`}</span>
         </>
       ),
     },
@@ -138,10 +147,11 @@ const Admin = () => {
   ];
   return (
     <>
+      {showSpin ? <SpinOverLay showSpin={showSpin} /> : null}
       <div className="headerFrame">
         <div className="header dark">
           <div className="headerLeft">
-            <h2>Welcome-{firstName+" "+lastName}</h2>
+            <h2>Welcome-{firstName + ' ' + lastName}</h2>
           </div>
           <div className="headerRight">
             <button
@@ -160,10 +170,9 @@ const Admin = () => {
         </div>
       </div>
       <div className="adminWindow">
-        {showSpin ? (
-          <SpinOverLay showSpin={showSpin} />
-        ) : (
-          <>
+            {/* <Button >
+              <Link to="/new-client">Add New Customer</Link>
+            </Button> */}
             <Filter setOrdersData={setOrdersData} />
             <Table
               bordered
@@ -172,8 +181,7 @@ const Admin = () => {
               rowKey="order_number"
               pagination={false}
             />
-          </>
-        )}
+
       </div>
       <footer>
         <div className="footerNavMenu dark">

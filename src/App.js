@@ -13,6 +13,8 @@ import Profile from './Pages/Profile';
 import Checkout from './Pages/Checkout';
 import Contact from './Pages/Contact';
 import Admin from './Pages/Admin';
+import NewCustomer from './Pages/NewCustomer';
+import Layout from './Components/Layout/Layout';
 
 function App() {
   const oNmber = () => {
@@ -37,15 +39,6 @@ function App() {
     date: moment().tz('America/New_York').format('YYYY-MM-DD-HH:mm'),
     totalAmount: 0,
     subtotal: 0,
-    // tax: 0,
-    // total: 0,
-    casher: localStorage.getItem('username'),
-    phone:'',
-    address:'',
-    email:'',
-    // method: 'supplier',
-    // total_cost: 0,
-    // profit: 0,
   };
 
   const [cartData, setCartData] = useState(initialCartData);
@@ -79,29 +72,18 @@ function App() {
 
       // Calculate new subtotal, tax, totalAmount, and total
       let newSubtotal = 0;
-      // let newTax = 0;
       let newTotalAmount = 0;
-      // let newTotal_cost = 0;
 
       updatedItems.forEach((item) => {
         newSubtotal += item.price * item.amount;
-        // newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
         newTotalAmount += item.amount;
-        // newTotal_cost += item.cost * 1;
       });
-
-      // let newTotal = newSubtotal + newTax;
-      // let newProfit = newSubtotal - newTotal_cost;
 
       return {
         ...prevCartData,
         items: updatedItems,
         subtotal: newSubtotal,
-        // tax: newTax,
         totalAmount: newTotalAmount,
-        // total: newTotal,
-        // total_cost: newTotal_cost,
-        // profit: newProfit,
       };
     });
   };
@@ -129,24 +111,15 @@ function App() {
 
       // Recalculate subtotal, tax, totalAmount, and total
       let newSubtotal = 0;
-      // let newTax = 0;
-      // let newTotalAmount = 0;
 
       updatedItems.forEach((item) => {
         newSubtotal += item.price * item.amount;
-        // newTax += item.price * item.amount * 0.07; // Assuming a 7% tax rate
-        // newTotalAmount += item.amount;
       });
-
-      // let newTotal = newSubtotal + newTax;
 
       return {
         ...prevCartData,
         items: updatedItems,
         subtotal: newSubtotal,
-        // tax: newTax,
-        // totalAmount: newTotalAmount,
-        // total: newTotal,
       };
     });
   };
@@ -192,23 +165,67 @@ function App() {
         subItemToCart,
       }}
     >
-      <div className="App">
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />}>
-              <Route path="category/:id" element={<Listing />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="checkout" element={<Checkout />} />
-              <Route path="contact" element={<Contact />} />
-            </Route>
-            <Route path="/admin/:userRol?" element={<Admin />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Login />} />
-          </Routes>
-        </Router>
-      </div>
+      <Router>
+        <Routes>
+          <Route
+            path="/*"
+            element={
+              <Layout>
+                <Routes>
+                  <Route index element={<Home />} />
+                  <Route path="category/:id" element={<Listing />} />
+                  <Route path="profile" element={<Profile />} />
+                  <Route path="checkout" element={<Checkout />} />
+                  <Route path="contact" element={<Contact />} />
+                  <Route path="admin" element={<Admin />} />
+                  <Route
+                    path="admin/new-client"
+                    element={<NewCustomer />}
+                  />
+                </Routes>
+              </Layout>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
     </CheckOutContent.Provider>
   );
+
+  // return (
+  //   <CheckOutContent.Provider
+  //     value={{
+  //       cartData,
+  //       userInfo,
+  //       setCartData,
+  //       setUserInfo,
+  //       initialCartData,
+  //       addItemToCart,
+  //       subItemToCart,
+  //     }}
+  //   >
+
+  //     <div className="App">
+  //       <Router>
+  //         <Routes>
+  //           <Route path="/" element={
+  //             <Home />
+  //           }>
+  //             <Route path="category/:id" element={<Listing />} />
+  //             <Route path="profile" element={<Profile />} />
+  //             <Route path="checkout" element={<Checkout />} />
+  //             <Route path="contact" element={<Contact />} />
+  //           </Route>
+  //           <Route path="admin" element={<Admin />}>
+  //             <Route path="new-client" element={<NewCustomer />} />
+  //           </Route>
+  //           <Route path="/login" element={<Login />} />
+  //           <Route path="*" element={<Login />} />
+  //         </Routes>
+  //       </Router>
+  //     </div>
+  //   </CheckOutContent.Provider>
+  // );
 }
 
 export default App;
