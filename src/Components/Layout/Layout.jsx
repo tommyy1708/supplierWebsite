@@ -6,14 +6,14 @@ import {
   Link,
 } from 'react-router-dom';
 import { message, Avatar, Badge } from 'antd';
-import Category from '../Carosuels/Carosuels'
+import Category from '../Carosuels/Carosuels';
 import {
   ShoppingCartOutlined,
   HomeOutlined,
   UserOutlined,
   PhoneOutlined,
 } from '@ant-design/icons';
-import CheckOutContent from '../../store/CheckOutContent'
+import CheckOutContent from '../../store/CheckOutContent';
 import SpinOverLay from '../SpinOverLay/SpinOverLay';
 
 function Layout({ children }) {
@@ -24,6 +24,10 @@ function Layout({ children }) {
   const firstName = localStorage.getItem('first_name');
   const lastName = localStorage.getItem('last_name');
   const isAdmin = localStorage.getItem('admin');
+  console.log(
+    '🚀 ~ file: Layout.jsx:27 ~ Layout ~ isAdmin:',
+    isAdmin
+  );
   const [showSpin, setShowSpin] = useState(false);
   const navMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/' },
@@ -86,7 +90,7 @@ function Layout({ children }) {
       </div>
       <footer>
         <div className="footerNavMenu dark">
-          {isAdmin === 0
+          {parseInt(isAdmin) === 0
             ? navMenu.map((e, index) => (
                 <Link key={index} to={e.url}>
                   <p>{e.icon}</p>

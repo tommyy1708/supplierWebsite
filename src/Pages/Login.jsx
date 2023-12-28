@@ -7,7 +7,7 @@ function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
     const [showAdmin, setShowAdmin] = useState(false);
-
+const [userRole, setUserRole] = useState('');
   const onSubmit = async (values) => {
     setShowSpin(true);
     try {
@@ -19,8 +19,9 @@ function Login() {
         }, [2500]);
         return message.info(loginResponse.message);
       } else {
-        message.success(loginResponse.message);
         const userRol = loginResponse.data.admin;
+        setUserRole(userRol);
+        navigateBasedOnRole()
         localStorage.setItem(
           'first_name',
           loginResponse.data.first_name
@@ -32,18 +33,26 @@ function Login() {
         localStorage.setItem('token', loginResponse.data.token);
         localStorage.setItem('userId', loginResponse.data.id);
         localStorage.setItem('admin', loginResponse.data.admin);
-        if (userRol === 1) {
-          setShowAdmin(true);
-          navigate(`/admin`);
-        } else {
-          navigate('/');
-        }
+        // if (userRol === 1) {
+        //   setShowAdmin(true);
+        //   navigate(`/admin`);
+        // } else {
+        //   navigate('/');
+        // }
       }
     } catch (error) {
       console.log(error.message);
     }
   };
 
+  const navigateBasedOnRole = () => {
+    if (userRole === 1) {
+      setShowAdmin(true);
+      navigate('/admin');
+    } else {
+      navigate('/');
+    }
+  };
   const retrieveAccount = () => {
     return;
   };
