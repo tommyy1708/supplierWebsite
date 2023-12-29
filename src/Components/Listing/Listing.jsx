@@ -29,7 +29,7 @@ const Listing = () => {
       (e) => e.item_code === indexCode
     );
     if (foundItem) {
-      return foundItem.amount;
+      return foundItem.quantity;
     } else {
       return 0;
     }
@@ -70,7 +70,7 @@ const Listing = () => {
     },
     {
       title: 'Qt.',
-      key: 'amount',
+      key: 'quantity',
       width: '10%',
       render: (_, record) => (
         <>

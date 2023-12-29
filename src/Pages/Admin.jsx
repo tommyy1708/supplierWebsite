@@ -35,15 +35,46 @@ const Admin = () => {
   };
 
   const exportToCSV = (apiData, fileName) => {
-    let orderData = [...apiData.items];
+    let orderData = [];
+    for (let i = 0; i < apiData.items.length; i++) {
+      orderData.push({
+        item_code: apiData.items[i].item_code,
+        item: apiData.items[i].item,
+        quantity: apiData.items[i].quantity,
+      });
+    }
+
+    // orderData.push({
+    //   first_name: apiData.first_name,
+    //   last_name: apiData.last_name,
+    //   phone: apiData.phone,
+    //   mobile_number: apiData.mobile_number,
+    //   email: apiData.email,
+    //   address: apiData.address,
+    //   shipping_address: apiData.shipping_address,
+    // });
     orderData.push({
-      first_name: apiData.first_name,
-      last_name: apiData.last_name,
-      phone: apiData.phone,
-      mobile_number: apiData.mobile_number,
-      email: apiData.email,
-      address: apiData.address,
-      shipping_address: apiData.shipping_address,
+      Customer:
+        'Name:' +
+        apiData.first_name +
+        ' ' +
+        apiData.last_name +
+        '\n' +
+        'Phone:' +
+        apiData.phone +
+        '\n' +
+        'Mobile:' +
+        apiData.mobile_number +
+        '\n' +
+        'Email:' +
+        apiData.email +
+        '\n' +
+        'Address:' +
+        apiData.address +
+        '\n' +
+        'Shipping_address:' +
+        apiData.shipping_address +
+        '\n',
     });
 
     const fileType =
@@ -170,18 +201,17 @@ const Admin = () => {
         </div>
       </div>
       <div className="adminWindow">
-            {/* <Button >
+        {/* <Button >
               <Link to="/new-client">Add New Customer</Link>
             </Button> */}
-            <Filter setOrdersData={setOrdersData} />
-            <Table
-              bordered
-              columns={columns}
-              dataSource={ordersData}
-              rowKey="order_number"
-              pagination={false}
-            />
-
+        <Filter setOrdersData={setOrdersData} />
+        <Table
+          bordered
+          columns={columns}
+          dataSource={ordersData}
+          rowKey="order_number"
+          pagination={false}
+        />
       </div>
       <footer>
         <div className="footerNavMenu dark">

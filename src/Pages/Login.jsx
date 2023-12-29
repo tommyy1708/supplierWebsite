@@ -6,8 +6,8 @@ import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
-    const [showAdmin, setShowAdmin] = useState(false);
-const [userRole, setUserRole] = useState('');
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [userRole, setUserRole] = useState('');
   const onSubmit = async (values) => {
     setShowSpin(true);
     try {
@@ -19,26 +19,19 @@ const [userRole, setUserRole] = useState('');
         }, [2500]);
         return message.info(loginResponse.message);
       } else {
-        const userRol = loginResponse.data.admin;
-        setUserRole(userRol);
-        navigateBasedOnRole()
-        localStorage.setItem(
-          'first_name',
-          loginResponse.data.first_name
-        );
-        localStorage.setItem(
-          'last_name',
-          loginResponse.data.last_name
-        );
+        const userRol = parseInt(loginResponse.data.admin);
+        console.log("🚀 ~ file: Login.jsx:23 ~ onSubmit ~ userRol:", userRol)
+        localStorage.setItem('first_name',loginResponse.data.first_name);
+        localStorage.setItem('last_name',loginResponse.data.last_name);
         localStorage.setItem('token', loginResponse.data.token);
         localStorage.setItem('userId', loginResponse.data.id);
         localStorage.setItem('admin', loginResponse.data.admin);
-        // if (userRol === 1) {
-        //   setShowAdmin(true);
-        //   navigate(`/admin`);
-        // } else {
-        //   navigate('/');
-        // }
+        if (userRol === 1) {
+          setShowAdmin(true);
+          navigate(`/admin`);
+        } else {
+          navigate('/');
+        }
       }
     } catch (error) {
       console.log(error.message);
@@ -46,7 +39,8 @@ const [userRole, setUserRole] = useState('');
   };
 
   const navigateBasedOnRole = () => {
-    if (userRole === 1) {
+    console.log(userRole)
+    if (parseInt(userRole) === 1) {
       setShowAdmin(true);
       navigate('/admin');
     } else {

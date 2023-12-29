@@ -57,7 +57,7 @@ function App() {
         // Create a new item with updated amount
         const updatedItem = {
           ...existingItem,
-          amount: existingItem.amount + 1,
+          quantity: existingItem.quantity + 1,
         };
         // Create a new items array with the updated item
         updatedItems = [...prevCartData.items];
@@ -66,7 +66,7 @@ function App() {
         // Add a new item to the cart
         updatedItems = [
           ...prevCartData.items,
-          { ...itemToAdd, amount: 1 },
+          { ...itemToAdd, quantity: 1 },
         ];
       }
 
@@ -75,8 +75,8 @@ function App() {
       let newTotalAmount = 0;
 
       updatedItems.forEach((item) => {
-        newSubtotal += item.price * item.amount;
-        newTotalAmount += item.amount;
+        newSubtotal += item.price * item.quantity;
+        newTotalAmount += item.quantity;
       });
 
       return {
@@ -98,28 +98,30 @@ function App() {
 
       let updatedItems = [...prevCartData.items];
 
-      if (existingItem && existingItem.amount > 1) {
-        // If the item exists and its amount is greater than 1, decrease the amount
+      if (existingItem && existingItem.quantity > 1) {
+        // If the item exists and its quantity is greater than 1, decrease the quantity
         updatedItems[existingItemIndex] = {
           ...existingItem,
-          amount: existingItem.amount - 1,
+          quantity: existingItem.quantity - 1,
         };
-      } else if (existingItem && existingItem.amount === 1) {
-        // If the item exists and its amount is 1, remove it from the cart
+      } else if (existingItem && existingItem.quantity === 1) {
+        // If the item exists and its quantity is 1, remove it from the cart
         updatedItems.splice(existingItemIndex, 1);
       }
 
       // Recalculate subtotal, tax, totalAmount, and total
       let newSubtotal = 0;
-
+      let newTotalQuantity = 0;
       updatedItems.forEach((item) => {
-        newSubtotal += item.price * item.amount;
+        newSubtotal += item.price * item.quantity;
+        newTotalQuantity += item.quantity;
       });
 
       return {
         ...prevCartData,
         items: updatedItems,
         subtotal: newSubtotal,
+        totalAmount: newTotalQuantity,
       };
     });
   };

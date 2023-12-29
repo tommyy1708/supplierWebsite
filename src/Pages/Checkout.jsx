@@ -43,7 +43,7 @@ const Checkout = () => {
       (e) => e.item_code === indexCode
     );
     if (foundItem) {
-      return foundItem.amount;
+      return foundItem.quantity;
     } else {
       return 0;
     }
@@ -109,7 +109,7 @@ const Checkout = () => {
     },
     {
       title: 'Qt.',
-      key: 'amount',
+      key: 'quantity',
       width: '10%',
       render: (_, record) => (
         <>
@@ -159,14 +159,14 @@ const Checkout = () => {
           bordered
           summary={(pageData) => {
             let totalRepayment = 0;
-            pageData.forEach(({ price, amount }) => {
-              totalRepayment += amount;
+            pageData.forEach(({ price, quantity }) => {
+              totalRepayment += quantity;
             });
             return (
               <>
                 <Table.Summary.Row>
                   <Table.Summary.Cell index={0}>
-                    Amount
+                    Quantity
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} colSpan={4}>
                     <Text type="danger">{totalRepayment}</Text>

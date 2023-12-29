@@ -6,7 +6,6 @@ import {
   Link,
 } from 'react-router-dom';
 import { message, Avatar, Badge } from 'antd';
-import Category from '../Carosuels/Carosuels';
 import {
   ShoppingCartOutlined,
   HomeOutlined,
@@ -15,6 +14,7 @@ import {
 } from '@ant-design/icons';
 import CheckOutContent from '../../store/CheckOutContent';
 import SpinOverLay from '../SpinOverLay/SpinOverLay';
+import FooterMenu from '../FooterMenu/FooterMenu';
 
 function Layout({ children }) {
   const ctx = useContext(CheckOutContent);
@@ -24,42 +24,8 @@ function Layout({ children }) {
   const firstName = localStorage.getItem('first_name');
   const lastName = localStorage.getItem('last_name');
   const isAdmin = localStorage.getItem('admin');
-  console.log(
-    '🚀 ~ file: Layout.jsx:27 ~ Layout ~ isAdmin:',
-    isAdmin
-  );
   const [showSpin, setShowSpin] = useState(false);
-  const navMenu = [
-    { icon: <HomeOutlined />, title: 'HOME', url: '/' },
-    { icon: <UserOutlined />, title: 'PROFILE', url: '/profile' },
-    { icon: <PhoneOutlined />, title: 'CONTACT', url: '/contact' },
-    {
-      icon: (
-        <Badge
-          showZero={false}
-          count={`${ctx.cartData.totalAmount}`}
-          overflowCount={99}
-        >
-          <Avatar
-            shape="square"
-            size="default"
-            icon={<ShoppingCartOutlined />}
-          />
-        </Badge>
-      ),
-      title: 'CHECKOUT',
-      url: '/checkout',
-    },
-  ];
 
-  const adminMenu = [
-    { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
-    {
-      icon: <UserOutlined />,
-      title: 'Add New',
-      url: '/admin/new-client',
-    },
-  ];
   return (
     <>
       <div className="headerFrame">
@@ -85,25 +51,10 @@ function Layout({ children }) {
       </div>
       <div className="displayWindow">
         {children}
-        {/* <SpinOverLay showSpin={showSpin} />
-        {location.pathname === '/' ? <Category /> : <Outlet></Outlet>} */}
+
       </div>
       <footer>
-        <div className="footerNavMenu dark">
-          {parseInt(isAdmin) === 0
-            ? navMenu.map((e, index) => (
-                <Link key={index} to={e.url}>
-                  <p>{e.icon}</p>
-                  <span>{e.title}</span>
-                </Link>
-              ))
-            : adminMenu.map((e, index) => (
-                <Link key={index} to={e.url}>
-                  <p>{e.icon}</p>
-                  <span>{e.title}</span>
-                </Link>
-              ))}
-        </div>
+        <FooterMenu isAdmin={isAdmin}></FooterMenu>
         <div className="footerCopyright dark">
           <p>
             © {process.env.REACT_APP_YEAR} Copyright by{' '}
