@@ -5,6 +5,10 @@ import {
   HomeOutlined,
   UserOutlined,
   PhoneOutlined,
+  ExclamationCircleOutlined,
+  UserAddOutlined,
+  OrderedListOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 import {
   useNavigate,
@@ -16,6 +20,7 @@ import CheckOutContent from '../../store/CheckOutContent';
 const FooterMenu = ({isAdmin }) => {
   const ctx = useContext(CheckOutContent);
   const adminCode = parseInt(isAdmin);
+    const location = useLocation();
   const userMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/' },
     { icon: <UserOutlined />, title: 'PROFILE', url: '/profile' },
@@ -40,24 +45,41 @@ const FooterMenu = ({isAdmin }) => {
   ];
 
   const adminMenu = [
-    { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
+    { icon: <OrderedListOutlined />, title: 'Orders', url: '/admin' },
     {
-      icon: <UserOutlined />,
-      title: 'Add New',
+      icon: <TeamOutlined />,
+      title: 'Customer-List',
+      url: '/admin/user-list',
+    },
+    {
+      icon: <UserAddOutlined />,
+      title: 'New Customer',
       url: '/admin/new-client',
     },
+    {
+      icon: <ExclamationCircleOutlined />,
+      title: 'Notice',
+      url: '/admin/notice',
+    },
   ];
+
+    const getMenuStyle = (url) => {
+      return location.pathname === url
+        ? { backgroundColor: 'darkgray',color:'black', borderRadius:'10px',padding:'2px'}
+        : {};
+    };
+
   return (
     <div className="footerNavMenu dark">
       {adminCode === 0
         ? userMenu.map((e, index) => (
-            <Link key={index} to={e.url}>
+            <Link style={getMenuStyle(e.url)} key={index} to={e.url}>
               <p>{e.icon}</p>
               <span>{e.title}</span>
             </Link>
           ))
         : adminMenu.map((e, index) => (
-            <Link key={index} to={e.url}>
+            <Link style={getMenuStyle(e.url)} key={index} to={e.url}>
               <p>{e.icon}</p>
               <span>{e.title}</span>
             </Link>

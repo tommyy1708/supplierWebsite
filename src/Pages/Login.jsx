@@ -3,6 +3,7 @@ import { Form, Input, Button, message } from 'antd';
 import { useNavigate } from 'react-router';
 import { LoginApi } from '../request/api';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
+import Announcement from '../Components/Announcement/Announcement';
 function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
@@ -56,6 +57,7 @@ function Login() {
       <SpinOverLay showSpin={showSpin} />
       <div className="login_announcement">
         <h2>Welcome</h2>
+        <Announcement/>
       </div>
       <div className="login_box">
         <Form

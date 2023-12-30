@@ -15,6 +15,8 @@ import Contact from './Pages/Contact';
 import Admin from './Pages/Admin';
 import NewCustomer from './Pages/NewCustomer';
 import Layout from './Components/Layout/Layout';
+import Notice from './Pages/Notice';
+import CustomerList from './Pages/CustomerList';
 
 function App() {
   const oNmber = () => {
@@ -183,6 +185,14 @@ function App() {
                   <Route
                     path="admin/new-client"
                     element={<NewCustomer />}
+                  />
+                  <Route
+                    path="/admin/notice"
+                    element={<Notice />}
+                  />
+                  <Route
+                    path="/admin/user-list"
+                    element={<CustomerList />}
                   />
                 </Routes>
               </Layout>

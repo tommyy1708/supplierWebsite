@@ -186,3 +186,19 @@ footer {
   padding: 20rem 0;
 }
 /* end admin page */
+
+/* NoticeEditor.css */
+
+.notice-editor-container {
+  padding: 20px;
+  width: 600px;
+  margin: auto;
+  border-radius: 5px;
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 600px) {
+  .notice-editor-container {
+    max-width: 100%;
+  }
+}
