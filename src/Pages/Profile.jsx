@@ -3,10 +3,8 @@ import { Button, Form, Input, message } from 'antd';
 import { PasswordUpdate, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
-import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  const navigate = useNavigate();
   const ctx = useContext(CheckOutContent);
   const [flag, setFlag] = useState(true);
   const [showSpin, setShowSpin] = useState(true);

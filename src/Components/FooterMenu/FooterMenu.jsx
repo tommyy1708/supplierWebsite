@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { message, Avatar, Badge } from 'antd';
+import React, { useContext } from 'react';
+import { Avatar, Badge } from 'antd';
 import {
   ShoppingCartOutlined,
   HomeOutlined,
@@ -11,7 +11,6 @@ import {
   TeamOutlined,
 } from '@ant-design/icons';
 import {
-  useNavigate,
   useLocation,
   Link,
 } from 'react-router-dom';

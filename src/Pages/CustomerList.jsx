@@ -1,5 +1,3 @@
-// CustomerList.js
-
 import React, { useEffect, useState } from 'react';
 import { Table, message, Input, Button } from 'antd';
 import { GetUserList } from '../request/api';

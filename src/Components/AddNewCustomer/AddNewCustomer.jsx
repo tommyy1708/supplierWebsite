@@ -23,7 +23,6 @@ const NewCustomer = () => {
         message: response.message,
       });
     }
-
     form.resetFields();
   };
   const [formLayout, setFormLayout] = useState('horizontal');
