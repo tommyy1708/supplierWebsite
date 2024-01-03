@@ -57,6 +57,10 @@ button {
   background-color: rgba(50, 50, 50, 0.1);
 }
 
+.marginCenter{
+  margin: auto;
+}
+
 /* end comment css variables */
 
 /* start Home page */

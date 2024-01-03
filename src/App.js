@@ -17,6 +17,7 @@ import NewCustomer from './Pages/NewCustomer';
 import Layout from './Components/Layout/Layout';
 import Notice from './Pages/Notice';
 import CustomerList from './Pages/CustomerList';
+import ForgetPassword from './Pages/ForgetPassword';
 
 function App() {
   const oNmber = () => {
@@ -186,10 +187,7 @@ function App() {
                     path="admin/new-client"
                     element={<NewCustomer />}
                   />
-                  <Route
-                    path="/admin/notice"
-                    element={<Notice />}
-                  />
+                  <Route path="/admin/notice" element={<Notice />} />
                   <Route
                     path="/admin/user-list"
                     element={<CustomerList />}
@@ -199,6 +197,7 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
         </Routes>
       </Router>
     </CheckOutContent.Provider>

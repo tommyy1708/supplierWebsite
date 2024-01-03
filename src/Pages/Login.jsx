@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { LoginApi } from '../request/api';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 import Announcement from '../Components/Announcement/Announcement';
+
 function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
@@ -40,7 +41,6 @@ function Login() {
   };
 
   const navigateBasedOnRole = () => {
-    console.log(userRole)
     if (parseInt(userRole) === 1) {
       setShowAdmin(true);
       navigate('/admin');
@@ -49,6 +49,7 @@ function Login() {
     }
   };
   const retrieveAccount = () => {
+    navigate('/forget-password')
     return;
   };
 
@@ -104,6 +105,7 @@ function Login() {
           </Form.Item>
         </Form>
       </div>
+
     </div>
   );
 }

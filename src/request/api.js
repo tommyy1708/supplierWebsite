@@ -30,3 +30,6 @@ export const GetAnnouncement = () =>
 
 export const UpdateAnnouncement = (params) =>
    request.put(`/supplier-announcement`, params);
+
+
+export const SendVerifyCode = (params) => request.post(`/send-verification-code`,params);
