@@ -1,43 +1,60 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message, Row, Col } from 'antd';
 import { SendVerifyCode } from '../request/api';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 const ForgetPassword = () => {
   const [showSpin, setShowSpin] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const sendVerify = async (values) => {
-    setShowSpin(true);
+    setIsDisabled(true);
     const response = await SendVerifyCode(values);
-    if (response) {
-      message.info(response.message);
+    if (response.errCode !== 0) {
+      message.error(response.message);
       setTimeout(() => {
-        setShowSpin(false);
+        setIsDisabled(false);
       }, [2500]);
       return;
+    } else {
+      message.success(response.message);
+      setTimeout(() => {
+        setIsDisabled(false);
+      }, [60000]);
+      return;
     }
-    return;
   };
   return (
     <div className="login_box marginCenter">
       <h6>Enter your email to receive verification code</h6>
       <SpinOverLay showSpin={showSpin} />
       <Form name="verify" onFinish={sendVerify} autoComplete="off">
-        <Form.Item
-          label="E-mail"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your email',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Submit
-          </Button>
-        </Form.Item>
+        <Row gutter={16}>
+          <Col xs={24} sm={16}>
+            <Form.Item
+              label="E-mail"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your email',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col xs={24} sm={8}>
+            <Form.Item>
+              <Button
+                id="forget-submit-button"
+                type="primary"
+                htmlType="submit"
+                disabled={isDisabled}
+              >
+                Send Code
+              </Button>
+            </Form.Item>
+          </Col>
+        </Row>
       </Form>
     </div>
   );

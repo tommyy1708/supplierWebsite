@@ -85,8 +85,7 @@ const CustomerList = () => {
 
   return (
     <div className="customer-list-container">
-      <h1>Customer List</h1>
-      <div style={{ marginBottom: '16px' }}>
+      <div >
         <Input
           placeholder="Search by Email"
           value={searchEmail}

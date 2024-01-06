@@ -32,4 +32,5 @@ export const UpdateAnnouncement = (params) =>
    request.put(`/supplier-announcement`, params);
 
 
-export const SendVerifyCode = (params) => request.post(`/send-verification-code`,params);
+export const SendVerifyCode = (params) =>
+  request.post(`/password-retrieval`, params);
