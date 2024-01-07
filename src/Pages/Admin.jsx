@@ -201,9 +201,6 @@ const Admin = () => {
         </div>
       </div>
       <div className="adminWindow">
-        {/* <Button >
-              <Link to="/new-client">Add New Customer</Link>
-            </Button> */}
         <Filter setOrdersData={setOrdersData} />
         <Table
           bordered

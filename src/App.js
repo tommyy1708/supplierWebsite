@@ -18,6 +18,7 @@ import Layout from './Components/Layout/Layout';
 import Notice from './Pages/Notice';
 import CustomerList from './Pages/CustomerList';
 import ForgetPassword from './Pages/ForgetPassword';
+import NewProducts from './Pages/NewProducts';
 
 function App() {
   const oNmber = () => {
@@ -187,6 +188,10 @@ function App() {
                     path="admin/new-client"
                     element={<NewCustomer />}
                   />
+                  <Route
+                    path="admin/new-products"
+                    element={<NewProducts />}
+                  />
                   <Route path="/admin/notice" element={<Notice />} />
                   <Route
                     path="/admin/user-list"
@@ -197,46 +202,14 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route
+            path="/forget-password"
+            element={<ForgetPassword />}
+          />
         </Routes>
       </Router>
     </CheckOutContent.Provider>
   );
-
-  // return (
-  //   <CheckOutContent.Provider
-  //     value={{
-  //       cartData,
-  //       userInfo,
-  //       setCartData,
-  //       setUserInfo,
-  //       initialCartData,
-  //       addItemToCart,
-  //       subItemToCart,
-  //     }}
-  //   >
-
-  //     <div className="App">
-  //       <Router>
-  //         <Routes>
-  //           <Route path="/" element={
-  //             <Home />
-  //           }>
-  //             <Route path="category/:id" element={<Listing />} />
-  //             <Route path="profile" element={<Profile />} />
-  //             <Route path="checkout" element={<Checkout />} />
-  //             <Route path="contact" element={<Contact />} />
-  //           </Route>
-  //           <Route path="admin" element={<Admin />}>
-  //             <Route path="new-client" element={<NewCustomer />} />
-  //           </Route>
-  //           <Route path="/login" element={<Login />} />
-  //           <Route path="*" element={<Login />} />
-  //         </Routes>
-  //       </Router>
-  //     </div>
-  //   </CheckOutContent.Provider>
-  // );
 }
 
 export default App;

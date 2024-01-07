@@ -6,6 +6,10 @@ export const GetUserInfo = (params) => request.get('/supplier-user', { params })
 
 export const User = (params) => request.post('/supplier-user', {params});
 
+export const Product = (params) => request.post('/supplier-product', {params});
+
+export const GetProduct = (params) => request.get('/supplier-product', {params});
+
 export const GetUserList = () => request.get('/supplier-user-list');
 
 export const GetOrders = () => { return request.get(`/supplier-orders`) };

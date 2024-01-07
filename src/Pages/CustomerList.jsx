@@ -30,7 +30,6 @@ const CustomerList = () => {
       const phoneMatch = user.phone.includes(searchPhone);
       return emailMatch && phoneMatch;
     });
-
     setUsers(filteredUsers);
   };
 
