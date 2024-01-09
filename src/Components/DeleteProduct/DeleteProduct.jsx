@@ -16,8 +16,9 @@ const DeleteProduct = () => {
     } else if (info.source === 'input') {
       if (value !== null && value !== '' && value !== undefined) {
         const data = {
-          keyWord:value
-        }
+          keyWord: value,
+        };
+        // eslint-disable-next-line
         const response = await GetProduct(data);
       }
     }

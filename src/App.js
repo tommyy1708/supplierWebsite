@@ -13,12 +13,13 @@ import Profile from './Pages/Profile';
 import Checkout from './Pages/Checkout';
 import Contact from './Pages/Contact';
 import Admin from './Pages/Admin';
-import NewCustomer from './Pages/NewCustomer';
+import AdminClients from './Pages/AdminClients';
 import Layout from './Components/Layout/Layout';
 import Notice from './Pages/Notice';
-import CustomerList from './Pages/CustomerList';
 import ForgetPassword from './Pages/ForgetPassword';
 import NewProducts from './Pages/NewProducts';
+import ItemList from './Components/ItemList/ItemList';
+import NewCustomer from './Components/NewCustomer/NewCustomer';
 
 function App() {
   const oNmber = () => {
@@ -185,18 +186,15 @@ function App() {
                   <Route path="contact" element={<Contact />} />
                   <Route path="admin" element={<Admin />} />
                   <Route
-                    path="admin/new-client"
-                    element={<NewCustomer />}
-                  />
+                    path="admin/clients"
+                    element={<AdminClients />}
+                  >
+                  </Route>
                   <Route
-                    path="admin/new-products"
+                    path="admin/products"
                     element={<NewProducts />}
                   />
                   <Route path="/admin/notice" element={<Notice />} />
-                  <Route
-                    path="/admin/user-list"
-                    element={<CustomerList />}
-                  />
                 </Routes>
               </Layout>
             }

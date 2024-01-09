@@ -24,7 +24,7 @@ const ForgetPassword = () => {
   };
   return (
     <div className="login_box marginCenter">
-      <h6>Enter your email to receive verification code</h6>
+      <h6>Enter your email to receive your password</h6>
       <SpinOverLay showSpin={showSpin} />
       <Form name="verify" onFinish={sendVerify} autoComplete="off">
         <Row gutter={16}>
@@ -50,7 +50,7 @@ const ForgetPassword = () => {
                 htmlType="submit"
                 disabled={isDisabled}
               >
-                Send Code
+                Send Password
               </Button>
             </Form.Item>
           </Col>

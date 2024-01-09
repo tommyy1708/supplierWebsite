@@ -46,20 +46,20 @@ const FooterMenu = ({isAdmin }) => {
 
   const adminMenu = [
     { icon: <OrderedListOutlined />, title: 'Orders', url: '/admin' },
+    // {
+    //   icon: <TeamOutlined />,
+    //   title: 'Customer-List',
+    //   url: '/admin/user-list',
+    // },
     {
       icon: <TeamOutlined />,
-      title: 'Customer-List',
-      url: '/admin/user-list',
-    },
-    {
-      icon: <UserAddOutlined />,
-      title: 'New Customer',
-      url: '/admin/new-client',
+      title: 'Customer',
+      url: '/admin/clients',
     },
     {
       icon: <PlusCircleOutlined />,
-      title: 'New Products',
-      url: '/admin/new-products',
+      title: 'Products',
+      url: '/admin/products',
     },
     {
       icon: <ExclamationCircleOutlined />,
