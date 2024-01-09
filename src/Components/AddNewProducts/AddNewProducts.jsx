@@ -38,83 +38,85 @@ const AddNewProducts = () => {
       : null;
 
   return (
-    <Form form={form} onFinish={handleSubmit} layout={formLayout}>
-      <Form.Item
-        label="Item Code"
-        name="item_code"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter the Item Code',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Product Name"
-        name="item"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter the product name',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Product Price"
-        name="price"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter the product price',
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Product Category"
-        name="category"
-        rules={[
-          {
-            required: true,
-            message: 'Please enter the product category',
-          },
-        ]}
-      >
-        <Select
-          style={{
-            width: 120,
-          }}
-          options={[
+    <div className="adminSubWindow">
+      <Form form={form} onFinish={handleSubmit} layout={formLayout}>
+        <Form.Item
+          label="Item Code"
+          name="item_code"
+          rules={[
             {
-              value: 'bundles',
-              label: 'Bundles',
-            },
-            {
-              value: 'bob-wigs',
-              label: 'Bob-Wigs',
-            },
-            {
-              value: 'short-wigs',
-              label: 'Short-Wigs',
-            },
-            {
-              value: 'accessories',
-              label: 'Accessories',
+              required: true,
+              message: 'Please enter the Item Code',
             },
           ]}
-        />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Add Product
-        </Button>
-      </Form.Item>
-    </Form>
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Product Name"
+          name="item"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter the product name',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Product Price"
+          name="price"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter the product price',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Product Category"
+          name="category"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter the product category',
+            },
+          ]}
+        >
+          <Select
+            style={{
+              width: 120,
+            }}
+            options={[
+              {
+                value: 'bundles',
+                label: 'Bundles',
+              },
+              {
+                value: 'bob-wigs',
+                label: 'Bob-Wigs',
+              },
+              {
+                value: 'short-wigs',
+                label: 'Short-Wigs',
+              },
+              {
+                value: 'accessories',
+                label: 'Accessories',
+              },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Add Product
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 

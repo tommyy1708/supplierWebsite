@@ -208,7 +208,12 @@ footer {
 }
 
 /* Admin window */
-.admin-clients-window{
+.admin-window{
   width: 100%;
   height: 100%;
+}
+
+.adminSubWindow{
+  width: 300rem;
+  padding: 24rem;
 }

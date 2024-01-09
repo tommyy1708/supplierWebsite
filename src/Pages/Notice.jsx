@@ -37,7 +37,7 @@ const Notice = () => {
           <Input.TextArea
             rows={1}
             placeholder={announcement}
-            maxLength={45}
+            maxLength={300}
           />
         </Form.Item>
 

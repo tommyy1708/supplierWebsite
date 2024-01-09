@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { User } from '../../request/api';
-import styles from './AddNewCustomer.module.css'
 // Create a new customer form component
 const NewCustomer = () => {
   // State to store form values
@@ -40,7 +39,7 @@ const NewCustomer = () => {
       : null;
 
   return (
-    <div className={styles.newCustomerFrame}>
+    <div className='adminSubWindow'>
       <Form form={form} onFinish={handleSubmit} layout={formLayout}>
         {/* Customer Name */}
         <Form.Item

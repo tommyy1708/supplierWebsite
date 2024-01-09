@@ -17,9 +17,7 @@ import AdminClients from './Pages/AdminClients';
 import Layout from './Components/Layout/Layout';
 import Notice from './Pages/Notice';
 import ForgetPassword from './Pages/ForgetPassword';
-import NewProducts from './Pages/NewProducts';
-import ItemList from './Components/ItemList/ItemList';
-import NewCustomer from './Components/NewCustomer/NewCustomer';
+import AdminProducts from './Pages/AdminProducts';
 
 function App() {
   const oNmber = () => {
@@ -192,7 +190,7 @@ function App() {
                   </Route>
                   <Route
                     path="admin/products"
-                    element={<NewProducts />}
+                    element={<AdminProducts />}
                   />
                   <Route path="/admin/notice" element={<Notice />} />
                 </Routes>

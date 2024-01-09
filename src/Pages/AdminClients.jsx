@@ -30,7 +30,7 @@ const items = [
   },
 ];
   return (
-    <div className='admin-clients-window'>
+    <div className='admin-window'>
       <div>
         <Menu
           onClick={onClick}
