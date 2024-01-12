@@ -2,29 +2,39 @@ import React, { useState } from 'react';
 import {
   AppstoreOutlined,
   MailOutlined,
-  SettingOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import AddNewProducts from '../Components/AddNewProducts/AddNewProducts';
 import DeleteProduct from '../Components/DeleteProduct/DeleteProduct';
 const NewProducts = () => {
-  const [current, setCurrent] = useState('list');
+  const [current, setCurrent] = useState('0');
+
   const onClick = (e) => {
-    console.log('click ', e);
     setCurrent(e.key);
   };
+
   const items = [
     {
       label: <span>Search Product</span>,
-      key: 'search',
+      key: '0',
       icon: <MailOutlined />,
     },
     {
       label: <span>Add New Product</span>,
-      key: 'new',
+      key: '1',
       icon: <AppstoreOutlined />,
     },
   ];
+
+  const componentsList = [<DeleteProduct />, <AddNewProducts />];
+
+  const getComponentByKey = (key) => {
+
+    const index = items.findIndex((item) => item.key === key);
+
+    return componentsList[index];
+  }
+
   return (
     <div className="admin-window">
       <div>
@@ -35,7 +45,7 @@ const NewProducts = () => {
           items={items}
         />
       </div>
-      {current === 'new' ? <AddNewProducts /> : <DeleteProduct />}
+      {getComponentByKey(current)}
     </div>
   );
 };

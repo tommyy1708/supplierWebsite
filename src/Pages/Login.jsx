@@ -22,7 +22,7 @@ function Login() {
         return message.info(loginResponse.message);
       } else {
         const userRol = parseInt(loginResponse.data.admin);
-        console.log("🚀 ~ file: Login.jsx:23 ~ onSubmit ~ userRol:", userRol)
+
         localStorage.setItem('first_name',loginResponse.data.first_name);
         localStorage.setItem('last_name',loginResponse.data.last_name);
         localStorage.setItem('token', loginResponse.data.token);

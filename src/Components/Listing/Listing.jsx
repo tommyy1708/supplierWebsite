@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Table, Button } from 'antd';
+import { Table, Button, message } from 'antd';
 import { GetCategoryList } from '../../request/api';
 import {
   PlusCircleTwoTone,
@@ -12,6 +12,7 @@ import CheckOutContent from '../../store/CheckOutContent';
 const Listing = () => {
   const ctx = useContext(CheckOutContent);
   const [itemsData, setItemsData] = useState('');
+  const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(true);
   const navigate = useNavigate();
 
@@ -19,8 +20,17 @@ const Listing = () => {
 
   const fetchCategoryList = async () => {
     let categoryName = params.id;
+
     const categoryList = await GetCategoryList(categoryName);
-    setItemsData(categoryList.data);
+
+    if (categoryList.errCode !== 0) {
+      return message.error(categoryList.message);
+    } else {
+      setItemsData(categoryList.data);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
   };
 
   const tempAmount = (item) => {
@@ -115,6 +125,7 @@ const Listing = () => {
           dataSource={itemsData}
           rowKey="item_code"
           pagination={false}
+          loading={loading}
         />
       </div>
     </div>
