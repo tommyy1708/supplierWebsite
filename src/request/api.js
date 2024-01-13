@@ -6,6 +6,8 @@ export const GetUserInfo = (params) => request.get('/supplier-user', { params })
 
 export const User = (params) => request.post('/supplier-user', {params});
 
+export const CustomerDelete = (id) => request.delete(`/supplier-user/${id}`);
+
 export const Product = (params) => request.post('/supplier-product', { params });
 
 export const ProductDelete = (itemCode) =>

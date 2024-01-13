@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Table, message, Input, Button } from 'antd';
-import { GetUserList } from '../../request/api';
+import {
+  Table,
+  message,
+  Input,
+  Button,
+  Popconfirm,
+  notification,
+} from 'antd';
+import { GetUserList, CustomerDelete } from '../../request/api';
 
 const ItemList = () => {
+  notification.config({
+    placement: 'topLeft',
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchEmail, setSearchEmail] = useState('');
@@ -83,7 +96,44 @@ const ItemList = () => {
       title: 'Shipping Address',
       dataIndex: 'shipping_address',
     },
+    {
+      title: 'Delete',
+      key: 'Delete',
+      render: (_, record) => (
+        <>
+          <Popconfirm
+            title="Delete the item"
+            description="Are you sure to delete this item?"
+            onConfirm={() => confirm(record)}
+            onCancel={() => cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger>Delete</Button>
+          </Popconfirm>
+        </>
+      ),
+    },
   ];
+  const confirm = async (e) => {
+    const response = await CustomerDelete(e.id);
+
+    if (response.errCode === 1) {
+      notification.error({
+        message: response.message,
+      });
+    } else {
+      notification.success({
+        message: response.message,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  };
+    const cancel = () => {
+      return;
+    };
 
   return (
     <div className="customer-list-container">

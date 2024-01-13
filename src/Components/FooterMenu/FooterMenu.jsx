@@ -6,10 +6,9 @@ import {
   UserOutlined,
   PhoneOutlined,
   ExclamationCircleOutlined,
-  UserAddOutlined,
   OrderedListOutlined,
   TeamOutlined,
-  PlusCircleOutlined,
+  FormOutlined,
 } from '@ant-design/icons';
 import {
   useLocation,
@@ -57,7 +56,7 @@ const FooterMenu = ({isAdmin }) => {
       url: '/admin/clients',
     },
     {
-      icon: <PlusCircleOutlined />,
+      icon: <FormOutlined />,
       title: 'Products',
       url: '/admin/products',
     },
