@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, notification, Select } from 'antd';
-import { Product } from '../../request/api';
+import { Product, GetCategoryApi } from '../../request/api';
 
 const AddNewProducts = () => {
   notification.config({
@@ -10,6 +10,8 @@ const AddNewProducts = () => {
     rtl: true,
   });
   const [form] = Form.useForm();
+  const [flag,setFlag] = useState(true)
+  const [categoryList ,setCategoryList] = useState([])
   // Function to handle form submission
   const handleSubmit = async (data) => {
     const response = await Product(JSON.stringify(data));
@@ -24,22 +26,25 @@ const AddNewProducts = () => {
     }
     form.resetFields();
   };
-  const [formLayout, setFormLayout] = useState('horizontal');
-  const formItemLayout =
-    formLayout === 'horizontal'
-      ? {
-          labelCol: {
-            span: 4,
-          },
-          wrapperCol: {
-            span: 14,
-          },
-        }
-      : null;
+
+  const fetchData = async () => {
+    const response = await GetCategoryApi();
+    if (response && response.errCode === 0) {
+      const categoryData = response.data;
+      setCategoryList(categoryData);
+    } else {
+      return
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    setFlag(false);
+  }, [flag]);
 
   return (
     <div className="adminSubWindow">
-      <Form form={form} onFinish={handleSubmit} layout={formLayout}>
+      <Form form={form} onFinish={handleSubmit} layout="horizontal">
         <Form.Item
           label="Item Code"
           name="item_code"
@@ -90,24 +95,9 @@ const AddNewProducts = () => {
             style={{
               width: 120,
             }}
-            options={[
-              {
-                value: 'bundles',
-                label: 'Bundles',
-              },
-              {
-                value: 'bob-wigs',
-                label: 'Bob-Wigs',
-              },
-              {
-                value: 'short-wigs',
-                label: 'Short-Wigs',
-              },
-              {
-                value: 'accessories',
-                label: 'Accessories',
-              },
-            ]}
+            options={
+              categoryList.map(item => ({value:item.categoryName, label:item.categoryName}))
+            }
           />
         </Form.Item>
         <Form.Item>

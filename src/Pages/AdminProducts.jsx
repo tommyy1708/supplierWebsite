@@ -6,6 +6,8 @@ import {
 import { Menu } from 'antd';
 import AddNewProducts from '../Components/AddNewProducts/AddNewProducts';
 import DeleteProduct from '../Components/DeleteProduct/DeleteProduct';
+import AdminCategory from '../Components/AdminCategory/AdminCategory';
+import AddNewCategory from '../Components/AddNewCategory/AddNewCategory';
 const NewProducts = () => {
   const [current, setCurrent] = useState('0');
 
@@ -24,9 +26,24 @@ const NewProducts = () => {
       key: '1',
       icon: <AppstoreOutlined />,
     },
+    {
+      label: <span>Category</span>,
+      key: '2',
+      icon: <AppstoreOutlined />,
+    },
+    {
+      label: <span>Add New Category</span>,
+      key: '3',
+      icon: <AppstoreOutlined />,
+    },
   ];
 
-  const componentsList = [<DeleteProduct />, <AddNewProducts />];
+  const componentsList = [
+    <DeleteProduct />,
+    <AddNewProducts />,
+    <AdminCategory />,
+    <AddNewCategory />,
+  ];
 
   const getComponentByKey = (key) => {
 

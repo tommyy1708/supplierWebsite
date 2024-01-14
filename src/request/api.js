@@ -6,12 +6,14 @@ export const GetUserInfo = (params) => request.get('/supplier-user', { params })
 
 export const User = (params) => request.post('/supplier-user', {params});
 
+export const Category = (params) => request.post('/supplier-category', {params});
+
 export const CustomerDelete = (id) => request.delete(`/supplier-user/${id}`);
 
 export const Product = (params) => request.post('/supplier-product', { params });
 
 export const ProductDelete = (itemCode) =>
-  request.delete(`/supplier-product/${itemCode}`);
+request.delete(`/supplier-product/${itemCode}`);
 
 export const GetProduct = (params) => request.get('/supplier-product', {params});
 
@@ -20,6 +22,8 @@ export const GetUserList = () => request.get('/supplier-user-list');
 export const GetOrders = () => { return request.get(`/supplier-orders`) };
 
 export const GetCategoryApi = () => request.get('/supplier-category');
+
+export const CategoryDelete = (categoryName) => request.delete(`/supplier-category/${categoryName}`);
 
 export const GetCategoryList = (params) =>
   request.get(`/supplier-category/${params}`);
