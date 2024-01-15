@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Form,
-  Input,
   Table,
   notification,
-  Select,
   Button,
-  message,
   Popconfirm,
 } from 'antd';
 import { GetCategoryApi, CategoryDelete } from '../../request/api';
@@ -48,14 +44,6 @@ const AdminCategory = () => {
       dataIndex: 'image',
       render: (text, record) => (
         <></>
-        // <span
-        //   style={{
-        //     wordWrap: 'break-word',
-        //     wordBreak: 'break-word',
-        //   }}
-        // >
-        //   <p>{text}</p>
-        // </span>
       ),
     },
     {

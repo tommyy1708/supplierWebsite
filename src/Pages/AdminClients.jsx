@@ -2,14 +2,11 @@ import React, { useState } from 'react';
 import {
   AppstoreOutlined,
   MailOutlined,
-  SettingOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { useLocation } from 'react-router-dom';
 import NewCustomer from '../Components/NewCustomer/NewCustomer';
 import ItemList from '../Components/ItemList/ItemList';
 const AdminClients = () => {
-  const location = useLocation();
 
   const [current, setCurrent] = useState('list');
   const onClick = (e) => {

@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import {
   DatePicker,
   Space,
-  Table,
   Button,
-  Col,
-  Row,
-  Statistic,
   message,
 } from 'antd';
 import { GetOrdersByDate } from '../../request/api';

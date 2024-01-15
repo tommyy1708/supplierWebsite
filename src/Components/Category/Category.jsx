@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, message, Image, Spin, Button } from 'antd';
+import { Card, message, Image, Spin } from 'antd';
 import styles from './Category.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { GetCategoryApi } from '../../request/api';

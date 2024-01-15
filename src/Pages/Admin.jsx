@@ -44,15 +44,6 @@ const Admin = () => {
       });
     }
 
-    // orderData.push({
-    //   first_name: apiData.first_name,
-    //   last_name: apiData.last_name,
-    //   phone: apiData.phone,
-    //   mobile_number: apiData.mobile_number,
-    //   email: apiData.email,
-    //   address: apiData.address,
-    //   shipping_address: apiData.shipping_address,
-    // });
     orderData.push({
       Customer:
         'Name:' +

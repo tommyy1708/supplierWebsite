@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Form,
   Input,
   Table,
   notification,
-  Select,
   Button,
-  message,
   Popconfirm,
 } from 'antd';
 import { GetProduct, ProductDelete } from '../../request/api';
