@@ -47,3 +47,14 @@ export const UpdateAnnouncement = (params) =>
 
 export const SendVerifyCode = (params) =>
   request.post(`/password-retrieval`, params);
+
+export const UploadImage = (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return request.post('/images', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};

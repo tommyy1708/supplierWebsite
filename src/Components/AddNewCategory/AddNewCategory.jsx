@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { Category } from '../../request/api';
+import ImageUpload from '../ImageUpload/ImageUpload';
 const AddNewCategory = () => {
   notification.config({
     placement: 'topLeft',
@@ -40,6 +41,9 @@ const AddNewCategory = () => {
           ]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item>
+          <ImageUpload />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
