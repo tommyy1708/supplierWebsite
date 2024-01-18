@@ -1,5 +1,6 @@
+//!! This component keep for using in future 
 import React, { useState } from 'react';
-import { Upload, Button, message, Progress } from 'antd';
+import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { UploadImage } from '../../request/api';
 const getBase64 = (img, callback) => {
@@ -12,6 +13,7 @@ const ImageUpload = () => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const handleChange = (info) => {
+    console.log('clicked')
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
@@ -24,6 +26,7 @@ const ImageUpload = () => {
       });
     }
   };
+
   const beforeUpload = (file) => {
     const isJpgOrPng =
       file.type === 'image/jpeg' || file.type === 'image/png';
@@ -43,7 +46,6 @@ const ImageUpload = () => {
 
   const customRequest = async ({ file, onSuccess, onError }) => {
     try {
-      console.log('active');
       const imageUrl = await UploadImage(file);
       console.log("🚀 ~ customRequest ~ imageUrl:", imageUrl)
       setImageUrl({imageUrl});
@@ -77,13 +79,15 @@ const uploadButton = (
   </button>
 );
   return (
-    <div>
+    <>
       <Upload
+        name="avatar"
+        className="avatar-uploader"
+        listType="picture-card"
         customRequest={customRequest}
-        showUploadList={true}
+        showUploadList={false}
         beforeUpload={beforeUpload}
         onChange={handleChange}
-        listType="picture"
       >
         {imageUrl ? (
           <img
@@ -97,7 +101,7 @@ const uploadButton = (
           uploadButton
         )}
       </Upload>
-    </div>
+    </>
   );
 };
 
