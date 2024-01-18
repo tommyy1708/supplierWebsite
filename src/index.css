@@ -217,3 +217,15 @@ footer {
   width: 300rem;
   padding: 24rem;
 }
+
+/* Admin-products Category UI */
+.admin-category-list-imageFrame{
+  width: 102rem;
+  height: 102rem;
+  margin-inline-end: 8rem;
+  margin-bottom:8rem;
+  border-radius:8rem;
+  text-align: center;
+  transition: border-color 0.3s;
+  
+}

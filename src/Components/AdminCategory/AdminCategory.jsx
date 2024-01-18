@@ -43,7 +43,16 @@ const AdminCategory = () => {
       key: 'image',
       dataIndex: 'image',
       render: (text, record) => (
-        <></>
+        <div className='admin-category-list-imageFrame'>
+          <img
+            src={record.image}
+            alt="avatar"
+            style={{
+              width: '100%',
+              height:'100%'
+            }}
+          />
+        </div>
       ),
     },
     {
