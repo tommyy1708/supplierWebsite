@@ -31,6 +31,12 @@ export const GetCategoryList = (params) =>
 export const PasswordUpdate = (params) =>
   request.put('/passwordUpdate', params);
 
+export const UpdateAnnouncement = (adminId) =>
+  request.put(`/supplier-announcement`, { adminId });
+
+export const ChangeAdmin = (params) =>
+     request.put(`/supplier-admin-change`, params);
+
 export const NewOrderSend = (params) => {
  return request.post(`/supplier-addNewOrder`, params);
 }
@@ -40,9 +46,6 @@ export const GetOrdersByDate = (params) =>
 
 export const GetAnnouncement = () =>
    request.get(`/supplier-announcement`);
-
-export const UpdateAnnouncement = (params) =>
-   request.put(`/supplier-announcement`, params);
 
 
 export const SendVerifyCode = (params) =>

@@ -39,8 +39,12 @@ const NewCustomer = () => {
       : null;
 
   return (
-    <div className='adminSubWindow'>
-      <Form form={form} onFinish={handleSubmit} layout={formLayout}>
+    <div className="adminSubWindow">
+      <Form
+        form={form}
+        onFinish={handleSubmit}
+        layout={formLayout}
+      >
         {/* Customer Name */}
         <Form.Item
           label="First Name"

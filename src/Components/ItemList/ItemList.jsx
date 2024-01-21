@@ -6,14 +6,19 @@ import {
   Button,
   Popconfirm,
   notification,
+  Switch,
 } from 'antd';
-import { GetUserList, CustomerDelete } from '../../request/api';
+import {
+  GetUserList,
+  CustomerDelete,
+  ChangeAdmin,
+} from '../../request/api';
 
 const ItemList = () => {
   notification.config({
     placement: 'topLeft',
     bottom: 50,
-    duration: 3,
+    duration: 2,
     rtl: true,
   });
   const [users, setUsers] = useState([]);
@@ -29,7 +34,7 @@ const ItemList = () => {
       setUsers(response.data);
       setTimeout(() => {
         setLoading(false);
-      }, 1500);
+      }, 2000);
     }
   };
 
@@ -37,6 +42,43 @@ const ItemList = () => {
     // Fetch user data from the backend (replace with your actual API endpoint)
     fetchData();
   }, []);
+
+  const toggleAdminStatus = async (userInfo) => {
+    setLoading(true);
+    const loginUserId = parseInt(localStorage.getItem('userId'));
+    if (userInfo.id === loginUserId) {
+      notification.error({
+        message: "You can't change yourself value",
+      });
+      return setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+    // Update the 'admin' property of the specific user in the state
+    const response = await ChangeAdmin(userInfo);
+    try {
+      if (response && response.errCode === 0) {
+        notification.success({
+          message: response.message,
+        });
+        setUsers((prevUsers) => {
+          return prevUsers.map((user) => {
+            if (user.id === userInfo.id) {
+              return { ...user, admin: user.admin === 0 ? 1 : 0 };
+            }
+            return user;
+          });
+        });
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      }
+    } catch (error) {
+      notification.error({
+        message: response.message,
+      });
+    }
+  };
 
   const filterUsers = () => {
     const filteredUsers = users.filter((user) => {
@@ -65,10 +107,6 @@ const ItemList = () => {
 
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-    },
-    {
       title: 'First Name',
       dataIndex: 'first_name',
     },
@@ -95,6 +133,16 @@ const ItemList = () => {
     {
       title: 'Shipping Address',
       dataIndex: 'shipping_address',
+    },
+    {
+      title: 'Admin',
+      dataIndex: 'admin',
+      render: (_, record) => (
+        <Switch
+          checked={record.admin === 1}
+          onChange={() => toggleAdminStatus(record)}
+        />
+      ),
     },
     {
       title: 'Delete',
@@ -131,9 +179,9 @@ const ItemList = () => {
       }, 2000);
     }
   };
-    const cancel = () => {
-      return;
-    };
+  const cancel = () => {
+    return;
+  };
 
   return (
     <div className="customer-list-container">
