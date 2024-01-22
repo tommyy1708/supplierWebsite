@@ -3,17 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import FooterMenu from '../FooterMenu/FooterMenu';
 import SpinOverLay from '../SpinOverLay/SpinOverLay';
+import { jwtDecode } from 'jwt-decode';
 function Layout({ children }) {
   const navigate = useNavigate();
 
   const firstName = localStorage.getItem('first_name');
   const lastName = localStorage.getItem('last_name');
-  const isAdmin = localStorage.getItem('admin');
+  const token = localStorage.getItem('token');
+  const isAdmin = jwtDecode(token).admin;
   const [showSpin, setShowSpin] = useState(false);
 
   return (
     <>
-      <SpinOverLay showSpin={showSpin}/>
+      <SpinOverLay showSpin={showSpin} />
       <div className="headerFrame">
         <div className="header dark">
           <div className="headerLeft">

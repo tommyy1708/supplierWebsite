@@ -10,16 +10,13 @@ import {
   TeamOutlined,
   FormOutlined,
 } from '@ant-design/icons';
-import {
-  useLocation,
-  Link,
-} from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import CheckOutContent from '../../store/CheckOutContent';
 
-const FooterMenu = ({isAdmin }) => {
+const FooterMenu = ({ isAdmin }) => {
   const ctx = useContext(CheckOutContent);
   const adminCode = parseInt(isAdmin);
-    const location = useLocation();
+  const location = useLocation();
   const userMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/' },
     { icon: <UserOutlined />, title: 'PROFILE', url: '/profile' },
@@ -62,11 +59,16 @@ const FooterMenu = ({isAdmin }) => {
     },
   ];
 
-    const getMenuStyle = (url) => {
-      return location.pathname === url
-        ? { backgroundColor: 'darkgray',color:'black', borderRadius:'10px',padding:'2px'}
-        : {};
-    };
+  const getMenuStyle = (url) => {
+    return location.pathname === url
+      ? {
+          backgroundColor: 'darkgray',
+          color: 'black',
+          borderRadius: '10px',
+          padding: '2px',
+        }
+      : {};
+  };
 
   return (
     <div className="footerNavMenu dark">
@@ -85,6 +87,6 @@ const FooterMenu = ({isAdmin }) => {
           ))}
     </div>
   );
-}
+};
 
 export default FooterMenu;

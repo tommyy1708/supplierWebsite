@@ -8,18 +8,16 @@ import * as XLSX from 'xlsx';
 import Filter from '../Components/Filter/Filter';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 
+
 const Admin = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(true);
   const [flag, setFlag] = useState(true);
   const [ordersData, setOrdersData] = useState('');
 
-  const navMenu = [
-    { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
-  ];
-
-  const firstName = localStorage.getItem('first_name');
-  const lastName = localStorage.getItem('last_name');
+  // const navMenu = [
+  //   { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
+  // ];
 
   const fetchCategoryList = async () => {
     const orders = await GetOrders();
@@ -167,10 +165,12 @@ const Admin = () => {
       ),
     },
   ];
+  // const decodedToken = jwtDecode(localStorage.getItem('token'));
+  // console.log(decodedToken);
   return (
     <>
       {showSpin ? <SpinOverLay showSpin={showSpin} /> : null}
-      <div className="headerFrame">
+      {/* <div className="headerFrame">
         <div className="header dark">
           <div className="headerLeft">
             <h2>Welcome-{firstName + ' ' + lastName}</h2>
@@ -190,7 +190,7 @@ const Admin = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="adminWindow">
         <Filter setOrdersData={setOrdersData} />
         <Table
@@ -201,7 +201,7 @@ const Admin = () => {
           pagination={false}
         />
       </div>
-      <footer>
+      {/* <footer>
         <div className="footerNavMenu dark">
           {navMenu !== null || undefined
             ? navMenu.map((e, index) => (
@@ -219,7 +219,7 @@ const Admin = () => {
           </p>
           <p>Powered By {process.env.REACT_APP_AUTHOR_NAME}</p>
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 };
