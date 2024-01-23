@@ -4,11 +4,17 @@ import { message } from 'antd';
 import FooterMenu from '../FooterMenu/FooterMenu';
 import SpinOverLay from '../SpinOverLay/SpinOverLay';
 import { jwtDecode } from 'jwt-decode';
+
+
 function Layout({ children }) {
   const navigate = useNavigate();
 
-  const firstName = localStorage.getItem('first_name');
-  const lastName = localStorage.getItem('last_name');
+  const firstNameRow = localStorage.getItem('first_name');
+  const lastNameRow = localStorage.getItem('last_name');
+  const firstName = firstNameRow?.charAt(0).toUpperCase() + firstNameRow?.substring(1);
+  const lastName =
+    lastNameRow?.charAt(0).toUpperCase() +
+    lastNameRow?.substring(1);
   const token = localStorage.getItem('token');
   const isAdmin = jwtDecode(token).admin;
   const [showSpin, setShowSpin] = useState(false);
@@ -25,7 +31,7 @@ function Layout({ children }) {
             <button
               onClick={(e) => {
                 setShowSpin(true);
-                message.info('Logout......');
+                message.info('Logout...');
                 setTimeout(() => {
                   localStorage.clear();
                   navigate('/login');

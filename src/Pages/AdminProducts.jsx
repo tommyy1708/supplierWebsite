@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import {
   AppstoreOutlined,
-  MailOutlined,
+  PlusSquareOutlined,
+  SearchOutlined,
+  AppstoreAddOutlined,
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import AddNewProducts from '../Components/AddNewProducts/AddNewProducts';
-import DeleteProduct from '../Components/DeleteProduct/DeleteProduct';
+import SearchProduct from '../Components/SearchProduct/SearchProduct';
 import AdminCategory from '../Components/AdminCategory/AdminCategory';
 import AddNewCategory from '../Components/AddNewCategory/AddNewCategory';
 const NewProducts = () => {
@@ -19,12 +21,12 @@ const NewProducts = () => {
     {
       label: <span>Search Product</span>,
       key: '0',
-      icon: <MailOutlined />,
+      icon: <SearchOutlined />,
     },
     {
       label: <span>Add New Product</span>,
       key: '1',
-      icon: <AppstoreOutlined />,
+      icon: <PlusSquareOutlined />,
     },
     {
       label: <span>Category</span>,
@@ -34,12 +36,12 @@ const NewProducts = () => {
     {
       label: <span>Add New Category</span>,
       key: '3',
-      icon: <AppstoreOutlined />,
+      icon: <AppstoreAddOutlined />,
     },
   ];
 
   const componentsList = [
-    <DeleteProduct />,
+    <SearchProduct />,
     <AddNewProducts />,
     <AdminCategory />,
     <AddNewCategory />,

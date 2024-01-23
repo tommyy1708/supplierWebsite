@@ -3,6 +3,7 @@ import { Form, Input, Button, message, Row, Col } from 'antd';
 import { SendVerifyCode } from '../request/api';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 const ForgetPassword = () => {
+  // eslint-disable-next-line no-unused-vars
   const [showSpin, setShowSpin] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const sendVerify = async (values) => {

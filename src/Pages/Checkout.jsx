@@ -76,6 +76,7 @@ const Checkout = () => {
       fetchCategoryList();
       setFlag(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag]);
 
   const columns = [

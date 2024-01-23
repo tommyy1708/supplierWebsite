@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { User } from '../../request/api';
 // Create a new customer form component
@@ -25,26 +25,22 @@ const NewCustomer = () => {
     }
     form.resetFields();
   };
-  const [formLayout, setFormLayout] = useState('horizontal');
-  const formItemLayout =
-    formLayout === 'horizontal'
-      ? {
-          labelCol: {
-            span: 4,
-          },
-          wrapperCol: {
-            span: 14,
-          },
-        }
-      : null;
+  // const [formLayout, setFormLayout] = useState('horizontal');
+  // const formItemLayout =
+  //   formLayout === 'horizontal'
+  //     ? {
+  //         labelCol: {
+  //           span: 4,
+  //         },
+  //         wrapperCol: {
+  //           span: 14,
+  //         },
+  //       }
+  //     : null;
 
   return (
     <div className="adminSubWindow">
-      <Form
-        form={form}
-        onFinish={handleSubmit}
-        layout={formLayout}
-      >
+      <Form form={form} onFinish={handleSubmit} layout={'horizontal'}>
         {/* Customer Name */}
         <Form.Item
           label="First Name"

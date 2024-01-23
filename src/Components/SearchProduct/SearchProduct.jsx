@@ -5,10 +5,11 @@ import {
   notification,
   Button,
   Popconfirm,
+  message,
 } from 'antd';
 import { GetProduct, ProductDelete } from '../../request/api';
 
-const DeleteProduct = () => {
+const SearchProduct = () => {
   notification.config({
     placement: 'topLeft',
     bottom: 50,
@@ -18,6 +19,10 @@ const DeleteProduct = () => {
   const [searchData, setSearchData] = useState('');
   const { Search } = Input;
   const onSearch = async (value, _e, info) => {
+    if (!value) {
+      return message.error('Input is empty');
+    }
+
     if (info.source === 'clear') {
       console.log('info = ', info.source);
     } else if (info.source === 'input') {
@@ -27,6 +32,10 @@ const DeleteProduct = () => {
         };
         // eslint-disable-next-line
         const response = await GetProduct(data);
+        if (response.data.length < 1) {
+          let msg = `Product ${data.keyWord} not found in your database`
+          return message.info(msg);
+        }
         setSearchData(response.data);
       }
     }
@@ -134,4 +143,4 @@ const DeleteProduct = () => {
   );
 };
 
-export default DeleteProduct;
+export default SearchProduct;

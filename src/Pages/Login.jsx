@@ -9,7 +9,6 @@ import { jwtDecode } from 'jwt-decode';
 function Login() {
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
-  const [userRole, setUserRole] = useState('');
   const onSubmit = async (values) => {
     setShowSpin(true);
     try {

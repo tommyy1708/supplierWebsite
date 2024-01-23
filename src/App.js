@@ -130,6 +130,10 @@ function App() {
   };
 
   //remove this item from shopping cart
+  /**
+   *
+   * @param {*} item
+   * @param {*} taxFree
   const removeItemToCart = (item, taxFree) => {
     const newCart = { ...cartData };
     const index = cartData.items.indexOf(item);
@@ -157,6 +161,7 @@ function App() {
       setCartData(newCart);
     }
   };
+   */
 
   return (
     <CheckOutContent.Provider

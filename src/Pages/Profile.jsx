@@ -11,20 +11,20 @@ const Profile = () => {
   const firstName = localStorage.getItem('first_name');
   const lastName = localStorage.getItem('last_name');
   const userId = localStorage.getItem('userId');
- const [changedFields, setChangedFields] = useState({});
+  const [changedFields, setChangedFields] = useState({});
   const handleFieldChange = (changedValues) => {
-     setChangedFields({ ...changedFields, ...changedValues });
+    setChangedFields({ ...changedFields, ...changedValues });
   };
 
   const onFinish = async (values) => {
     const newPassWord = values.passWord;
-      if(newPassWord && newPassWord.length < 8){
-      return message.error('new password not short than 8')
-      }
+    if (newPassWord && newPassWord.length < 8) {
+      return message.error('new password not short than 8');
+    }
     const data = {
       userId: userId,
-      ...changedFields
-      }
+      ...changedFields,
+    };
     const result = await PasswordUpdate(data);
 
     if (result.errCode !== 0) {
@@ -34,8 +34,8 @@ const Profile = () => {
 
     message.success('Password update success!');
     setTimeout(() => {
-       window.location.reload();
-    },2000)
+      window.location.reload();
+    }, 2000);
     return;
   };
 
@@ -69,6 +69,7 @@ const Profile = () => {
       fetchUserInfo();
       setFlag(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag]);
 
   return (

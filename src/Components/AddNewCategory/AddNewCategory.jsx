@@ -74,13 +74,13 @@ const AddNewCategory = () => {
     const isJpgOrPng =
       file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
+      message.error('You can only upload JPG/PNG file');
       return false;
     }
 
     const isLt150KB = file.size / 1024 < 500;
     if (!isLt150KB) {
-      message.error('Image must be smaller than 150KB!');
+      message.error('Image must be smaller than 150KB');
       return false;
     }
 
