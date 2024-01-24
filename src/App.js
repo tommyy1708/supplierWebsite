@@ -129,40 +129,6 @@ function App() {
     });
   };
 
-  //remove this item from shopping cart
-  /**
-   *
-   * @param {*} item
-   * @param {*} taxFree
-  const removeItemToCart = (item, taxFree) => {
-    const newCart = { ...cartData };
-    const index = cartData.items.indexOf(item);
-    if (cartData.items.indexOf(item) === -1) {
-      console.log(`item doesn't appear`);
-    }
-    if (!taxFree) {
-      let item_tax = item.price * 0.07 * item.amount;
-      let item_subtotal = item.price * item.amount;
-      let item_total = item_tax + item_subtotal;
-      newCart.tax -= item_tax;
-      newCart.subtotal -= item_subtotal;
-      newCart.totalAmount -= item.amount;
-      newCart.total -= item_total;
-      newCart.items.splice(index, 1);
-      setCartData(newCart);
-    } else {
-      let item_tax = item.price * 0.07 * item.amount;
-      let item_subtotal = item.price * item.amount;
-      newCart.subtotal -= item_subtotal;
-      newCart.totalAmount -= item.amount;
-      newCart.tax -= item_tax;
-      newCart.total -= item_subtotal + item_tax;
-      newCart.items.splice(index, 1);
-      setCartData(newCart);
-    }
-  };
-   */
-
   return (
     <CheckOutContent.Provider
       value={{
@@ -182,7 +148,12 @@ function App() {
             element={
               <Layout>
                 <Routes>
-                  <Route index element={<Home />} />
+                  <Route
+                    index
+                    element={
+                        <Home />
+                    }
+                  />
                   <Route path="category/:id" element={<Listing />} />
                   <Route path="profile" element={<Profile />} />
                   <Route path="checkout" element={<Checkout />} />
@@ -191,8 +162,7 @@ function App() {
                   <Route
                     path="admin/clients"
                     element={<AdminClients />}
-                  >
-                  </Route>
+                  ></Route>
                   <Route
                     path="admin/products"
                     element={<AdminProducts />}

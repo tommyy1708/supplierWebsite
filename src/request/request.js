@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 //settings
 const instance = axios.create({
   baseURL: `${process.env.REACT_APP_BASEURL}`,
@@ -16,7 +17,10 @@ instance.interceptors.request.use(
   },
   function (error) {
     //action for request error
-    return Promise.reject(error);
+    console.error(error);
+
+// Promise.reject(error);
+    return ;
   }
 );
 
@@ -34,10 +38,11 @@ instance.interceptors.response.use(
     } catch (error) {
       return error;
     }
-  }, function (error) {
+  },
+  function (error) {
     //action for response error
-    console.log(error)
-    return Promise.reject(error);
+    // Promise.reject(error);
+    return ;
   }
 );
 

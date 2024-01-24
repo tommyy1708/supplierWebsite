@@ -31,8 +31,11 @@ export const GetCategoryList = (params) =>
 export const PasswordUpdate = (params) =>
   request.put('/passwordUpdate', params);
 
-export const UpdateAnnouncement = (adminId) =>
-  request.put(`/supplier-announcement`, { adminId });
+export const UpdateAnnouncement = (content) =>
+  request.put(`/supplier-announcement`, content );
+
+export const GetAnnouncement = () =>
+     request.get(`/supplier-announcement`);
 
 export const ChangeAdmin = (params) =>
      request.put(`/supplier-admin-change`, params);
@@ -43,9 +46,6 @@ export const NewOrderSend = (params) => {
 
 export const GetOrdersByDate = (params) =>
   request.get(`/supplier-ordersbydate`, { params });
-
-export const GetAnnouncement = () =>
-   request.get(`/supplier-announcement`);
 
 
 export const SendVerifyCode = (params) =>
@@ -61,3 +61,5 @@ export const UploadImage = (file) => {
     },
   });
 };
+
+export const VerifyToken = () => request.get(`/supplier-verify-token`);

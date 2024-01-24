@@ -34,7 +34,7 @@ const ItemList = () => {
       setUsers(response.data);
       setTimeout(() => {
         setLoading(false);
-      }, 2000);
+      }, 1000);
     }
   };
 

@@ -6,21 +6,32 @@ const Notice = () => {
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
-    // Add your logic here to handle the form submission/update notice
     setLoading(true);
-    const response = await UpdateAnnouncement(values);
-    message.info(response.message);
+    if (values.content === undefined) {
+       message.info('The announcement can not be empty')
+      setLoading(false);
+      return
+    }
+    const response = await UpdateAnnouncement(values.content);
+
+    if (response.errCode === 2) {
+      message.info(response.message);
+    } else if (response.errCode === 1) {
+      message.error(response.message);
+    } else {
+      message.success(response.message);
+    }
     setTimeout(() => {
       setLoading(false);
-      message.success('Notice updated successfully');
-      window.location.reload()
+      window.location.reload();
     }, 2000);
   };
 
-  const [announcement, setAnnouncement] = useState('');
   const fetchData = async () => {
-    const announcement = await GetAnnouncement();
-    setAnnouncement(announcement.data[0].content);
+    const response = await GetAnnouncement();
+    if (response.errCode !== 0) {
+      message.error('Something went wrong');
+    }
   };
   useEffect(() => {
     fetchData();
@@ -31,12 +42,13 @@ const Notice = () => {
       <h6>
         If you don't want to display any notice on the Login page,
         please keep input empty then submit
+        <br />
       </h6>
       <Form form={form} onFinish={onFinish}>
         <Form.Item name="content" label="Content">
           <Input.TextArea
             rows={1}
-            placeholder={announcement}
+            placeholder={'make new announcement here'}
             maxLength={300}
           />
         </Form.Item>

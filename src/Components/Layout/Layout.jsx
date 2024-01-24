@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import FooterMenu from '../FooterMenu/FooterMenu';
 import SpinOverLay from '../SpinOverLay/SpinOverLay';
-import { jwtDecode } from 'jwt-decode';
-
+import { VerifyToken } from '../../request/api';
 
 function Layout({ children }) {
   const navigate = useNavigate();
 
   const firstNameRow = localStorage.getItem('first_name');
   const lastNameRow = localStorage.getItem('last_name');
-  const firstName = firstNameRow?.charAt(0).toUpperCase() + firstNameRow?.substring(1);
+  const firstName =
+    firstNameRow?.charAt(0).toUpperCase() +
+    firstNameRow?.substring(1);
   const lastName =
-    lastNameRow?.charAt(0).toUpperCase() +
-    lastNameRow?.substring(1);
-  const token = localStorage.getItem('token');
-  const isAdmin = jwtDecode(token).admin;
+    lastNameRow?.charAt(0).toUpperCase() + lastNameRow?.substring(1);
   const [showSpin, setShowSpin] = useState(false);
+
+  useEffect(() => {
+    const isTokenValid = VerifyToken();
+
+    if (!isTokenValid) {
+      console.error(
+        'Invalid token detected. Navigating to login page.'
+      );
+      navigate('/login');
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -35,7 +44,7 @@ function Layout({ children }) {
                 setTimeout(() => {
                   localStorage.clear();
                   navigate('/login');
-                }, 3000);
+                }, 2000);
               }}
             >
               Logout
@@ -45,7 +54,7 @@ function Layout({ children }) {
       </div>
       <div className="displayWindow">{children}</div>
       <footer>
-        <FooterMenu isAdmin={isAdmin}></FooterMenu>
+        <FooterMenu />
         <div className="footerCopyright dark">
           <p>
             © {process.env.REACT_APP_YEAR} Copyright by{' '}

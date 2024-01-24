@@ -12,10 +12,15 @@ import {
 } from '@ant-design/icons';
 import { useLocation, Link } from 'react-router-dom';
 import CheckOutContent from '../../store/CheckOutContent';
+import { jwtDecode } from 'jwt-decode';
 
-const FooterMenu = ({ isAdmin }) => {
+const FooterMenu = () => {
   const ctx = useContext(CheckOutContent);
-  const adminCode = parseInt(isAdmin);
+  const token = localStorage.getItem('token');
+
+  const isAdminToken = token && typeof token === 'string';
+
+  const adminCode = isAdminToken ? jwtDecode(token).admin : null;
   const location = useLocation();
   const userMenu = [
     { icon: <HomeOutlined />, title: 'HOME', url: '/' },

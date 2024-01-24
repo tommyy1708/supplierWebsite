@@ -62,7 +62,7 @@ function Login() {
       <SpinOverLay showSpin={showSpin} />
       <div className="login_announcement">
         <h2>Welcome</h2>
-        <Announcement/>
+        {/* <Announcement/> */}
       </div>
       <div className="login_box">
         <Form
