@@ -18,6 +18,7 @@ import Layout from './Components/Layout/Layout';
 import Notice from './Pages/Notice';
 import ForgetPassword from './Pages/ForgetPassword';
 import AdminProducts from './Pages/AdminProducts';
+import NoticeManager from './Components/NoticeManager/NoticeManager';
 
 function App() {
   const oNmber = () => {
@@ -148,17 +149,13 @@ function App() {
             element={
               <Layout>
                 <Routes>
-                  <Route
-                    index
-                    element={
-                        <Home />
-                    }
-                  />
+                  <Route index element={<Home />} />
                   <Route path="category/:id" element={<Listing />} />
                   <Route path="profile" element={<Profile />} />
                   <Route path="checkout" element={<Checkout />} />
                   <Route path="contact" element={<Contact />} />
                   <Route path="admin" element={<Admin />} />
+                  <Route path="test" element={<NoticeManager />} />
                   <Route
                     path="admin/clients"
                     element={<AdminClients />}

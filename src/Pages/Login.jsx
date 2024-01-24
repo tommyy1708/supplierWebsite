@@ -3,10 +3,12 @@ import { Form, Input, Button, message } from 'antd';
 import { useNavigate } from 'react-router';
 import { LoginApi } from '../request/api';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
-import Announcement from '../Components/Announcement/Announcement';
 import { jwtDecode } from 'jwt-decode';
-
+import DisplayNotices from '../Components/DisplayNotices/DisplayNotices';
 function Login() {
+  // const notices = ['notice _1 ', 'Notice _ 2'];
+  const notices = [];
+
   const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(false);
   const onSubmit = async (values) => {
@@ -62,7 +64,7 @@ function Login() {
       <SpinOverLay showSpin={showSpin} />
       <div className="login_announcement">
         <h2>Welcome</h2>
-        {/* <Announcement/> */}
+        <DisplayNotices notices={notices}></DisplayNotices>
       </div>
       <div className="login_box">
         <Form
@@ -109,7 +111,6 @@ function Login() {
           </Form.Item>
         </Form>
       </div>
-
     </div>
   );
 }

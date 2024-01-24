@@ -32,7 +32,10 @@ export const PasswordUpdate = (params) =>
   request.put('/passwordUpdate', params);
 
 export const UpdateAnnouncement = (content) =>
-  request.put(`/supplier-announcement`, content );
+  request.post(`/supplier-announcement`, {content} );
+  
+export const DeleteAnnouncement = (content) =>
+  request.post(`/supplier-delete-announcement`, {content} );
 
 export const GetAnnouncement = () =>
      request.get(`/supplier-announcement`);
