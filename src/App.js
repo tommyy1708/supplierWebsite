@@ -155,7 +155,6 @@ function App() {
                   <Route path="checkout" element={<Checkout />} />
                   <Route path="contact" element={<Contact />} />
                   <Route path="admin" element={<Admin />} />
-                  <Route path="test" element={<NoticeManager />} />
                   <Route
                     path="admin/clients"
                     element={<AdminClients />}
@@ -164,7 +163,10 @@ function App() {
                     path="admin/products"
                     element={<AdminProducts />}
                   />
-                  <Route path="/admin/notice" element={<Notice />} />
+                  <Route
+                    path="/admin/notice"
+                    element={<NoticeManager />}
+                  />
                 </Routes>
               </Layout>
             }

@@ -6,6 +6,7 @@ import {
 } from '@ant-design/icons';
 import { NewOrderSend, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
+import { useNavigate } from 'react-router-dom';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 
 const { Text } = Typography;
@@ -17,7 +18,16 @@ const Checkout = () => {
     rtl: true,
     prefixCls: 'my-message',
   });
-
+  const navigate = useNavigate();
+  const handleApiResponse = (response) => {
+    if (!response || response.error || response.errCode !== 0) {
+      navigate('/login');
+      // You can also perform additional actions like displaying an error message
+      console.error('API request failed');
+      return false;
+    }
+    return true;
+  };
   const ctx = useContext(CheckOutContent);
   const [flag, setFlag] = useState(true);
   const [showSpin, setShowSpin] = useState(true);
@@ -28,13 +38,21 @@ const Checkout = () => {
       userId: userId,
     };
     const response = await GetUserInfo(data);
-    if (response.errCode !== 0) {
-      return message.error('server error');
-    } else {
+    if (handleApiResponse(response)) {
       setShowSpin(false);
       ctx.setUserInfo(response.data);
-      return
+      return;
     }
+
+    // Old version for handle response
+    // if (!response) {
+    //   message.error('server error, please login again');
+    //   return;
+    // } else {
+    // setShowSpin(false);
+    // ctx.setUserInfo(response.data);
+    // return;
+    // }
   };
 
   const tempAmount = (item) => {
@@ -66,7 +84,7 @@ const Checkout = () => {
       message.success('Thank for your shopping');
       setTimeout(() => {
         setShowSpin(false);
-      },[2500])
+      }, [2500]);
       return;
     }
   };
@@ -76,7 +94,7 @@ const Checkout = () => {
       fetchCategoryList();
       setFlag(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flag]);
 
   const columns = [

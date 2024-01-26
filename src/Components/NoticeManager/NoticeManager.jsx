@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Button, List } from 'antd';
+import { Input, Button, List, message } from 'antd';
 import {
   UpdateAnnouncement,
   GetAnnouncement,
-  DeleteAnnouncement
+  DeleteAnnouncement,
 } from '../../request/api';
 const NoticeManager = () => {
   const [announcements, setAnnouncements] = useState();
@@ -11,8 +11,13 @@ const NoticeManager = () => {
 
   const addAnnouncement = async () => {
     if (newAnnouncement.trim() !== '') {
-      await UpdateAnnouncement(newAnnouncement);
-      setAnnouncements([...announcements, newAnnouncement]);
+      const response = await UpdateAnnouncement(newAnnouncement);
+      if (response.errCode !== 0) {
+        message.error(response.message);
+         return;
+      }
+      const announceList = await GetAnnouncement();
+      setAnnouncements(announceList.data);
       setNewAnnouncement('');
     }
   };
@@ -22,14 +27,13 @@ const NoticeManager = () => {
     setAnnouncements(response.data);
   };
 
-  const fetchData =async () => {
+  const fetchData = async () => {
     const response = await GetAnnouncement();
     setAnnouncements(response.data);
-}
+  };
   useEffect(() => {
     fetchData();
-  },[])
-
+  }, []);
 
   return (
     <div>
@@ -42,7 +46,6 @@ const NoticeManager = () => {
       <Button type="primary" onClick={addAnnouncement}>
         Add Announcement
       </Button>
-
       <List
         dataSource={announcements}
         renderItem={(item) => (
@@ -50,7 +53,7 @@ const NoticeManager = () => {
             {item.content}
             <Button
               danger
-              type='text'
+              type="text"
               onClick={() => deleteAnnouncement(item.id)}
             >
               Delete

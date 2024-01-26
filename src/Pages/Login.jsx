@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useNavigate } from 'react-router';
-import { LoginApi } from '../request/api';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 import { jwtDecode } from 'jwt-decode';
 import DisplayNotices from '../Components/DisplayNotices/DisplayNotices';
+import { LoginApi } from '../request/api';
 function Login() {
-  // const notices = ['notice _1 ', 'Notice _ 2'];
-  const notices = [];
 
   const navigate = useNavigate();
+  // const first_name = jwtDecode(loginResponse.userToken).first_name;
   const [showSpin, setShowSpin] = useState(false);
   const onSubmit = async (values) => {
     setShowSpin(true);
@@ -24,7 +23,6 @@ function Login() {
       } else {
         // userRol to determine RBAC
         const userRol = jwtDecode(loginResponse.userToken).admin;
-        // const first_name = jwtDecode(loginResponse.userToken).first_name;
         localStorage.setItem(
           'first_name',
           jwtDecode(loginResponse.userToken).first_name
@@ -54,6 +52,9 @@ function Login() {
     }
   };
 
+
+
+
   const retrieveAccount = () => {
     navigate('/forget-password')
     return;
@@ -64,7 +65,6 @@ function Login() {
       <SpinOverLay showSpin={showSpin} />
       <div className="login_announcement">
         <h2>Welcome</h2>
-        <DisplayNotices notices={notices}></DisplayNotices>
       </div>
       <div className="login_box">
         <Form

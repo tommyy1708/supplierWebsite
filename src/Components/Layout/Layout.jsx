@@ -17,16 +17,16 @@ function Layout({ children }) {
     lastNameRow?.charAt(0).toUpperCase() + lastNameRow?.substring(1);
   const [showSpin, setShowSpin] = useState(false);
 
-  useEffect(() => {
-    const isTokenValid = VerifyToken();
+  // useEffect(() => {
+  //   const isTokenValid = VerifyToken();
 
-    if (!isTokenValid) {
-      console.error(
-        'Invalid token detected. Navigating to login page.'
-      );
-      navigate('/login');
-    }
-  }, [navigate]);
+  //   if (!isTokenValid) {
+  //     console.error(
+  //       'Invalid token detected. Navigating to login page.'
+  //     );
+  //     navigate('/login');
+  //   }
+  // }, [navigate]);
 
   return (
     <>
