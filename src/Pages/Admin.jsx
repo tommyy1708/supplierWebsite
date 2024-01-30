@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Table, message } from 'antd';
-import { GetOrders } from '../request/api';
+import { Table,Button, message, Badge, notification } from 'antd';
+import { GetOrders, ReplyOrder } from '../request/api';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import Filter from '../Components/Filter/Filter';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
-
 
 const Admin = () => {
   // const navigate = useNavigate();
   const [showSpin, setShowSpin] = useState(true);
   const [flag, setFlag] = useState(true);
   const [ordersData, setOrdersData] = useState('');
-
-  // const navMenu = [
-  //   { icon: <HomeOutlined />, title: 'HOME', url: '/admin' },
-  // ];
-
+  notification.config({
+    placement: 'topLeft',
+    bottom: 50,
+    duration: 3,
+    rtl: true,
+  });
   const fetchCategoryList = async () => {
     const orders = await GetOrders();
 
@@ -81,6 +81,26 @@ const Admin = () => {
     const isoString = dateString.replace(/-(?=\d{2}:\d{2}$)/, 'T');
     return new Date(isoString);
   }
+
+  const changeStatus = async (Number, Id) => {
+    setShowSpin(true);
+    const data = {
+      orderNumber: Number,
+      userId: Id,
+    };
+    console.log('🚀 ~ changeStatus ~ data:', data);
+    const response = await ReplyOrder(data);
+    if (response.errCode !== 0) {
+      notification.error({
+        message: response.message,
+      });
+    } else {
+      notification.success({ message: response.message });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  };
 
   useEffect(() => {
     if (flag) {
@@ -149,7 +169,7 @@ const Admin = () => {
     {
       title: 'Download',
       dataIndex: 'index',
-      width: '25%',
+      width: '8%',
       render: (text, record) => (
         <>
           <button
@@ -159,6 +179,34 @@ const Admin = () => {
           >
             Download
           </button>
+        </>
+      ),
+    },
+    {
+      title: 'Status',
+      key: 'status',
+      dataIndex: 'status',
+      width: '10%',
+      render: (text, record) => (
+        <>
+          <Badge status={record.status} text={record.status} />
+        </>
+      ),
+    },
+    {
+      title: 'Reply',
+      width: '7%',
+      render: (text, record) => (
+        <>
+          <Button
+            type='primary'
+            onClick={() =>
+              changeStatus(record.order_number, record.userId)
+            }
+            disabled={record.status === 'success'? true : false }
+          >
+            Reply
+          </Button>
         </>
       ),
     },

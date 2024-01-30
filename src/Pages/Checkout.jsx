@@ -6,8 +6,8 @@ import {
 } from '@ant-design/icons';
 import { NewOrderSend, GetUserInfo } from '../request/api';
 import CheckOutContent from '../store/CheckOutContent';
-import { useNavigate } from 'react-router-dom';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
+import { useNavigate } from 'react-router-dom';
 
 const { Text } = Typography;
 const Checkout = () => {
@@ -19,40 +19,31 @@ const Checkout = () => {
     prefixCls: 'my-message',
   });
   const navigate = useNavigate();
-  const handleApiResponse = (response) => {
-    if (!response || response.error || response.errCode !== 0) {
-      navigate('/login');
-      // You can also perform additional actions like displaying an error message
-      console.error('API request failed');
-      return false;
-    }
-    return true;
-  };
   const ctx = useContext(CheckOutContent);
   const [flag, setFlag] = useState(true);
   const [showSpin, setShowSpin] = useState(true);
+
   const fetchCategoryList = async () => {
     setShowSpin(true);
     const userId = localStorage.getItem('userId');
+
     const data = {
       userId: userId,
     };
+
     const response = await GetUserInfo(data);
-    if (handleApiResponse(response)) {
+
+    if (!response && response?.errCode !== 0) {
+      message.error('token error, please login again');
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
+      return;
+    } else {
       setShowSpin(false);
       ctx.setUserInfo(response.data);
       return;
     }
-
-    // Old version for handle response
-    // if (!response) {
-    //   message.error('server error, please login again');
-    //   return;
-    // } else {
-    // setShowSpin(false);
-    // ctx.setUserInfo(response.data);
-    // return;
-    // }
   };
 
   const tempAmount = (item) => {

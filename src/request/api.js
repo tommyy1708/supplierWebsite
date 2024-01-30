@@ -33,7 +33,7 @@ export const PasswordUpdate = (params) =>
 
 export const UpdateAnnouncement = (content) =>
   request.post(`/supplier-announcement`, {content} );
-  
+
 export const DeleteAnnouncement = (content) =>
   request.post(`/supplier-delete-announcement`, {content} );
 
@@ -64,5 +64,9 @@ export const UploadImage = (file) => {
     },
   });
 };
+
+export const ReplyOrder = (params) =>
+  request.put(`/supplier-received`, params);
+
 
 export const VerifyToken = () => request.get(`/supplier-verify-token`);
