@@ -15,7 +15,7 @@ import Contact from './Pages/Contact';
 import Admin from './Pages/Admin';
 import AdminClients from './Pages/AdminClients';
 import Layout from './Components/Layout/Layout';
-import Notice from './Pages/Notice';
+import AdminBanner from './Components/AdminBanner/AdminBanner';
 import ForgetPassword from './Pages/ForgetPassword';
 import AdminProducts from './Pages/AdminProducts';
 import NoticeManager from './Components/NoticeManager/NoticeManager';
@@ -165,7 +165,11 @@ function App() {
                   />
                   <Route
                     path="/admin/notice"
-                    element={<NoticeManager />}
+                    element={<AdminBanner />}
+                  />
+                  <Route
+                    path="/admin/test"
+                    element={<AdminBanner />}
                   />
                 </Routes>
               </Layout>

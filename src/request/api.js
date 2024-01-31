@@ -8,6 +8,11 @@ export const User = (params) => request.post('/supplier-user', {params});
 
 export const Category = (params) => request.post('/supplier-category', {params});
 
+export const PostBanner = (params) =>
+  request.post('/supplier-banner', { params });
+
+export const GetBanner = () => request.get('/supplier-get-banner');
+
 export const CustomerDelete = (id) => request.delete(`/supplier-user/${id}`);
 
 export const Product = (params) => request.post('/supplier-product', { params });

@@ -3,8 +3,9 @@ import { Form, Input, Button, message } from 'antd';
 import { useNavigate } from 'react-router';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 import { jwtDecode } from 'jwt-decode';
-import DisplayNotices from '../Components/DisplayNotices/DisplayNotices';
+import { GetBanner } from '../request/api';
 import { LoginApi } from '../request/api';
+import DisplayBanner from '../Components/DIsplayBanner/DisplayBanner';
 function Login() {
 
   const navigate = useNavigate();
@@ -52,13 +53,12 @@ function Login() {
     }
   };
 
-
-
-
   const retrieveAccount = () => {
     navigate('/forget-password')
     return;
   };
+
+
 
   return (
     <div id="login">
@@ -111,6 +111,8 @@ function Login() {
           </Form.Item>
         </Form>
       </div>
+
+      <div className="login_banner"><DisplayBanner/></div>
     </div>
   );
 }
