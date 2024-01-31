@@ -16,9 +16,9 @@ const DisplayBanner = () => {
     fetchData();
   },[])
   return (
-    <div>
+    <>
       {showBanner && <Image width={'100%'} height={'100%'} src={bannerUrl} alt="#" preview={false} />}
-    </div>
+    </>
   );
 }
 

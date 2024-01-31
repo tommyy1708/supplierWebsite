@@ -3,7 +3,6 @@ import { Form, Input, Button, message } from 'antd';
 import { useNavigate } from 'react-router';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
 import { jwtDecode } from 'jwt-decode';
-import { GetBanner } from '../request/api';
 import { LoginApi } from '../request/api';
 import DisplayBanner from '../Components/DIsplayBanner/DisplayBanner';
 function Login() {
@@ -111,7 +110,6 @@ function Login() {
           </Form.Item>
         </Form>
       </div>
-
       <div className="login_banner"><DisplayBanner/></div>
     </div>
   );
