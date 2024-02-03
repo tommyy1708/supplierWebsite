@@ -47,6 +47,9 @@ export const GetAnnouncement = () =>
 
 export const ChangeAdmin = (params) =>
      request.put(`/supplier-admin-change`, params);
+     
+export const ChangePause = (params) =>
+     request.put(`/supplier-pause-change`, params);
 
 export const NewOrderSend = (params) => {
  return request.post(`/supplier-addNewOrder`, params);

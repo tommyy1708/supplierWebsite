@@ -12,9 +12,10 @@ import {
   GetUserList,
   CustomerDelete,
   ChangeAdmin,
+  ChangePause,
 } from '../../request/api';
 
-const ItemList = () => {
+const ClientList = () => {
   notification.config({
     placement: 'topLeft',
     bottom: 50,
@@ -65,6 +66,44 @@ const ItemList = () => {
           return prevUsers.map((user) => {
             if (user.id === userInfo.id) {
               return { ...user, admin: user.admin === 0 ? 1 : 0 };
+            }
+            return user;
+          });
+        });
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+      }
+    } catch (error) {
+      notification.error({
+        message: response.message,
+      });
+    }
+  };
+
+  // !!
+  const togglePauseStatus = async (userInfo) => {
+    setLoading(true);
+    const loginUserId = parseInt(localStorage.getItem('userId'));
+    if (userInfo.id === loginUserId) {
+      notification.error({
+        message: "You can't change yourself value",
+      });
+      return setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+    // Update the 'admin' property of the specific user in the state
+    const response = await ChangePause(userInfo);
+    try {
+      if (response && response.errCode === 0) {
+        notification.success({
+          message: response.message,
+        });
+        setUsers((prevUsers) => {
+          return prevUsers.map((user) => {
+            if (user.id === userInfo.id) {
+              return { ...user, pause: user.pause === 0 ? 1 : 0 };
             }
             return user;
           });
@@ -145,6 +184,16 @@ const ItemList = () => {
       ),
     },
     {
+      title: 'Pause',
+      dataIndex: 'pause',
+      render: (_, record) => (
+        <Switch
+          checked={record.pause === 1}
+          onChange={() => togglePauseStatus(record)}
+        />
+      ),
+    },
+    {
       title: 'Delete',
       key: 'Delete',
       render: (_, record) => (
@@ -211,4 +260,4 @@ const ItemList = () => {
   );
 };
 
-export default ItemList;
+export default ClientList;

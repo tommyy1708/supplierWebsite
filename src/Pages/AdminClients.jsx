@@ -5,7 +5,7 @@ import {
 } from '@ant-design/icons';
 import { Menu } from 'antd';
 import NewCustomer from '../Components/NewCustomer/NewCustomer';
-import ItemList from '../Components/ItemList/ItemList';
+import ClientList from '../Components/ClientList/ClientList';
 const AdminClients = () => {
 
   const [current, setCurrent] = useState('list');
@@ -34,7 +34,7 @@ const AdminClients = () => {
           items={items}
         />
       </div>
-      <div>{current === 'new' ? <NewCustomer /> : <ItemList />}</div>
+      <div>{current === 'new' ? <NewCustomer /> : <ClientList />}</div>
     </div>
   );
 };
