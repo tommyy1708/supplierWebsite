@@ -10,6 +10,7 @@ import AddNewProducts from '../Components/AddNewProducts/AddNewProducts';
 import SearchProduct from '../Components/SearchProduct/SearchProduct';
 import AdminCategory from '../Components/AdminCategory/AdminCategory';
 import AddNewCategory from '../Components/AddNewCategory/AddNewCategory';
+import CsvUpload from '../Components/CsvUpload/CsvUpload';
 const NewProducts = () => {
   const [current, setCurrent] = useState('0');
 
@@ -29,13 +30,18 @@ const NewProducts = () => {
       icon: <PlusSquareOutlined />,
     },
     {
-      label: <span>Category</span>,
+      label: <span>Add Product CSV</span>,
       key: '2',
+      icon: <PlusSquareOutlined />,
+    },
+    {
+      label: <span>Category</span>,
+      key: '3',
       icon: <AppstoreOutlined />,
     },
     {
       label: <span>Add New Category</span>,
-      key: '3',
+      key: '4',
       icon: <AppstoreAddOutlined />,
     },
   ];
@@ -43,6 +49,7 @@ const NewProducts = () => {
   const componentsList = [
     <SearchProduct />,
     <AddNewProducts />,
+    <CsvUpload/>,
     <AdminCategory />,
     <AddNewCategory />,
   ];
