@@ -46,7 +46,6 @@ const ImageUpload = () => {
   const customRequest = async ({ file, onSuccess, onError }) => {
     try {
       const imageUrl = await UploadImage(file);
-      console.log("🚀 ~ customRequest ~ imageUrl:", imageUrl)
       setImageUrl({imageUrl});
       onSuccess();
     } catch (error) {

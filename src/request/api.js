@@ -47,7 +47,7 @@ export const GetAnnouncement = () =>
 
 export const ChangeAdmin = (params) =>
      request.put(`/supplier-admin-change`, params);
-     
+
 export const ChangePause = (params) =>
      request.put(`/supplier-pause-change`, params);
 
@@ -67,6 +67,16 @@ export const UploadImage = (file) => {
   formData.append('file', file);
 
   return request.post('/images', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+export const UploadCsv = (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return request.post('/upload-csv', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

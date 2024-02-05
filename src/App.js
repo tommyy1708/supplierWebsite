@@ -18,7 +18,7 @@ import Layout from './Components/Layout/Layout';
 import AdminBanner from './Components/AdminBanner/AdminBanner';
 import ForgetPassword from './Pages/ForgetPassword';
 import AdminProducts from './Pages/AdminProducts';
-import NoticeManager from './Components/NoticeManager/NoticeManager';
+import CsvUpload from './Components/CsvUpload/CsvUpload';
 
 function App() {
   const oNmber = () => {
@@ -167,10 +167,7 @@ function App() {
                     path="/admin/notice"
                     element={<AdminBanner />}
                   />
-                  <Route
-                    path="/admin/test"
-                    element={<AdminBanner />}
-                  />
+                  <Route path="/admin/test" element={<CsvUpload />} />
                 </Routes>
               </Layout>
             }
