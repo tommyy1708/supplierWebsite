@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Space, Upload, message } from 'antd';
-import { UploadCsv } from '../../request/api';
+import { UploadCsv, UpdateCsv } from '../../request/api';
 const CsvUpload = () => {
   const [csvFile, setCsvFile] = useState('');
   const [isDisable, setIsDisable] = useState(true);
+    const [fileList, setFileList] = useState([]);
+  const [fileUrl, setFileUrl] = useState('');
   const customRequest = async ({ file, onSuccess, onError }) => {
-  console.log("🚀 ~ customRequest ~ file:", file)
+    console.log('🚀 ~ customRequest ~ file:', file);
 
     // await setCsvFile(file);
-    // if (onSuccess) {
-    //   message.info('upload success');
-    //   setIsDisable(false);
-    // } else {
-    //   console.log(onError);
-    // }
+    if (onSuccess) {
+      message.info('upload success');
+      file.status = 'done';
+      setIsDisable(false);
+    } else {
+      console.log(onError);
+    }
   };
 
   const submit_csv = async () => {
-    const response = await UploadCsv(fileList[0]);
-    if (response.status === 'success') {
-      message.success('Success');
-    }
+    // const response = await UploadCsv(fileList[0]);
+    // let url = JSON.stringify(fileUrl)
+    const response = await UpdateCsv(fileUrl);
+    console.log('🚀 ~ constsubmit_csv= ~ response:', response);
+    // if (response.status === 'success') {
+    //   message.success('Success');
+    // }
   };
 
   const beforeUpload = (file) => {
@@ -31,16 +37,8 @@ const CsvUpload = () => {
   };
 
   //!!
-  const [fileList, setFileList] = useState([
-    // {
-    //   uid: '-1',
-    //   name: 'xxx.png',
-    //   status: 'done',
-    //   url: 'http://www.baidu.com/xxx.png',
-    // },
-  ]);
+
   const handleChange = (info) => {
-    console.log('🚀 ~ handleChange ~ info:', info);
     let newFileList = [...info.fileList];
 
     // 1. Limit the number of uploaded files
@@ -51,18 +49,19 @@ const CsvUpload = () => {
     newFileList = newFileList.map((file) => {
       if (file.response) {
         // Component will show file.url as link
-        file.url = file.response.url;
+        // file.url = file.response.path;
+        setFileUrl(file.response.url);
       }
+      setIsDisable(false);
       return file;
     });
     setFileList(newFileList);
 
-    setIsDisable(false);
   };
   const props = {
     action: 'http://127.0.0.1:8000/api/upload-csv',
     onChange: handleChange,
-    multiple: true,
+    multiple: false,
   };
   return (
     <Space
@@ -72,18 +71,29 @@ const CsvUpload = () => {
         display: 'flex',
       }}
     >
+      {/* <Upload
+        maxCount={1}
+        listType="text"
+        // {...props}
+        fileList={fileList}
+        onChange={handleChange}
+        customRequest={customRequest}
+        beforeUpload={beforeUpload}
+      > */}
       <Upload
+        maxCount={1}
         listType="text"
         {...props}
         fileList={fileList}
+        onChange={handleChange}
         // customRequest={customRequest}
-        beforeUpload={beforeUpload}
+        // beforeUpload={beforeUpload}
       >
         <Button icon={<UploadOutlined />}>Upload</Button>
       </Upload>
       <Button
+      onClick={submit_csv}
         type="primary"
-        onClick={submit_csv}
         disabled={isDisable}
       >
         Submit
