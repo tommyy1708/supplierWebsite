@@ -1,42 +1,32 @@
 import React, { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Space, Upload, message } from 'antd';
-import { UploadCsv, UpdateCsv } from '../../request/api';
+import { UpdateCsv } from '../../request/api';
 const CsvUpload = () => {
-  const [csvFile, setCsvFile] = useState('');
   const [isDisable, setIsDisable] = useState(true);
-    const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState([]);
   const [fileUrl, setFileUrl] = useState('');
-  const customRequest = async ({ file, onSuccess, onError }) => {
-    console.log('🚀 ~ customRequest ~ file:', file);
 
-    // await setCsvFile(file);
-    if (onSuccess) {
-      message.info('upload success');
-      file.status = 'done';
-      setIsDisable(false);
+  const submit_csv = async () => {
+    const response = await UpdateCsv(fileUrl);
+    console.log("🚀 ~ constsubmit_csv= ~ response:", response)
+
+    if (response.errCode !== 0) {
+      return message.error(`${response.message}`);
     } else {
-      console.log(onError);
+      message.success(`${response.message}`);
+      // Reset the state after successful submit
+      setIsDisable(true);
+      setFileList([]);
+      setFileUrl('');
     }
   };
 
-  const submit_csv = async () => {
-    // const response = await UploadCsv(fileList[0]);
-    // let url = JSON.stringify(fileUrl)
-    const response = await UpdateCsv(fileUrl);
-    console.log('🚀 ~ constsubmit_csv= ~ response:', response);
-    // if (response.status === 'success') {
-    //   message.success('Success');
-    // }
-  };
-
   const beforeUpload = (file) => {
-    // You can add custom validation logic here if needed
+    // custom validation logic here if needed
     console.log('Before upload:', file);
     return true;
   };
-
-  //!!
 
   const handleChange = (info) => {
     let newFileList = [...info.fileList];
@@ -56,10 +46,10 @@ const CsvUpload = () => {
       return file;
     });
     setFileList(newFileList);
-
   };
+
   const props = {
-    action: 'http://127.0.0.1:8000/api/upload-csv',
+    action: `${process.env.REACT_APP_BASEURL}/upload-csv`,
     onChange: handleChange,
     multiple: false,
   };
@@ -71,28 +61,18 @@ const CsvUpload = () => {
         display: 'flex',
       }}
     >
-      {/* <Upload
-        maxCount={1}
-        listType="text"
-        // {...props}
-        fileList={fileList}
-        onChange={handleChange}
-        customRequest={customRequest}
-        beforeUpload={beforeUpload}
-      > */}
+      <p>Only .csv file acceptable</p>
       <Upload
         maxCount={1}
         listType="text"
         {...props}
         fileList={fileList}
         onChange={handleChange}
-        // customRequest={customRequest}
-        // beforeUpload={beforeUpload}
       >
         <Button icon={<UploadOutlined />}>Upload</Button>
       </Upload>
       <Button
-      onClick={submit_csv}
+        onClick={submit_csv}
         type="primary"
         disabled={isDisable}
       >
