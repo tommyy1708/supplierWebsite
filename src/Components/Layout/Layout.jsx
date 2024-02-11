@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import FooterMenu from '../FooterMenu/FooterMenu';
 import SpinOverLay from '../SpinOverLay/SpinOverLay';
-import { VerifyToken } from '../../request/api';
 
 function Layout({ children }) {
   const navigate = useNavigate();
