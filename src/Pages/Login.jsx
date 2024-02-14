@@ -6,7 +6,6 @@ import { jwtDecode } from 'jwt-decode';
 import { LoginApi } from '../request/api';
 import DisplayBanner from '../Components/DIsplayBanner/DisplayBanner';
 function Login() {
-
   const navigate = useNavigate();
   // const first_name = jwtDecode(loginResponse.userToken).first_name;
   const [showSpin, setShowSpin] = useState(false);
@@ -35,11 +34,7 @@ function Login() {
           'userId',
           jwtDecode(loginResponse.userToken).id
         );
-        localStorage.setItem(
-          'token',
-          loginResponse.userToken
-        );
-
+        localStorage.setItem('token', loginResponse.userToken);
 
         if (userRol === 1) {
           navigate(`/admin`);
@@ -53,17 +48,15 @@ function Login() {
   };
 
   const retrieveAccount = () => {
-    navigate('/forget-password')
+    navigate('/forget-password');
     return;
   };
-
-
 
   return (
     <div id="login">
       <SpinOverLay showSpin={showSpin} />
       <div className="login_announcement">
-        <h2>Welcome</h2>
+        <h3>Hair Procurement System</h3>
       </div>
       <div className="login_box">
         <Form
@@ -105,12 +98,15 @@ function Login() {
               Forget Password
             </Button>
             <Button type="primary" htmlType="submit" block>
-              Submit
+              Login
             </Button>
           </Form.Item>
         </Form>
+        <p>by {process.env.REACT_APP_COMPANY_NAME}</p>
       </div>
-      <div className="login_banner"><DisplayBanner/></div>
+      <div className="login_banner">
+        <DisplayBanner />
+      </div>
     </div>
   );
 }

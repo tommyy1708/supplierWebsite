@@ -9,6 +9,7 @@ import {
   OrderedListOutlined,
   TeamOutlined,
   FormOutlined,
+  DesktopOutlined
 } from '@ant-design/icons';
 import { useLocation, Link } from 'react-router-dom';
 import CheckOutContent from '../../store/CheckOutContent';
@@ -61,6 +62,11 @@ const FooterMenu = () => {
       icon: <ExclamationCircleOutlined />,
       title: 'Notice',
       url: '/admin/notice',
+    },
+    {
+      icon: <DesktopOutlined />,
+      title: 'Preview',
+      url: `/`,
     },
   ];
 
