@@ -65,59 +65,114 @@ button {
 
 /* start Home page */
 .headerFrame {
+  padding: 10rem 20rem;
   color: #fff;
-  text-align: center;
   display: flex;
-  flex-wrap: wrap;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  justify-content: space-between;
+  align-items: center;
+  /* text-align: center; */
+  /* display: flex; */
+  /* flex-wrap: wrap;
+  position: fixed; */
+  /* width: 100%; */
+  /* top: 0; */
+  /* left: 0; */
+  z-index: 99999;
 }
 
 .header {
-  width: 100%;
+  /* width: 100%; */
   line-height: 60rem;
 }
 
 .headerLeft {
-  font-size: 24rem;
+  /* font-size: 24rem;
   float: left;
-  margin-left: 15rem;
+  margin-left: 15rem; */
+  font-weight: bold;
 }
 
 .headerRight {
-  margin-right: 15rem;
+  /* margin-right: 15rem;
   float: right;
-  font-size: 24rem;
+  font-size: 24rem; */
 }
 
 .headerRight button {
-  padding: 5rem;
+  /* padding: 5rem;
   border-radius: 10rem;
   color: #000;
-  font-size: 24rem;
+  font-size: 24rem; */
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .displayWindow {
-  position: fixed;
-  display: flex;
-  top: 60rem;
-  left: 0;
-  bottom: 180rem;
-  width: 100%;
+  /* position: fixed; */
+  /* top: 60rem; */
+  /* left: 0; */
+  /* bottom: 180rem; */
+  /* display: flex; */
   overflow-x: hidden;
   overflow-y: scroll;
   justify-content: center;
-  padding: 20rem 0;
+  padding: 20rem 0 75px 0;
+  flex: 1;
 }
 
+/* !! */
 footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  background-color: #333;
+  color: white;
 }
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.footerNavMenu {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.footerNavMenu a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+.footerNavMenu a p {
+  margin: 0;
+}
+
+.footerCopyright {
+  text-align: center;
+  font-size: 10rem;
+}
+/* footer {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between; /
+} */
+
+/*
 .footerNavMenu {
   display: flex;
   align-items: center;
@@ -125,7 +180,6 @@ footer {
   padding: 5rem;
   color: #fff;
   text-align: center;
-  /* font-size: 30rem; */
 }
 
 .footerCopyright {
@@ -134,7 +188,7 @@ footer {
   border-top: 1rem soli #101c2d;
   color: #fff;
   font-size: 10rem;
-}
+} */
 /* end Home page */
 
 /* Start Login page */

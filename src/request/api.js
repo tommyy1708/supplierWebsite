@@ -85,9 +85,7 @@ export const UploadCsv = (file) => {
 
 export const UpdateCsv = (fileUrl) => request.post(`/update-csv`, {fileUrl});
 
-
 export const ReplyOrder = (params) =>
   request.put(`/supplier-received`, params);
-
 
 export const VerifyToken = () => request.get(`/supplier-verify-token`);

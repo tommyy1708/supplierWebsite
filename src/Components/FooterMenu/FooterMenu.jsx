@@ -9,7 +9,7 @@ import {
   OrderedListOutlined,
   TeamOutlined,
   FormOutlined,
-  DesktopOutlined
+  DesktopOutlined,
 } from '@ant-design/icons';
 import { useLocation, Link } from 'react-router-dom';
 import CheckOutContent from '../../store/CheckOutContent';
@@ -82,7 +82,7 @@ const FooterMenu = () => {
   };
 
   return (
-    <div className="footerNavMenu dark">
+    <div className="footerNavMenu">
       {adminCode === 0
         ? userMenu.map((e, index) => (
             <Link style={getMenuStyle(e.url)} key={index} to={e.url}>
