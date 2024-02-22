@@ -65,6 +65,7 @@ button {
 
 /* start Home page */
 .headerFrame {
+  height: 10vh;
   padding: 10rem 20rem;
   color: #fff;
   display: flex;
@@ -124,7 +125,7 @@ button {
   flex: 1;
 }
 
-/* !! */
+
 footer {
   position: fixed;
   bottom: 0;
@@ -162,6 +163,7 @@ footer {
 .footerCopyright {
   text-align: center;
   font-size: 10rem;
+  color: #fff;
 }
 /* footer {
   background-color: #333;

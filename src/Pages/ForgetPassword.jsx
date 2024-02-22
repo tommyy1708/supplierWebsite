@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Form, Input, Button, message, Row, Col } from 'antd';
 import { SendVerifyCode } from '../request/api';
 import SpinOverLay from '../Components/SpinOverLay/SpinOverLay';
+import { useNavigate } from 'react-router';
 const ForgetPassword = () => {
+    const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const [showSpin, setShowSpin] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -57,6 +59,7 @@ const ForgetPassword = () => {
           </Col>
         </Row>
       </Form>
+      <Button onClick={()=>navigate('/login')}>Back to Login</Button>
     </div>
   );
 };

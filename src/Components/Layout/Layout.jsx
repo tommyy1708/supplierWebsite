@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import FooterMenu from '../FooterMenu/FooterMenu';
 import SpinOverLay from '../SpinOverLay/SpinOverLay';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+const { Header, Content, Footer, Sider } = Layout;
 
-function Layout({ children }) {
+function Frame({ children }) {
   const navigate = useNavigate();
   const firstNameRow = localStorage.getItem('first_name');
   const lastNameRow = localStorage.getItem('last_name');
@@ -18,8 +20,15 @@ function Layout({ children }) {
   return (
     <>
       <SpinOverLay showSpin={showSpin} />
+      {/* <Header
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          color: '#fff',
+          alignItems: 'center',
+        }}
+      > */}
       <div className="headerFrame dark">
-        {/* <div className="header dark"> */}
         <div className="headerLeft">
           <h2>Welcome-{firstName + ' ' + lastName}</h2>
         </div>
@@ -38,23 +47,31 @@ function Layout({ children }) {
             Logout
           </button>
         </div>
-        {/* </div> */}
       </div>
+      {/* </div> */}
+      {/* </Header> */}
+
+      {/* <Content style={{ padding: '0 50px' }}>
+        <div
+          className="site-layout-content"
+          style={{ minHeight: 280 }}
+        >
+          {children}
+        </div>
+      </Content> */}
       <div className="displayWindow">{children}</div>
-      <footer>
-        <div className="footerContent dark">
-          <FooterMenu />
-          <div className="footerCopyright dark">
-            <p>
-              © {process.env.REACT_APP_YEAR} Copyright by{' '}
-              {process.env.REACT_APP_COMPANY_NAME} All rights
-              reserved. Powered By {process.env.REACT_APP_AUTHOR_NAME}
-            </p>
-          </div>
+      <footer className="footerContent dark">
+        <FooterMenu />
+        <div className="footerCopyright">
+          <p>
+            © {process.env.REACT_APP_YEAR} Copyright by{' '}
+            {process.env.REACT_APP_COMPANY_NAME} All rights reserved.
+            Powered By {process.env.REACT_APP_AUTHOR_NAME}
+          </p>
         </div>
       </footer>
     </>
   );
 }
 
-export default Layout;
+export default Frame;

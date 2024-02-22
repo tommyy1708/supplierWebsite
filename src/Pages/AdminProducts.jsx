@@ -20,7 +20,7 @@ const NewProducts = () => {
 
   const items = [
     {
-      label: <span>Search Product</span>,
+      label: <span>Search and Delete</span>,
       key: '0',
       icon: <SearchOutlined />,
     },
@@ -30,7 +30,7 @@ const NewProducts = () => {
       icon: <PlusSquareOutlined />,
     },
     {
-      label: <span>Add Product CSV</span>,
+      label: <span>Upload Products CSV</span>,
       key: '2',
       icon: <PlusSquareOutlined />,
     },

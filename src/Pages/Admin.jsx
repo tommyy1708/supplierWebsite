@@ -215,7 +215,7 @@ const Admin = () => {
   return (
     <>
       {showSpin ? <SpinOverLay showSpin={showSpin} /> : null}
-      <div className="adminWindow">
+      {/* <div className="adminWindow"> */}
         <Filter setOrdersData={setOrdersData} />
         <Table
           bordered
@@ -224,7 +224,7 @@ const Admin = () => {
           rowKey="order_number"
           pagination={false}
         />
-      </div>
+      {/* </div> */}
     </>
   );
 };
