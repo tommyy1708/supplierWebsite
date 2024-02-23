@@ -89,3 +89,6 @@ export const ReplyOrder = (params) =>
   request.put(`/supplier-received`, params);
 
 export const VerifyToken = () => request.get(`/supplier-verify-token`);
+
+
+export const TestApi = (params) => request.get(`/test-api`, {params});

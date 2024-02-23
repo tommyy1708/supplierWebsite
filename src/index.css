@@ -121,8 +121,11 @@ button {
   overflow-x: hidden;
   overflow-y: scroll;
   justify-content: center;
-  padding: 20rem 0 75px 0;
-  flex: 1;
+  /* padding: 20rem 0 75px 0; */
+  /* flex: 1; */
+  margin-bottom: 30vh; /* Adjust based on footer height */
+  padding: 0;
+  box-sizing: border-box;
 }
 
 

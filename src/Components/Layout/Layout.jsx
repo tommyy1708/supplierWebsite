@@ -20,14 +20,6 @@ function Frame({ children }) {
   return (
     <>
       <SpinOverLay showSpin={showSpin} />
-      {/* <Header
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          color: '#fff',
-          alignItems: 'center',
-        }}
-      > */}
       <div className="headerFrame dark">
         <div className="headerLeft">
           <h2>Welcome-{firstName + ' ' + lastName}</h2>
@@ -48,17 +40,6 @@ function Frame({ children }) {
           </button>
         </div>
       </div>
-      {/* </div> */}
-      {/* </Header> */}
-
-      {/* <Content style={{ padding: '0 50px' }}>
-        <div
-          className="site-layout-content"
-          style={{ minHeight: 280 }}
-        >
-          {children}
-        </div>
-      </Content> */}
       <div className="displayWindow">{children}</div>
       <footer className="footerContent dark">
         <FooterMenu />
